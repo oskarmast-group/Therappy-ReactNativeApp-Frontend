@@ -1,0 +1,11 @@
+import {
+  REACT_APP_API_URL,
+  REACT_APP_DOCUMENTS_URL,
+  REACT_APP_IMAGES_URL,
+} from '@env';
+
+export const API = REACT_APP_API_URL;
+
+export const IMAGES_URL = REACT_APP_IMAGES_URL;
+
+export const DOCUMENTS_URL = REACT_APP_DOCUMENTS_URL;

@@ -1,0 +1,12 @@
+enum ALERT_TYPES {
+  INFO = 'INFO',
+  CONFIRM = 'CONFIRM',
+  CUSTOM = 'CUSTOM',
+
+  // RADIO_OPTIONS = 'RADIO_OPTIONS',
+  // ERROR = 'ERROR',
+  // BUTTONS = 'BUTTONS',
+  // OPTIONS = 'OPTIONS',
+}
+
+export default ALERT_TYPES;
