@@ -6,6 +6,8 @@ import Home from './src/pages/Home';
 import styled from 'styled-components/native';
 import {Provider} from 'react-redux';
 import store from './src/state/store';
+import SocketProvider from './src/Socket';
+import AlertServiceProvider from './src/alert';
 
 const AppContainer = styled.SafeAreaView`
   flex: 1;
@@ -16,12 +18,19 @@ function App(): JSX.Element {
     <AppContainer>
       <Provider store={store}>
         <NativeRouter>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Navigate to={'/home'} />} />
-            <Route path="/home/*" element={<PrivateRoute component={Home} />} />
-            <Route path="/*" element={<PrivateRoute component={Home} />} />
-          </Routes>
+          <SocketProvider>
+            <AlertServiceProvider>
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Navigate to={'/home'} />} />
+                <Route
+                  path="/home/*"
+                  element={<PrivateRoute component={Home} />}
+                />
+                <Route path="/*" element={<PrivateRoute component={Home} />} />
+              </Routes>
+            </AlertServiceProvider>
+          </SocketProvider>
         </NativeRouter>
       </Provider>
     </AppContainer>

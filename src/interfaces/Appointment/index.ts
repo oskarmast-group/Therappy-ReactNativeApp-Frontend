@@ -4,6 +4,7 @@ export interface BaseAppointment {
   id: number;
   date: string;
   status: AppointmentStatus;
+  roomId: string | null;
   name: string;
   lastName: string;
   profileImg: string | null;
@@ -13,7 +14,6 @@ export interface BaseAppointment {
 }
 
 interface Appointment extends BaseAppointment {
-  roomId: string | null;
   userId: number;
   conversationId: string | null;
 }

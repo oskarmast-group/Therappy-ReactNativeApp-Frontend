@@ -1865,6 +1865,11 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
+"@socket.io/component-emitter@~3.1.0":
+  "integrity" "sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg=="
+  "resolved" "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz"
+  "version" "3.1.0"
+
 "@svgr/babel-plugin-add-jsx-attribute@8.0.0":
   "integrity" "sha512-b9MIk7yhdS1pMCZM8VeNfUlSKVRhsHZNMl5O9SfaX0l0t5wjdgu4IDzGB8bpnGBBOjGST3rRFVsaaEtI4W6f7g=="
   "resolved" "https://registry.npmjs.org/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-8.0.0.tgz"
@@ -3060,6 +3065,11 @@
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.1.2.tgz"
   "version" "3.1.2"
 
+"date-fns@^3.3.1":
+  "integrity" "sha512-y8e109LYGgoQDveiEBD3DYXKba1jWf5BA8YU1FL5Tvm0BTdEfy54WLCwnuYWZNnzzvALy/QQ4Hov+Q9RVRv+Zw=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-3.3.1.tgz"
+  "version" "3.3.1"
+
 "dayjs@^1.8.15":
   "integrity" "sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ=="
   "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.11.10.tgz"
@@ -3072,7 +3082,7 @@
   dependencies:
     "ms" "2.0.0"
 
-"debug@^4.1.0", "debug@^4.1.1", "debug@^4.3.2", "debug@^4.3.4":
+"debug@^4.1.0", "debug@^4.1.1", "debug@^4.3.2", "debug@^4.3.4", "debug@~4.3.1", "debug@~4.3.2":
   "integrity" "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz"
   "version" "4.3.4"
@@ -3258,6 +3268,22 @@
   "integrity" "sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w=="
   "resolved" "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz"
   "version" "1.0.2"
+
+"engine.io-client@~6.5.2":
+  "integrity" "sha512-9Z0qLB0NIisTRt1DZ/8U2k12RJn8yls/nXMZLn+/N8hANT3TcYjKFKcwbw5zFQiN4NTde3TSY9zb79e1ij6j9Q=="
+  "resolved" "https://registry.npmjs.org/engine.io-client/-/engine.io-client-6.5.3.tgz"
+  "version" "6.5.3"
+  dependencies:
+    "@socket.io/component-emitter" "~3.1.0"
+    "debug" "~4.3.1"
+    "engine.io-parser" "~5.2.1"
+    "ws" "~8.11.0"
+    "xmlhttprequest-ssl" "~2.0.0"
+
+"engine.io-parser@~5.2.1":
+  "integrity" "sha512-9JktcM3u18nU9N2Lz3bWeBgxVgOKpw7yhRaoxQA3FUDZzzw+9WlA6p4G4u0RixNkg14fH7EfEc/RhpurtiROTQ=="
+  "resolved" "https://registry.npmjs.org/engine.io-parser/-/engine.io-parser-5.2.1.tgz"
+  "version" "5.2.1"
 
 "entities@^4.2.0", "entities@^4.4.0":
   "integrity" "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="
@@ -6605,6 +6631,24 @@
     "dot-case" "^3.0.4"
     "tslib" "^2.0.3"
 
+"socket.io-client@^4.7.4":
+  "integrity" "sha512-wh+OkeF0rAVCrABWQBaEjLfb7DVPotMbu0cgWgyR0v6eA4EoVnAwcIeIbcdTE3GT/H3kbdLl7OoH2+asoDRIIg=="
+  "resolved" "https://registry.npmjs.org/socket.io-client/-/socket.io-client-4.7.4.tgz"
+  "version" "4.7.4"
+  dependencies:
+    "@socket.io/component-emitter" "~3.1.0"
+    "debug" "~4.3.2"
+    "engine.io-client" "~6.5.2"
+    "socket.io-parser" "~4.2.4"
+
+"socket.io-parser@~4.2.4":
+  "integrity" "sha512-/GbIKmo8ioc+NIWIhwdecY0ge+qVBSMdgxGygevmdHj24bsfgtCmcUUcQ5ZzcylGFHsN3k4HB4Cgkl96KVnuew=="
+  "resolved" "https://registry.npmjs.org/socket.io-parser/-/socket.io-parser-4.2.4.tgz"
+  "version" "4.2.4"
+  dependencies:
+    "@socket.io/component-emitter" "~3.1.0"
+    "debug" "~4.3.1"
+
 "source-map-js@^1.0.1", "source-map-js@^1.0.2":
   "integrity" "sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw=="
   "resolved" "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz"
@@ -7311,6 +7355,16 @@
   "integrity" "sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q=="
   "resolved" "https://registry.npmjs.org/ws/-/ws-7.5.9.tgz"
   "version" "7.5.9"
+
+"ws@~8.11.0":
+  "integrity" "sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg=="
+  "resolved" "https://registry.npmjs.org/ws/-/ws-8.11.0.tgz"
+  "version" "8.11.0"
+
+"xmlhttprequest-ssl@~2.0.0":
+  "integrity" "sha512-QKxVRxiRACQcVuQEYFsI1hhkrMlrXHPegbbd1yn9UHOmRxY+si12nQYzri3vbzt8VdTTRviqcKxcyllFas5z2A=="
+  "resolved" "https://registry.npmjs.org/xmlhttprequest-ssl/-/xmlhttprequest-ssl-2.0.0.tgz"
+  "version" "2.0.0"
 
 "xtend@~4.0.1":
   "integrity" "sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ=="

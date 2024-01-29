@@ -8,8 +8,12 @@ const Dialog: React.FC<{
   open: boolean;
   onSubmit: (value: any) => void;
   onClose: () => void;
-  alertOptions: AlertOptions;
+  alertOptions: AlertOptions | null;
 }> = ({open, onSubmit, onClose, alertOptions}) => {
+  if (!alertOptions) {
+    return null;
+  }
+
   const {type, config} = alertOptions;
   switch (type) {
     case ALERT_TYPES.INFO:

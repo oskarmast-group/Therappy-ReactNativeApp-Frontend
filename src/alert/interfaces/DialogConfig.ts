@@ -1,16 +1,16 @@
 export interface InfoDialogConfig {
-  showCloseButton: boolean;
+  showCloseButton?: boolean;
   header?: React.ReactNode;
   title?: string;
-  body: string;
+  body: string | React.ReactNode;
   buttonText: string;
 }
 
 export interface ConfirmDialogConfig {
-  showCloseButton: boolean;
+  showCloseButton?: boolean;
   header?: React.ReactNode;
   title?: string;
-  body: string;
+  body: string | React.ReactNode;
   confirmButtonText: string;
   cancelButtonText: string;
 }

@@ -3,8 +3,8 @@ import Base from './Base';
 import Header from './Header';
 import ActionsContainer from './ActionsContainer';
 import {InfoDialogConfig} from '../../interfaces/DialogConfig';
-import Button from '../../../components/Button';
-import {Body} from '../../../components/Text';
+import Button, {ButtonText} from '../../../components/Button';
+import {BaseText, Body} from '../../../components/Text';
 
 const Actions: React.FC<{onClose: () => void; buttonText: string}> = ({
   onClose,
@@ -12,7 +12,9 @@ const Actions: React.FC<{onClose: () => void; buttonText: string}> = ({
 }) => {
   return (
     <ActionsContainer>
-      <Button onPress={onClose} title={buttonText} />
+      <Button onPress={onClose}>
+        <ButtonText>{buttonText}</ButtonText>
+      </Button>
     </ActionsContainer>
   );
 };
@@ -28,8 +30,16 @@ const InfoDialog: React.FC<{
       onClose={onClose}
       showCloseButton={config.showCloseButton ?? true}>
       {config.header && <Header>{config.header}</Header>}
-      {config.title && <h3>{config.title}</h3>}
-      <Body>{config.body}</Body>
+      {config.title && (
+        <BaseText fontSize={19} weight={800} marginBottom={16}>
+          {config.title}
+        </BaseText>
+      )}
+      {typeof config.body === 'string' ? (
+        <Body>{config.body}</Body>
+      ) : (
+        config.body
+      )}
       <Actions onClose={onClose} buttonText={config.buttonText} />
     </Base>
   );

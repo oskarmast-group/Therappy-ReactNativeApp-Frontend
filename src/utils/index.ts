@@ -1,4 +1,6 @@
-// import {GOLDEN, PRIMARY_GREEN, RED} from 'resources/constants/colors';
+import {BaseAppointment} from '../interfaces/Appointment';
+import AppointmentStatus from '../interfaces/Appointment/AppointmentStatus';
+import {GOLDEN, PRIMARY_GREEN, RED} from '../resources/constants/colors';
 
 export const toFormData = (object: {[key: string]: unknown}) => {
   const formdata = new FormData();
@@ -19,16 +21,16 @@ export const toFormData = (object: {[key: string]: unknown}) => {
 export const compareStrings = (a: string, b: string) =>
   a.trim().toLowerCase().includes(b.trim().toLowerCase());
 
-// export const getStatusColor = ({status}) => {
-//   switch (status) {
-//     case 'confirmed':
-//       return GOLDEN;
-//     case 'accepted':
-//       return PRIMARY_GREEN;
-//     case 'rejected':
-//     case 'cancelled':
-//       return RED;
-//     default:
-//       return '';
-//   }
-// };
+export const getStatusColor = ({status}: BaseAppointment) => {
+  switch (status) {
+    case AppointmentStatus.CONFIRMED:
+      return GOLDEN;
+    case AppointmentStatus.ACCEPTED:
+      return PRIMARY_GREEN;
+    case AppointmentStatus.REJECTED:
+    case AppointmentStatus.CANCELLED:
+      return RED;
+    default:
+      return '';
+  }
+};

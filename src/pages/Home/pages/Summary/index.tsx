@@ -1,13 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Scrollable from '../../../../containers/Scrollable';
 import useUser from '../../../../state/user';
 import {BaseText} from '../../../../components/Text';
 import {DARKER_TEXT, DARK_TEXT} from '../../../../resources/constants/colors';
 import Loading from '../../../../components/Loading';
-import {UserTypes} from '../../../../resources/constants/config';
-import Therapist from './Therapist';
-import Client from './Client';
+import Therapist from './components/Therapist';
+import Client from './components/Client';
+import UserType from '../../../../interfaces/User/UserType';
 
 const Summary: React.FC = () => {
   const {data: user} = useUser();
@@ -28,8 +28,10 @@ const Summary: React.FC = () => {
       </View>
       {user?.current && !user.fetching.fetch.isFetching ? (
         <>
-          {user.current.userType === UserTypes.THERAPIST && <Therapist />}
-          {user.current.userType === UserTypes.CLIENT && <Client />}
+          {user.current.userType === UserType.THERAPIST && <Therapist />}
+          {user.current.userType === UserType.CLIENT && (
+            <Client user={user.current} />
+          )}
         </>
       ) : (
         <Loading />

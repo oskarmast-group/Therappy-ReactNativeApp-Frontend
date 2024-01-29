@@ -1,80 +1,7 @@
 import React, {PropsWithChildren} from 'react';
-import styled from 'styled-components/native';
+import {Modal, Pressable, View} from 'react-native';
+import styles from './styles';
 // import CloseSVG from 'resources/img/icons/close-icon.svg';
-
-const CustomModal = styled.Modal`
-  position: fixed;
-  inset: 0px;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 99999;
-  transition: opacity 1s ease-in 0s;
-  pointer-events: auto;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: inherit;
-
-  /* .inner {
-    width: 90%;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    background: #fbfbfd;
-    overflow: visible;
-    border-radius: 24px;
-    max-width: 486px;
-    max-height: 75%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .innerResponsive {
-    width: auto;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    background: #fbfbfd;
-    overflow: visible;
-    border-radius: 24px;
-    height: auto;
-    max-width: 95%;
-    max-height: 95%;
-    display: flex;
-    flex-direction: column;
-  } */
-`;
-const Content = styled.View`
-  padding: 30px 25px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-`;
-
-const MainContent = styled.View`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  margin: 0;
-`;
-
-// const CloseIcon = styled.Button`
-//   position: absolute;
-//   right: 10px;
-//   top: 10px;
-//   width: 30px;
-//   height: 30px;
-//   background-color: transparent;
-//   z-index: 5;
-//   padding: 0;
-//   margin: 0;
-//   outline: none;
-//   border: none;
-//   img {
-//     width: 100%;
-//     height: 100%;
-//   }
-// `;
 
 const Base: React.FC<
   PropsWithChildren<{
@@ -82,18 +9,23 @@ const Base: React.FC<
     onClose: () => void;
     showCloseButton?: boolean;
   }>
-> = ({open, children}) => {
+> = ({open, onClose, children}) => {
   return (
-    <CustomModal visible={open}>
+    <Modal visible={open} animationType="fade" transparent={true}>
       {/* {onClose && showCloseButton && (
         <CloseIcon type="button" onClick={onClose}>
           <img src={CloseSVG} alt="close" />
         </CloseIcon>
       )} */}
-      <Content>
-        <MainContent>{children}</MainContent>
-      </Content>
-    </CustomModal>
+      <Pressable style={styles.container} onPress={onClose}>
+        <View
+          style={styles.content}
+          onStartShouldSetResponder={() => true}
+          onResponderTerminationRequest={() => false}>
+          {children}
+        </View>
+      </Pressable>
+    </Modal>
   );
 };
 

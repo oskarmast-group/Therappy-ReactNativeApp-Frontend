@@ -6,7 +6,7 @@ import TherapistStatus from './TherapistStatus';
 import UserType from './UserType';
 
 export interface BaseUser {
-  id: Number;
+  id: number;
   name: string;
   lastName: string;
   profileImg: string | null;
@@ -22,6 +22,8 @@ type NestedClient = NestedBaseUser;
 export interface NestedTherapist extends NestedBaseUser {
   title: string;
   invitationAccepted: boolean;
+  reviewAvg?: number;
+  reviewsCount?: number;
 }
 
 export type NestedUser = NestedClient | NestedBaseUser;
@@ -37,7 +39,7 @@ interface CompleteUser extends BaseUser {
   emailVerified: 1 | 0;
 }
 
-interface Client extends CompleteUser {
+export interface Client extends CompleteUser {
   userType: UserType.CLIENT;
   extraData: {
     id: number;
@@ -49,7 +51,7 @@ interface Client extends CompleteUser {
   };
 }
 
-interface Therapist extends CompleteUser {
+export interface Therapist extends CompleteUser {
   userType: UserType.THERAPIST;
   extraData: {
     id: number;

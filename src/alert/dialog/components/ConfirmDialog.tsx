@@ -3,7 +3,7 @@ import Base from './Base';
 import Header from './Header';
 import ActionsContainer from './ActionsContainer';
 import {ConfirmDialogConfig} from '../../interfaces/DialogConfig';
-import Button, {CancelButton} from '../../../components/Button';
+import Button, {ButtonText, CancelButton} from '../../../components/Button';
 import {Body} from '../../../components/Text';
 
 const Actions: React.FC<{
@@ -14,8 +14,12 @@ const Actions: React.FC<{
 }> = ({onSubmit, onClose, confirmButtonText, cancelButtonText}) => {
   return (
     <ActionsContainer>
-      <CancelButton onPress={onClose} title={cancelButtonText} />
-      <Button onPress={onSubmit} title={confirmButtonText} />
+      <CancelButton onPress={onClose}>
+        <ButtonText>{cancelButtonText}</ButtonText>
+      </CancelButton>
+      <Button onPress={onSubmit}>
+        <ButtonText>{confirmButtonText}</ButtonText>
+      </Button>
     </ActionsContainer>
   );
 };

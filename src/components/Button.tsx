@@ -24,7 +24,7 @@ export const IconButton = styled.Button`
   }
 `;
 
-const Button = styled.TouchableOpacity`
+const Button = styled.TouchableOpacity<{backgroundColor?: string}>`
   width: 100%;
   padding: 10px;
   border-radius: 50px;
@@ -33,7 +33,8 @@ const Button = styled.TouchableOpacity`
   font-size: 1rem;
   cursor: pointer;
 
-  background-color: ${({disabled}) => (disabled ? '#cccccc' : PRIMARY_GREEN)};
+  background-color: ${({disabled, backgroundColor}) =>
+    disabled ? '#cccccc' : backgroundColor ?? PRIMARY_GREEN};
   opacity: ${({disabled}) => (disabled ? 0.6 : 1)};
 `;
 

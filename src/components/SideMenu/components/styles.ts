@@ -1,15 +1,12 @@
-import {Dimensions, StyleSheet} from 'react-native';
-
-const screenWidth = Dimensions.get('window').width;
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     top: 0,
     bottom: 0,
-    width: 0.75 * screenWidth,
-    maxWidth: 300,
-    left: 0 - Math.min(0.75 * screenWidth, 300),
-    backgroundColor: '#fbfbfd',
+    left: 0,
+    right: 0,
+    backgroundColor: 'transparent',
   },
 });
 

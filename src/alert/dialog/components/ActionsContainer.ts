@@ -5,6 +5,7 @@ const ActionsContainer = styled.View`
   align-items: center;
   margin-top: 20px;
   gap: 10px;
+  flex-direction: row;
 `;
 
 export default ActionsContainer;

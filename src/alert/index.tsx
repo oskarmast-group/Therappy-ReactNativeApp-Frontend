@@ -52,14 +52,12 @@ const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({children}) => {
         submitAlert: handleSubmit,
       }}>
       {children}
-      {!!alertState && (
-        <Dialog
-          open={!!alertState}
-          onSubmit={handleSubmit}
-          onClose={handleClose}
-          alertOptions={alertState}
-        />
-      )}
+      <Dialog
+        open={!!alertState}
+        onSubmit={handleSubmit}
+        onClose={handleClose}
+        alertOptions={alertState}
+      />
     </AlertServiceContext.Provider>
   );
 };
