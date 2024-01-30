@@ -6,14 +6,14 @@ import User from '../../interfaces/User';
 const crudder = (domain: string, resource: string, withAuth = true) => {
   const url = `${domain}/${resource}`;
 
-  const headers = withAuth ? Authorization : {};
+  const headers = () => withAuth ? Authorization() : {};
 
   return {
     options: {
       headers,
       url,
     },
-    profile: () => executeCall<User>(() => Axios.get<User>(url, {headers})),
+    profile: () => executeCall<User>(() => Axios.get<User>(url, {headers: headers()})),
     // updateImage: data =>
     //   executeCall(() => Axios.patch(url + '/img', data, {headers})),
     // update: data => executeCall(() => Axios.patch(url, data, {headers})),

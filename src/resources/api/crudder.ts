@@ -9,7 +9,7 @@ const crudder: (
   (resource, withAuth = true) => {
     const url = `${domain}/${resource}`;
 
-    const headers = withAuth ? Authorization : {};
+    const headers = withAuth ? Authorization() : {};
 
     return {
       options: {

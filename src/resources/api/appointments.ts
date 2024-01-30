@@ -6,7 +6,7 @@ import {BaseAppointment} from '../../interfaces/Appointment';
 const crudder = (domain: string, resource: string, withAuth = true) => {
   const url = `${domain}/${resource}`;
 
-  const headers = withAuth ? Authorization : {};
+  const headers = () => withAuth ? Authorization() : {};
 
   return {
     options: {
@@ -17,7 +17,7 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
     // getPending: () => executeCall(() => Axios.get(url + '/pending', {headers})),
     getUpcoming: () =>
       executeCall<BaseAppointment[]>(() =>
-        Axios.get<BaseAppointment[]>(url + '/upcoming', {headers}),
+        Axios.get<BaseAppointment[]>(url + '/upcoming', {headers: headers()}),
       ),
     // reserve: data =>
     //   executeCall(() => Axios.post(url + '/reserve', data, {headers})),

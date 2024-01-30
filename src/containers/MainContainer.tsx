@@ -1,7 +1,7 @@
 import React, {PropsWithChildren} from 'react';
 import styled from 'styled-components/native';
 // import SideMenu from 'components/SideMenu';
-import {StatusBar} from 'react-native';
+import {Platform, StatusBar} from 'react-native';
 import TopWave from '../resources/img/shapes/TopWave';
 import {GREEN} from '../resources/constants/colors';
 import BottomWave from '../resources/img/shapes/BottomWave';
@@ -40,6 +40,21 @@ const BottomDecoration = styled.View`
   width: 100%;
 `;
 
+const IOSStatus = styled.View<{height?: number}>`
+  background-color: ${GREEN};
+  height: ${({height}) => (height ? height : 0)}px;
+  width: 100%;
+`;
+
+const AppContainer = styled.SafeAreaView`
+  flex: 1;
+  background-color: #fbfbfd;
+`;
+
+const Content = styled.View`
+  flex: 1;
+`;
+
 const MainContainer: React.FC<
   PropsWithChildren<{
     withBottomNavigation?: boolean;
@@ -60,21 +75,31 @@ const MainContainer: React.FC<
 }) => {
   return (
     <>
-      <StatusBar barStyle={'light-content'} backgroundColor={GREEN} />
-      {withTopDecoration && (
-        <TopDecoration>
-          <TopWave />
-        </TopDecoration>
+      {Platform.OS === 'ios' ? (
+        <IOSStatus />
+      ) : (
+        <StatusBar barStyle={'light-content'} backgroundColor={GREEN} />
       )}
-      <Main fullscreen={!withBottomNavigation} style={styles.mainContainer}>
-        {children}
-      </Main>
-      {withBottomDecoration && (
-        <BottomDecoration>
-          <BottomWave />
-        </BottomDecoration>
-      )}
-      {withSideMenu && <SideMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />}
+      <AppContainer>
+        <Content pointerEvents="box-none">
+          {withTopDecoration && (
+            <TopDecoration>
+              <TopWave />
+            </TopDecoration>
+          )}
+          <Main fullscreen={!withBottomNavigation} style={styles.mainContainer}>
+            {children}
+          </Main>
+          {withBottomDecoration && (
+            <BottomDecoration>
+              <BottomWave />
+            </BottomDecoration>
+          )}
+          {withSideMenu && (
+            <SideMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
+          )}
+        </Content>
+      </AppContainer>
     </>
   );
 };

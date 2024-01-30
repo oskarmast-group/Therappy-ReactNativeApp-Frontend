@@ -17,6 +17,6 @@ export function getToken(): string | null {
   return parsedAuth.token;
 }
 
-const Authorization = {Authorization: getToken()};
+const Authorization = () => ({Authorization: getToken()});
 
 export default Authorization;

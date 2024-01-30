@@ -1,5 +1,11 @@
-import React from 'react';
-import {Dimensions, GestureResponderEvent, ViewProps} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useRef} from 'react';
+import {
+  Animated,
+  Dimensions,
+  GestureResponderEvent,
+  ViewProps,
+} from 'react-native';
 import styled from 'styled-components/native';
 
 interface BackgroundProps extends ViewProps {
@@ -9,13 +15,15 @@ interface BackgroundProps extends ViewProps {
 
 const screenWidth = Dimensions.get('window').width;
 
-const Container = styled.View<{open?: boolean}>`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: ${({open}) => (open ? 0 : screenWidth)}px;
-`;
+const LEFT_VALUE = {
+  MAX: -screenWidth,
+  MIN: 0,
+};
+
+const RIGHT_VALUE = {
+  MAX: screenWidth,
+  MIN: 0,
+};
 
 const Press = styled.Pressable`
   width: 100%;
@@ -29,10 +37,42 @@ const Background: React.FC<BackgroundProps> = ({
   children,
   ...props
 }) => {
+  const leftValue = useRef(
+    new Animated.Value(open ? LEFT_VALUE.MIN : LEFT_VALUE.MAX),
+  ).current;
+
+  const rightValue = useRef(
+    new Animated.Value(open ? RIGHT_VALUE.MIN : RIGHT_VALUE.MAX),
+  ).current;
+
+  useEffect(() => {
+    Animated.timing(leftValue, {
+      toValue: open ? LEFT_VALUE.MIN : LEFT_VALUE.MAX,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  }, [leftValue, open]);
+
+  useEffect(() => {
+    Animated.timing(rightValue, {
+      toValue: open ? RIGHT_VALUE.MIN : RIGHT_VALUE.MAX,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  }, [rightValue, open]);
+
   return (
-    <Container open={open} {...props}>
+    <Animated.View
+      style={{
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: leftValue,
+        right: rightValue,
+      }}
+      {...props}>
       <Press onPress={onPress}>{children}</Press>
-    </Container>
+    </Animated.View>
   );
 };
 

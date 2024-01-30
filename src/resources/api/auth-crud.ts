@@ -6,7 +6,7 @@ import LoginResponse from '../../interfaces/User/LoginResponse';
 const authCrudder = (domain: string, resource: string) => {
   const url = `${domain}/${resource}`;
 
-  const headers = Authorization;
+  const headers = Authorization();
 
   return {
     login: (data: {email: string; password: string}) =>
