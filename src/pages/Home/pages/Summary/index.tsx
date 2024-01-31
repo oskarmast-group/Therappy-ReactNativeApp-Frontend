@@ -28,7 +28,9 @@ const Summary: React.FC = () => {
       </View>
       {user?.current && !user.fetching.fetch.isFetching ? (
         <>
-          {user.current.userType === UserType.THERAPIST && <Therapist />}
+          {user.current.userType === UserType.THERAPIST && (
+            <Therapist user={user.current} />
+          )}
           {user.current.userType === UserType.CLIENT && (
             <Client user={user.current} />
           )}
