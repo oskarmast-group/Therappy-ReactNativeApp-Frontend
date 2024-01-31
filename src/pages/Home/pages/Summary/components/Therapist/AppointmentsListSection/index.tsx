@@ -1,13 +1,61 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Container from '../../Container';
 import {BaseText} from '../../../../../../../components/Text';
+import {StyleSheet, View} from 'react-native';
+import useAppointments from '../../../../../../../state/appointments';
+import {useSocket} from '../../../../../../../Socket';
+import Loading from '../../../../../../../components/Loading';
+import AppointmentCard from './AppointmentCard';
+
+const styles = StyleSheet.create({
+  listContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    minHeight: 70,
+    maxHeight: 180,
+    overflow: 'scroll',
+    gap: 10,
+  },
+});
 
 const AppointmentsListSection: React.FC = () => {
+  const {data: appointments, dispatcher: appointmentsDispatcher} =
+    useAppointments();
+  const socket = useSocket();
+
+  useEffect(() => {
+    appointmentsDispatcher.fetchPendingStart();
+  }, [appointmentsDispatcher]);
+
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+    socket.off('appointment created').on('appointment created', () => {
+      appointmentsDispatcher.fetchPendingStart();
+    });
+  }, [socket, appointmentsDispatcher]);
+
   return (
     <Container>
       <BaseText fontSize={18} weight={800} marginTop={4} marginBottom={4}>
         Nuevas citas
       </BaseText>
+      <View style={styles.listContainer}>
+        {appointments.fetching.isFetching &&
+        appointments.fetching.config &&
+        Object.keys(appointments.fetching.config).length === 0 ? (
+          <Loading />
+        ) : appointments.pendingList.length === 0 ? (
+          <BaseText>
+            Cuando tengas solicitudes a citas nuevas, aparecerán aquí.
+          </BaseText>
+        ) : (
+          appointments.pendingList.map(app => <AppointmentCard app={app} />)
+        )}
+      </View>
     </Container>
   );
 };

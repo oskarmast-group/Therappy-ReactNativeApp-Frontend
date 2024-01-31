@@ -11,7 +11,7 @@ interface AppointmentState {
   appointment: Appointment | null;
   serverTime: number | null;
   confirmed: boolean;
-  fetching: FetchingState<{}>;
+  fetching: FetchingState<null | {key: string}>;
   error: ErrorState;
 }
 

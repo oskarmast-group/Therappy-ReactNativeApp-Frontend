@@ -24,15 +24,26 @@ export const IconButton = styled.Button`
   }
 `;
 
-const Button = styled.TouchableOpacity<{backgroundColor?: string}>`
-  width: 100%;
-  padding: 10px;
+interface ButtonProps {
+  backgroundColor?: string;
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
+  width?: string;
+}
+
+const Button = styled.TouchableOpacity<ButtonProps>`
+  width: ${({width}) => width ?? '100%'};
+  padding-top: ${({paddingTop}) => paddingTop ?? 10}px;
+  padding-right: ${({paddingRight}) => paddingRight ?? 10}px;
+  padding-bottom: ${({paddingBottom}) => paddingBottom ?? 10}px;
+  padding-left: ${({paddingLeft}) => paddingLeft ?? 10}px;
   border-radius: 50px;
   border: none;
   outline: none;
   font-size: 1rem;
   cursor: pointer;
-
   background-color: ${({disabled, backgroundColor}) =>
     disabled ? '#cccccc' : backgroundColor ?? PRIMARY_GREEN};
   opacity: ${({disabled}) => (disabled ? 0.6 : 1)};

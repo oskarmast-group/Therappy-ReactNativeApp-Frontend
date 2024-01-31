@@ -2,7 +2,16 @@ import Appointment, {BaseAppointment} from '../../interfaces/Appointment';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 import {
+  AcceptError,
+  AcceptStart,
+  AcceptSuccess,
   FetchError,
+  FetchOneError,
+  FetchOneStart,
+  FetchOneSuccess,
+  FetchPendingError,
+  FetchPendingStart,
+  FetchPendingSuccess,
   FetchStart,
   FetchSuccess,
   FetchUpcomingError,
@@ -54,6 +63,58 @@ export const fetchUpcomingSuccessAction = (
 
 export const fetchUpcomingErrorAction = (payload: any): FetchUpcomingError => ({
   type: ACTION_STRINGS.FETCH_UPCOMING_ERROR,
+  payload,
+});
+
+export const fetchPendingStartAction = (): FetchPendingStart => ({
+  type: ACTION_STRINGS.FETCH_PENDING_START,
+  payload: null,
+});
+
+export const fetchPendingSuccessAction = (
+  payload: BaseAppointment[],
+): FetchPendingSuccess => ({
+  type: ACTION_STRINGS.FETCH_PENDING_SUCCESS,
+  payload,
+});
+
+export const fetchPendingErrorAction = (payload: any): FetchPendingError => ({
+  type: ACTION_STRINGS.FETCH_PENDING_ERROR,
+  payload,
+});
+
+export const acceptStartAction = (
+  appointmentId: number,
+  roomId?: string,
+): AcceptStart => ({
+  type: ACTION_STRINGS.ACCEPT_START,
+  payload: {appointmentId, roomId},
+});
+
+export const acceptSuccessAction = (payload: Appointment): AcceptSuccess => ({
+  type: ACTION_STRINGS.ACCEPT_SUCCESS,
+  payload,
+});
+
+export const acceptErrorAction = (payload: any): AcceptError => ({
+  type: ACTION_STRINGS.ACCEPT_ERROR,
+  payload,
+});
+
+export const fetchOneStartAction = (roomId: string): FetchOneStart => ({
+  type: ACTION_STRINGS.FETCH_ONE_START,
+  payload: {roomId},
+});
+
+export const fetchOneSuccessAction = (
+  payload: Appointment,
+): FetchOneSuccess => ({
+  type: ACTION_STRINGS.FETCH_ONE_SUCCESS,
+  payload,
+});
+
+export const fetchOneErrorAction = (payload: any): FetchOneError => ({
+  type: ACTION_STRINGS.FETCH_ONE_ERROR,
   payload,
 });
 

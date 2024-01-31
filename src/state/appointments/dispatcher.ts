@@ -1,6 +1,12 @@
 import {Dispatch} from 'react';
 import {AppointmentActions} from './actionTypes';
-import {fetchUpcomingStartAction, resetError} from './actions';
+import {
+  acceptStartAction,
+  fetchOneStartAction,
+  fetchPendingStartAction,
+  fetchUpcomingStartAction,
+  resetError,
+} from './actions';
 
 export default class Dispatcher {
   _dispatch: Dispatch<AppointmentActions>;
@@ -10,17 +16,19 @@ export default class Dispatcher {
   }
   // fetchStart = () => this.dispatch({ type: Types.FETCH_START, payload: {} });
 
-  // fetchPendingStart = () => this.dispatch({ type: Types.FETCH_PENDING_START, payload: {} });
+  fetchPendingStart = () => this._dispatch(fetchPendingStartAction());
 
   fetchUpcomingStart = () => this._dispatch(fetchUpcomingStartAction());
 
-  // acceptStart = (payload) => this.dispatch({ type: Types.ACCEPT_START, payload });
+  acceptStart = (appointmentId: number, roomId?: string) =>
+    this._dispatch(acceptStartAction(appointmentId, roomId));
 
   // reserveStart = (payload) => this.dispatch({ type: Types.RESERVE_START, payload });
 
   // confirmStart = (payload) => this.dispatch({ type: Types.CONFIRM_START, payload });
 
-  // fetchOneStart = (payload) => this.dispatch({ type: Types.FETCH_ONE_START, payload });
+  fetchOneStart = (roomId: string) =>
+    this._dispatch(fetchOneStartAction(roomId));
 
   // getServerTimeStart = () => this.dispatch({ type: Types.GET_SERVER_TIME_START, payload: {} });
 

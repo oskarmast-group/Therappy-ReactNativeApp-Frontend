@@ -8,13 +8,13 @@ interface UserState {
   paymentMethods: [];
   accountInformation: {};
   fetching: {
-    fetch: FetchingState<{}>;
-    update: FetchingState<{}>;
-    setup: FetchingState<{}>;
-    deletePaymentMethod: FetchingState<{}>;
-    paymentMethods: FetchingState<{}>;
-    acceptInvitation: FetchingState<{}>;
-    accountInformation: FetchingState<{}>;
+    fetch: FetchingState<null>;
+    update: FetchingState<null>;
+    setup: FetchingState<null>;
+    deletePaymentMethod: FetchingState<null>;
+    paymentMethods: FetchingState<null>;
+    acceptInvitation: FetchingState<null>;
+    accountInformation: FetchingState<null>;
   };
   error: ErrorState;
 }

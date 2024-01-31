@@ -1,9 +1,21 @@
 import {takeLatest, put, all, call} from 'redux-saga/effects';
-import {BaseAppointment} from '../../interfaces/Appointment';
+import Appointment, {BaseAppointment} from '../../interfaces/Appointment';
 import {processError} from '../utils';
-import {fetchErrorAction, fetchUpcomingSuccessAction} from './actions';
+import {
+  acceptErrorAction,
+  acceptSuccessAction,
+  fetchErrorAction,
+  fetchOneErrorAction,
+  fetchOneStartAction,
+  fetchOneSuccessAction,
+  fetchPendingErrorAction,
+  fetchPendingStartAction,
+  fetchPendingSuccessAction,
+  fetchUpcomingSuccessAction,
+} from './actions';
 import ACTION_STRINGS from './actionStrings';
 import {appointmentsAPI} from '../../resources/api';
+import {AcceptStart, FetchOneStart} from './actionTypes';
 
 function* fetchUpcomingStartAsync(): Generator<
   unknown,
@@ -72,57 +84,65 @@ function* fetchUpcomingStart() {
 //   yield takeLatest(Types.CONFIRM_START, confirmStartAsync);
 // }
 
-// function* fetchPendingStartAsync() {
-//     try {
-//         const res = yield appointmentsAPI.getPending();
-//         yield put({ type: Types.FETCH_PENDING_SUCCESS, payload: res });
-//     } catch (error) {
-//         const message = processError(error);
-//         console.error(message);
-//         yield put({ type: Types.FETCH_PENDING_ERROR, payload: message });
-//     }
-// }
+function* fetchPendingStartAsync(): Generator<
+  unknown,
+  void,
+  BaseAppointment[]
+> {
+  try {
+    const res = yield appointmentsAPI.getPending();
+    yield put(fetchPendingSuccessAction(res));
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(fetchPendingErrorAction(message));
+  }
+}
 
-// function* fetchPendingStart() {
-//   yield takeLatest(Types.FETCH_PENDING_START, fetchPendingStartAsync);
-// }
+function* fetchPendingStart() {
+  yield takeLatest(ACTION_STRINGS.FETCH_PENDING_START, fetchPendingStartAsync);
+}
 
-// function* acceptStartAsync({ payload }) {
-//     try {
-//         const { appointmentId, roomId } = payload;
-//         const res = yield appointmentsAPI.accept({ appointmentId });
-//         yield put({ type: Types.ACCEPT_SUCCESS, payload: res });
+function* acceptStartAsync({
+  payload,
+}: AcceptStart): Generator<unknown, void, Appointment> {
+  try {
+    const {appointmentId, roomId} = payload;
+    const res = yield appointmentsAPI.accept({appointmentId});
+    yield put(acceptSuccessAction(res));
 
-//         if(roomId) {
-//             yield put({ type: Types.FETCH_ONE_START, payload: roomId });
-//         } else {
-//             yield put({ type: Types.FETCH_PENDING_START, payload: {} });
-//         }
-//     } catch (error) {
-//         const message = processError(error);
-//         console.error(message);
-//         yield put({ type: Types.ACCEPT_ERROR, payload: message });
-//     }
-// }
+    if (roomId) {
+      yield put(fetchOneStartAction(roomId));
+    } else {
+      yield put(fetchPendingStartAction());
+    }
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(acceptErrorAction(message));
+  }
+}
 
-// function* acceptStart() {
-//   yield takeLatest(Types.ACCEPT_START, acceptStartAsync);
-// }
+function* acceptStart() {
+  yield takeLatest(ACTION_STRINGS.ACCEPT_START, acceptStartAsync);
+}
 
-// function* fetchOneStartAsync({ payload }) {
-//     try {
-//         const res = yield appointmentsAPI.view(payload);
-//         yield put({ type: Types.FETCH_ONE_SUCCESS, payload: res });
-//     } catch (error) {
-//         const message = processError(error);
-//         console.error(message);
-//         yield put({ type: Types.FETCH_ONE_ERROR, payload: message });
-//     }
-// }
+function* fetchOneStartAsync({
+  payload,
+}: FetchOneStart): Generator<unknown, void, Appointment> {
+  try {
+    const res = yield appointmentsAPI.view(payload.roomId);
+    yield put(fetchOneSuccessAction(res));
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(fetchOneErrorAction(message));
+  }
+}
 
-// function* fetchOneStart() {
-//   yield takeLatest(Types.FETCH_ONE_START, fetchOneStartAsync);
-// }
+function* fetchOneStart() {
+  yield takeLatest(ACTION_STRINGS.FETCH_ONE_START, fetchOneStartAsync);
+}
 
 // function* getServerTimeStartAsync() {
 //     try {
@@ -183,9 +203,9 @@ export default function* sagas() {
     // call(fetchStart),
     // call(reserveStart),
     // call(confirmStart),
-    // call(fetchPendingStart),
-    // call(acceptStart),
-    // call(fetchOneStart),
+    call(fetchPendingStart),
+    call(acceptStart),
+    call(fetchOneStart),
 
     // call(getServerTimeStart),
     // call(cancelStart),

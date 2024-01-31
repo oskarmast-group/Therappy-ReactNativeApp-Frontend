@@ -87,52 +87,58 @@ const reducer = (
     //     error: {timestamp: Date.now(), message: action.payload},
     //   };
 
-    // case Types.ACCEPT_START:
-    //   return {...state, fetching: {config: {key: 'accept'}, state: true}};
-    // case Types.ACCEPT_SUCCESS:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.ACCEPT_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    case ACTION_STRINGS.ACCEPT_START:
+      return {...state, fetching: {config: {key: 'accept'}, isFetching: true}};
+    case ACTION_STRINGS.ACCEPT_SUCCESS:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.ACCEPT_ERROR:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
-    // case Types.FETCH_PENDING_START:
-    //   return {...state, fetching: {...DEFAULT_FETCHING_STATE, state: true}};
-    // case Types.FETCH_PENDING_SUCCESS:
-    //   return {
-    //     ...state,
-    //     pendingList: action.payload,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.FETCH_PENDING_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    case ACTION_STRINGS.FETCH_PENDING_START:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE, isFetching: true},
+      };
+    case ACTION_STRINGS.FETCH_PENDING_SUCCESS:
+      return {
+        ...state,
+        pendingList: action.payload,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.FETCH_PENDING_ERROR:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
-    // case Types.FETCH_ONE_START:
-    //   return {...state, fetching: {config: {key: 'fetchOne'}, state: true}};
-    // case Types.FETCH_ONE_SUCCESS:
-    //   return {
-    //     ...state,
-    //     appointment: action.payload,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.FETCH_ONE_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    case ACTION_STRINGS.FETCH_ONE_START:
+      return {
+        ...state,
+        fetching: {config: {key: 'fetchOne'}, isFetching: true},
+      };
+    case ACTION_STRINGS.FETCH_ONE_SUCCESS:
+      return {
+        ...state,
+        appointment: action.payload,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.FETCH_ONE_ERROR:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
     // case Types.GET_SERVER_TIME_START:
     //   return {...state, fetching: {config: {key: 'serverTime'}, state: true}};
