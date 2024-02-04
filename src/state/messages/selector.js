@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
-const selector = (state) => state.messages;
+import {createSelector} from 'reselect';
+const selector = state => state.messages;
 
-export default createSelector([selector], (data) => data);
+export default createSelector([selector], data => data);

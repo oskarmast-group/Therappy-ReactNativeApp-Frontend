@@ -6,7 +6,7 @@ interface Documentation {
   documentType: string;
   name: string;
   status: DocumentationStatus;
-  comments: null;
+  comments: null | string;
   createdAt: string;
   uuid: string;
 }

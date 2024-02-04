@@ -9,10 +9,6 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
   const headers = () => (withAuth ? Authorization() : {});
 
   return {
-    options: {
-      headers,
-      url,
-    },
     profile: () =>
       executeCall<User>(() => Axios.get<User>(url, {headers: headers()})),
     // updateImage: data =>

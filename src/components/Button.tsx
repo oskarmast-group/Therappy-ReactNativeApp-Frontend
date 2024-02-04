@@ -43,15 +43,19 @@ const Button = styled.TouchableOpacity<ButtonProps>`
   border: none;
   outline: none;
   font-size: 1rem;
+  flex: 1;
   cursor: pointer;
   background-color: ${({disabled, backgroundColor}) =>
     disabled ? '#cccccc' : backgroundColor ?? PRIMARY_GREEN};
   opacity: ${({disabled}) => (disabled ? 0.6 : 1)};
 `;
 
-export const ButtonText = styled(BaseText)<{disabled?: boolean}>`
+export const ButtonText = styled(BaseText)<{
+  disabled?: boolean;
+  color?: string;
+}>`
   text-align: center;
-  color: ${({disabled}) => (disabled ? '#666666' : '#fbfbfd')};
+  color: ${({disabled, color}) => (disabled ? '#666666' : color ?? '#fbfbfd')};
 `;
 
 export const CancelButton = styled(Button)`

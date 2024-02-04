@@ -4,6 +4,8 @@ import {ScrollView, StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   scrollView: {
     paddingBottom: 20,
+    display: 'flex',
+    flex: 1,
   },
 });
 

@@ -32,7 +32,7 @@ export const Title = styled.Text`
 
 export const Body = styled.Text`
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 14px;
   color: #1e2205;
 `;
 

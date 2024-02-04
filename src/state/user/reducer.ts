@@ -2,6 +2,7 @@ import ACTION_STRINGS from './actionStrings';
 import UserState from './state';
 import {UserActions} from './actionTypes';
 import {DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR} from '../constants';
+import UserType from '../../interfaces/User/UserType';
 
 const INITIAL_STATE: UserState = {
   current: null,
@@ -234,78 +235,104 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
     //     error: {timestamp: Date.now(), message: action.payload},
     //   };
 
-    // case Types.ADD_DOCUMENTATION: {
-    //   const documentation = state.current.extraData?.documentation;
-    //   if (!Array.isArray(documentation)) return state;
+    case ACTION_STRINGS.ADD_DOCUMENTATION: {
+      if (!state.current || state.current.userType !== UserType.THERAPIST) {
+        return state;
+      }
 
-    //   documentation.push(action.payload);
+      const documentation = state.current?.extraData?.documentation;
+      if (!Array.isArray(documentation)) {
+        return state;
+      }
 
-    //   return {
-    //     ...state,
-    //     current: {
-    //       ...state.current,
-    //       extraData: {
-    //         ...state.current.extraData,
-    //         documentation,
-    //       },
-    //     },
-    //   };
-    // }
+      documentation.push(action.payload);
 
-    // case Types.UPDATE_DOCUMENTATION: {
-    //   const documentation = state.current.extraData?.documentation;
-    //   if (!Array.isArray(documentation)) return state;
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          extraData: {
+            ...state.current.extraData,
+            documentation,
+          },
+        },
+      };
+    }
 
-    //   const oldDocument = documentation.find(
-    //     ({uuid}) => action.payload.uuid === uuid,
-    //   );
-    //   if (!oldDocument) return state;
+    case ACTION_STRINGS.UPDATE_DOCUMENTATION: {
+      if (!state.current || state.current.userType !== UserType.THERAPIST) {
+        return state;
+      }
 
-    //   const index = documentation.indexOf(oldDocument);
-    //   if (index < 0) return state;
+      const documentation = state.current.extraData?.documentation;
+      if (!Array.isArray(documentation)) {
+        return state;
+      }
 
-    //   documentation[index] = action.payload.newDocument;
+      const oldDocument = documentation.find(
+        ({uuid}) => action.payload.uuid === uuid,
+      );
+      if (!oldDocument) {
+        return state;
+      }
 
-    //   return {
-    //     ...state,
-    //     current: {
-    //       ...state.current,
-    //       extraData: {
-    //         ...state.current.extraData,
-    //         documentation,
-    //       },
-    //     },
-    //   };
-    // }
+      const index = documentation.indexOf(oldDocument);
+      if (index < 0) {
+        return state;
+      }
 
-    // case Types.DELETE_DOCUMENTATION: {
-    //   const documentation = state.current.extraData?.documentation;
-    //   if (!Array.isArray(documentation)) return state;
+      documentation[index] = action.payload.document;
 
-    //   const oldDocument = documentation.find(
-    //     ({uuid}) => action.payload === uuid,
-    //   );
-    //   if (!oldDocument) return state;
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          extraData: {
+            ...state.current.extraData,
+            documentation,
+          },
+        },
+      };
+    }
 
-    //   const index = documentation.indexOf(oldDocument);
-    //   if (index < 0) return state;
+    case ACTION_STRINGS.DELETE_DOCUMENTATION: {
+      if (!state.current || state.current.userType !== UserType.THERAPIST) {
+        return state;
+      }
 
-    //   documentation.splice(index, 1);
+      const documentation = state.current.extraData?.documentation;
+      if (!Array.isArray(documentation)) {
+        return state;
+      }
 
-    //   return {
-    //     ...state,
-    //     current: {
-    //       ...state.current,
-    //       extraData: {
-    //         ...state.current.extraData,
-    //         documentation,
-    //       },
-    //     },
-    //   };
-    // }
+      const oldDocument = documentation.find(
+        ({uuid}) => action.payload === uuid,
+      );
+      if (!oldDocument) {
+        return state;
+      }
 
-    // case Types.RESET_ERROR:
-    //   return {...state, error: {...DEFAULT_NO_ERROR}};
+      const index = documentation.indexOf(oldDocument);
+      if (index < 0) {
+        return state;
+      }
+
+      documentation.splice(index, 1);
+
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          extraData: {
+            ...state.current.extraData,
+            documentation,
+          },
+        },
+      };
+    }
+
+    case ACTION_STRINGS.RESET_ERROR:
+      return {...state, error: {...DEFAULT_NO_ERROR}};
 
     default:
       return state;

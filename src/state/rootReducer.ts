@@ -5,7 +5,7 @@ import user from './user/reducer';
 import appointments from './appointments/reducer';
 // import conversations from './conversations/reducer';
 // import messages from './messages/reducer';
-// import requiredDocumentation from './requiredDocumentation/reducer';
+import requiredDocumentation from './requiredDocumentation/reducer';
 
 const rootReducer = combineReducers({
   user,
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   appointments,
   // conversations,
   // messages,
-  // requiredDocumentation,
+  requiredDocumentation,
 });
 
 export default rootReducer;

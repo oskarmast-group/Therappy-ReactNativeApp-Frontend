@@ -4,7 +4,8 @@ import Header from './Header';
 import ActionsContainer from './ActionsContainer';
 import {ConfirmDialogConfig} from '../../interfaces/DialogConfig';
 import Button, {ButtonText, CancelButton} from '../../../components/Button';
-import {Body} from '../../../components/Text';
+import {BaseText, Body} from '../../../components/Text';
+import {PRIMARY_GREEN} from '../../../resources/constants/colors';
 
 const Actions: React.FC<{
   onClose: () => void;
@@ -15,7 +16,7 @@ const Actions: React.FC<{
   return (
     <ActionsContainer>
       <CancelButton onPress={onClose}>
-        <ButtonText>{cancelButtonText}</ButtonText>
+        <ButtonText color={PRIMARY_GREEN}>{cancelButtonText}</ButtonText>
       </CancelButton>
       <Button onPress={onSubmit}>
         <ButtonText>{confirmButtonText}</ButtonText>
@@ -36,7 +37,11 @@ const ConfirmDialog: React.FC<{
       onClose={onClose}
       showCloseButton={config.showCloseButton ?? true}>
       {config.header && <Header>{config.header}</Header>}
-      {config.title && <h3>{config.title}</h3>}
+      {config.title && (
+        <BaseText fontSize={19} weight={800} marginBottom={16}>
+          {config.title}
+        </BaseText>
+      )}
       <Body>{config.body}</Body>
       <Actions
         onSubmit={onSubmit}

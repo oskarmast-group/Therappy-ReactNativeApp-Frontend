@@ -17,7 +17,7 @@ export interface NestedBaseUser extends BaseUser {
   invitationSent: 1 | 0;
 }
 
-type NestedClient = NestedBaseUser;
+export type NestedClient = NestedBaseUser;
 
 export interface NestedTherapist extends NestedBaseUser {
   title: string;

@@ -1,7 +1,16 @@
+import Documentation from '../../interfaces/Documentation';
 import User from '../../interfaces/User';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
-import {FetchError, FetchStart, FetchSuccess} from './actionTypes';
+import {
+  AddDocumentation,
+  DeleteDocumentation,
+  FetchError,
+  FetchStart,
+  FetchSuccess,
+  UpdateDocumentation,
+  UpdateDocumentationPayload,
+} from './actionTypes';
 
 // export const fetchMetadataStartAction = (payload: string): FetchMetadataStart => ({
 //     type: ACTION_STRINGS.FETCH_METADATA_START,
@@ -30,6 +39,27 @@ export const fetchSuccessAction = (payload: User): FetchSuccess => ({
 
 export const fetchErrorAction = (payload: any): FetchError => ({
   type: ACTION_STRINGS.FETCH_ERROR,
+  payload,
+});
+
+export const addDocumentationAction = (
+  payload: Documentation,
+): AddDocumentation => ({
+  type: ACTION_STRINGS.ADD_DOCUMENTATION,
+  payload,
+});
+
+export const updateDocumentationAction = (
+  payload: UpdateDocumentationPayload,
+): UpdateDocumentation => ({
+  type: ACTION_STRINGS.UPDATE_DOCUMENTATION,
+  payload,
+});
+
+export const deleteDocumentationAction = (
+  payload: string,
+): DeleteDocumentation => ({
+  type: ACTION_STRINGS.DELETE_DOCUMENTATION,
   payload,
 });
 

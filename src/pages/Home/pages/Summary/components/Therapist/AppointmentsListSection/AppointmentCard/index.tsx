@@ -41,10 +41,9 @@ const AppointmentCard: React.FC<{app: BaseAppointment}> = ({app}) => {
         </View>
       </Link>
       <Button
-        paddingLeft={45}
-        paddingRight={45}
         paddingTop={5}
         paddingBottom={5}
+        width={'50%'}
         onPress={() => onAccept(app.id)}
         disabled={
           appointments.fetching.isFetching &&

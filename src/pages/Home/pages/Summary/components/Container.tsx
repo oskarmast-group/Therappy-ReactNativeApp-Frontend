@@ -14,5 +14,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 10,
     minHeight: 0,
+    flexShrink: 1,
   },
 });

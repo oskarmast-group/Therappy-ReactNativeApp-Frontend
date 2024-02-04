@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     padding: 10,
+    flexShrink: 1,
   },
   linkChildrenContainer: {
     display: 'flex',
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
     gap: 10,
     color: DARKER_TEXT,
     width: '100%',
+    flexShrink: 1,
   },
   imageContainer: {
     width: 66,
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   informationContainer: {
-    flex: 1,
+    flexShrink: 1,
     minHeight: 50,
     display: 'flex',
     flexDirection: 'column',

@@ -1,14 +1,15 @@
 import {BaseAppointment} from '../interfaces/Appointment';
 import AppointmentStatus from '../interfaces/Appointment/AppointmentStatus';
+import File from '../interfaces/File';
 import {GOLDEN, PRIMARY_GREEN, RED} from '../resources/constants/colors';
 
-export const toFormData = (object: {[key: string]: unknown}) => {
+export const toFormData = (object: {[key: string]: any}) => {
   const formdata = new FormData();
 
   Object.entries(object).forEach(([key, value]) => {
     if (value) {
       value =
-        typeof value === 'object' //&& !(value instanceof File)
+        typeof value === 'object' && !(value instanceof File)
           ? JSON.stringify(value)
           : value;
       formdata.append(key, value);
