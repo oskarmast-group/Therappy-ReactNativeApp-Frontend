@@ -10,18 +10,17 @@ import RequiredDocumentation from './RequiredDocumentation';
 const Therapist: React.FC<{user: TherapistInterface}> = ({user}) => {
   return (
     <Container>
-      {/*user.extraData?.status === TherapistStatus.ACTIVE && (
+      {user.extraData?.status === TherapistStatus.ACTIVE && (
         <>
           <AppointmentsListSection />
           <PatientListSection user={user} />
           <NewsSection />
         </>
-      )*/}
-      {/* {(user.extraData?.status === TherapistStatus.PENDING ||
+      )}
+      {(user.extraData?.status === TherapistStatus.PENDING ||
         user.extraData?.status === TherapistStatus.REGISTERED) && (
-        
-      )} */}
-      <RequiredDocumentation />
+        <RequiredDocumentation />
+      )}
     </Container>
   );
 };
