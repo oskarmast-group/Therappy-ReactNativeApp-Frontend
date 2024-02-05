@@ -8,11 +8,35 @@ import InfoButton from '../../components/InfoButton';
 import {useAlert} from '../../alert';
 import ALERT_TYPES from '../../alert/interfaces/AlertTypes';
 import BottomNavBar from './components/BottomNavBar';
+import useConversations from '../../state/conversations';
+import {useSocket} from '../../Socket';
+import {SocketMessage} from '../../interfaces/Conversation/Message';
+import Messages from './pages/Messages';
 
 const Home: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const {data: user, dispatcher: userDispatcher} = useUser();
+  const {dispatcher: conversationsDispatcher} = useConversations();
   const alert = useAlert();
+  const socket = useSocket();
+
+  useEffect(() => {
+    conversationsDispatcher.fetchStart();
+  }, [conversationsDispatcher]);
+
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+    socket.on('new message', (payload: SocketMessage) => {
+      console.log(payload);
+      conversationsDispatcher.addLastMessage(payload);
+    });
+
+    return () => {
+      socket.off('new message');
+    };
+  }, [socket, conversationsDispatcher]);
 
   useEffect(() => {
     userDispatcher.fetchStart();
@@ -22,7 +46,7 @@ const Home: React.FC = () => {
     setMenuOpen(!menuOpen);
   };
 
-  // const showEmailConfirmationAlert = () => {
+  //TODO: const showEmailConfirmationAlert = () => {
   //   alert({
   //     type: ALERT_TYPES.CUSTOM,
   //     config: {
@@ -49,6 +73,7 @@ const Home: React.FC = () => {
       <Routes>
         <Route path="/" element={<Navigate to={'resumen'} />} />
         <Route path="resumen" element={<Summary />} />
+        <Route path="mensajes" element={<Messages />} />
       </Routes>
       <BottomNavBar />
     </MainContainer>

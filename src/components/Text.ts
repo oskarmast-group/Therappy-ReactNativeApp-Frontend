@@ -9,6 +9,7 @@ export interface TextProps {
   marginBottom?: number;
   marginLeft?: number;
   marginRight?: number;
+  textAlign?: 'auto' | 'center' | 'justify' | 'left' | 'right';
 }
 
 export const BaseText = styled.Text<TextProps>`
@@ -21,6 +22,7 @@ export const BaseText = styled.Text<TextProps>`
     marginBottom ? `${marginBottom}px` : '0'};
   margin-left: ${({marginLeft}) => (marginLeft ? `${marginLeft}px` : '0')};
   margin-right: ${({marginRight}) => (marginRight ? `${marginRight}px` : '0')};
+  text-align: ${({textAlign}) => textAlign ?? 'auto'};
 `;
 
 export const Title = styled.Text`

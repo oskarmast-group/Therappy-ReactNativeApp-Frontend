@@ -1,18 +1,5 @@
-import {BaseUser} from '../User';
-import UserType from '../User/UserType';
 import MessageType from './MessageType';
-
-interface MessageClient extends BaseUser {
-  userType: UserType.CLIENT;
-}
-
-interface MessageTherapist extends BaseUser {
-  userType: UserType.THERAPIST;
-  title: string;
-}
-
-type MessageUser = MessageClient | MessageTherapist;
-
+import MessageUser from './MessageUser';
 interface BaseMessage {
   uuid: string;
   type: MessageType;
