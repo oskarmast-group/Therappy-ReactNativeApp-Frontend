@@ -12,7 +12,10 @@ import {add} from 'date-fns';
 import {getStatusText} from '../../utils/text';
 import {getStatusColor} from '../../utils';
 
-const AppointmentCard: React.FC<{app: BaseAppointment}> = ({app}) => {
+const AppointmentCard: React.FC<{app: BaseAppointment; withDate?: boolean}> = ({
+  app,
+  withDate = true,
+}) => {
   return (
     <View style={styles.container}>
       <Link to={`/appointment/${app.roomId}`}>
@@ -28,9 +31,11 @@ const AppointmentCard: React.FC<{app: BaseAppointment}> = ({app}) => {
             <BaseText fontSize={18} marginBottom={5}>{`${app.title ?? ''} ${
               app.name
             } ${app.lastName}`}</BaseText>
-            <BaseText>
-              {getDisplayDate(app.date, 'EEEE - MMMM d, yyyy')}
-            </BaseText>
+            {withDate && (
+              <BaseText>
+                {getDisplayDate(app.date, 'EEEE - MMMM d, yyyy')}
+              </BaseText>
+            )}
             <BaseText>
               {getDisplayTime(app.date)} -{' '}
               {getDisplayTime(add(new Date(app.date), {minutes: 50}))}

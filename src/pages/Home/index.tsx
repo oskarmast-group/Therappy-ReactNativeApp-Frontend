@@ -12,6 +12,7 @@ import useConversations from '../../state/conversations';
 import {useSocket} from '../../Socket';
 import {SocketMessage} from '../../interfaces/Conversation/Message';
 import Messages from './pages/Messages';
+import Calendar from './pages/Calendar';
 
 const Home: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -74,6 +75,7 @@ const Home: React.FC = () => {
         <Route path="/" element={<Navigate to={'resumen'} />} />
         <Route path="resumen" element={<Summary />} />
         <Route path="mensajes" element={<Messages />} />
+        <Route path="calendario" element={<Calendar />} />
       </Routes>
       <BottomNavBar />
     </MainContainer>

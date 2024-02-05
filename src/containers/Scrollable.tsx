@@ -3,14 +3,22 @@ import {ScrollView, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   scrollView: {
-    paddingBottom: 20,
     display: 'flex',
     flex: 1,
+  },
+  content: {
+    paddingBottom: 40,
   },
 });
 
 const Scrollable: React.FC<PropsWithChildren> = ({children}) => {
-  return <ScrollView style={styles.scrollView}>{children}</ScrollView>;
+  return (
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={styles.content}>
+      {children}
+    </ScrollView>
+  );
 };
 
 export default Scrollable;

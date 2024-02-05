@@ -1,7 +1,12 @@
 import {BaseAppointment} from '../interfaces/Appointment';
 import AppointmentStatus from '../interfaces/Appointment/AppointmentStatus';
 import File from '../interfaces/File';
-import {GOLDEN, PRIMARY_GREEN, RED} from '../resources/constants/colors';
+import {
+  DARKER_TEXT,
+  GOLDEN,
+  PRIMARY_GREEN,
+  RED,
+} from '../resources/constants/colors';
 
 export const toFormData = (object: {[key: string]: any}) => {
   const formdata = new FormData();
@@ -32,6 +37,6 @@ export const getStatusColor = ({status}: BaseAppointment) => {
     case AppointmentStatus.CANCELLED:
       return RED;
     default:
-      return '';
+      return DARKER_TEXT;
   }
 };

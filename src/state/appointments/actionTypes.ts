@@ -9,7 +9,7 @@ export type FetchStart = {
 
 export type FetchSuccess = {
   type: ACTION_STRINGS.FETCH_SUCCESS;
-  payload: Appointment;
+  payload: BaseAppointment[];
 };
 
 export type FetchError = {

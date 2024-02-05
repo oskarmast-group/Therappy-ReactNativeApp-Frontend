@@ -39,7 +39,9 @@ export const fetchStartAction = (): FetchStart => ({
   payload: null,
 });
 
-export const fetchSuccessAction = (payload: Appointment): FetchSuccess => ({
+export const fetchSuccessAction = (
+  payload: BaseAppointment[],
+): FetchSuccess => ({
   type: ACTION_STRINGS.FETCH_SUCCESS,
   payload,
 });

@@ -9,7 +9,10 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
   const headers = () => (withAuth ? Authorization() : {});
 
   return {
-    // getAll: () => executeCall(() => Axios.get(url, {headers})),
+    getAll: () =>
+      executeCall<BaseAppointment[]>(() =>
+        Axios.get<BaseAppointment[]>(url, {headers: headers()}),
+      ),
     getPending: () =>
       executeCall<BaseAppointment[]>(() =>
         Axios.get<BaseAppointment[]>(url + '/pending', {headers: headers()}),

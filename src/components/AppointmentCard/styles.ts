@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: 10,
     padding: 10,
     flexShrink: 1,
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
 });
 

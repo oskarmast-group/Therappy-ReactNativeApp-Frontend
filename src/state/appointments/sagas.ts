@@ -11,6 +11,8 @@ import {
   fetchPendingErrorAction,
   fetchPendingStartAction,
   fetchPendingSuccessAction,
+  fetchSuccessAction,
+  fetchUpcomingErrorAction,
   fetchUpcomingSuccessAction,
 } from './actions';
 import ACTION_STRINGS from './actionStrings';
@@ -39,20 +41,20 @@ function* fetchUpcomingStart() {
   );
 }
 
-// function* fetchStartAsync() {
-//     try {
-//         const res = yield appointmentsAPI.getAll();
-//         yield put({ type: Types.FETCH_SUCCESS, payload: res });
-//     } catch (error) {
-//         const message = processError(error);
-//         console.error(message);
-//         yield put({ type: Types.FETCH_ERROR, payload: message });
-//     }
-// }
+function* fetchStartAsync(): Generator<unknown, void, BaseAppointment[]> {
+  try {
+    const res = yield appointmentsAPI.getAll();
+    yield put(fetchSuccessAction(res));
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(fetchUpcomingErrorAction(message));
+  }
+}
 
-// function* fetchStart() {
-//   yield takeLatest(Types.FETCH_START, fetchStartAsync);
-// }
+function* fetchStart() {
+  yield takeLatest(ACTION_STRINGS.FETCH_START, fetchStartAsync);
+}
 
 // function* reserveStartAsync({ payload }) {
 //     try {
@@ -200,7 +202,7 @@ function* fetchOneStart() {
 export default function* sagas() {
   yield all([
     call(fetchUpcomingStart),
-    // call(fetchStart),
+    call(fetchStart),
     // call(reserveStart),
     // call(confirmStart),
     call(fetchPendingStart),

@@ -24,7 +24,7 @@ const Messages: React.FC = () => {
         weight={600}
         color={PRIMARY_GREEN}
         textAlign={'center'}
-        marginBottom={20}>
+        marginBottom={10}>
         Mensajes
       </BaseText>
       {conversations.fetching.fetch.isFetching ? (

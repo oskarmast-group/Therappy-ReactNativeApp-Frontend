@@ -39,23 +39,27 @@ const reducer = (
         error: {timestamp: Date.now(), message: action.payload},
       };
 
-    // case Types.FETCH_START:
-    // case Types.RESERVE_START:
-    //   return {...state, fetching: {...DEFAULT_FETCHING_STATE, state: true}};
-    // case Types.FETCH_SUCCESS:
-    //   return {
-    //     ...state,
-    //     list: action.payload,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.FETCH_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    case ACTION_STRINGS.FETCH_START:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE, isFetching: true},
+      };
+    case ACTION_STRINGS.FETCH_SUCCESS:
+      return {
+        ...state,
+        list: action.payload,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.FETCH_ERROR:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
+    // case Types.RESERVE_START:
+    // return {...state, fetching: {...DEFAULT_FETCHING_STATE, state: true}};
     // case Types.RESERVE_SUCCESS:
     //   return {
     //     ...state,

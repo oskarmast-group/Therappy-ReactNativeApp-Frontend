@@ -4,6 +4,7 @@ import {
   acceptStartAction,
   fetchOneStartAction,
   fetchPendingStartAction,
+  fetchStartAction,
   fetchUpcomingStartAction,
   resetError,
 } from './actions';
@@ -14,7 +15,7 @@ export default class Dispatcher {
   constructor(dispatch: Dispatch<AppointmentActions>) {
     this._dispatch = dispatch;
   }
-  // fetchStart = () => this.dispatch({ type: Types.FETCH_START, payload: {} });
+  fetchStart = () => this._dispatch(fetchStartAction());
 
   fetchPendingStart = () => this._dispatch(fetchPendingStartAction());
 
