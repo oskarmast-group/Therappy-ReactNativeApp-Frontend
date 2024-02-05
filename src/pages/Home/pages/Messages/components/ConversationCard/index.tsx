@@ -43,16 +43,16 @@ const ConversationCard: React.FC<{conversation: Conversation}> = ({
           <View style={styles.informationContainer}>
             {user?.userType === UserType.CLIENT && (
               <BaseText
-                fontSize={16}
+                fontSize={18}
                 weight={700}
                 marginBottom={5}>{`${user?.name} ${user?.lastName}`}</BaseText>
             )}
             {user?.userType === UserType.THERAPIST && (
-              <BaseText fontSize={14} marginBottom={5}>{`${user?.title ?? ''} ${
-                user?.name
-              } ${user?.lastName}`}</BaseText>
+              <BaseText fontSize={18} weight={700} marginBottom={5}>{`${
+                user?.title ?? ''
+              } ${user?.name} ${user?.lastName}`}</BaseText>
             )}
-            <BaseText>
+            <BaseText fontSize={16} weight={600}>
               {conversation.lastMessage
                 ? getLastMessageText(conversation.lastMessage)
                 : 'Envía tu primer mensaje'}

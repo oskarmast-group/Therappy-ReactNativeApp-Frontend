@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   informationContainer: {
-    flexShrink: 1,
+    flex: 1,
     minHeight: 50,
     display: 'flex',
     flexDirection: 'column',
