@@ -5,6 +5,7 @@ import {API} from '../constants/urls';
 import profile from './profile';
 // import stripeClients from './stripeClients';
 import appointments from './appointments';
+import conversations from './conversations';
 // import messages from './messages';
 // import notifications from './notifications';
 import authCrudder from './auth-crud';
@@ -33,7 +34,7 @@ export const profileAPI = profile(API, 'profile');
 // export const stripeClientsAPI = stripeClients(API, 'stripe-clients');
 // export const stripeTherapistAPI = stripeTherapist(API, 'stripe-therapist');
 export const appointmentsAPI = appointments(API, 'appointments');
-// export const conversationsAPI = appointments(API, 'conversations');
+export const conversationsAPI = conversations(API, 'conversations');
 // export const messagesAPI = messages(API, 'messages');
 // export const notificationsAPI = notifications(API, 'notifications');
 export const requiredDocumentationAPI = requiredDocumentation(

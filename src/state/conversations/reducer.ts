@@ -1,9 +1,11 @@
-import {DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR} from 'state/constants';
-import Types from './types';
+import {DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR} from '../constants';
+import ConversationState from './state';
+import {ConversationActions} from './actionTypes';
+import ACTION_STRINGS from './actionStrings';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: ConversationState = {
   list: [],
-  conversation: {},
+  conversation: null,
   fetching: {
     fetch: {...DEFAULT_FETCHING_STATE},
     fetchOne: {...DEFAULT_FETCHING_STATE},
@@ -11,18 +13,21 @@ const INITIAL_STATE = {
   error: {...DEFAULT_NO_ERROR},
 };
 
-const reducer = (state = INITIAL_STATE, action) => {
+const reducer = (
+  state = INITIAL_STATE,
+  action: ConversationActions,
+): ConversationState => {
   switch (action.type) {
     // FETCH
-    case Types.FETCH_START:
+    case ACTION_STRINGS.FETCH_START:
       return {
         ...state,
         fetching: {
           ...state.fetching,
-          fetch: {...DEFAULT_FETCHING_STATE, state: true},
+          fetch: {...DEFAULT_FETCHING_STATE, isFetching: true},
         },
       };
-    case Types.FETCH_SUCCESS:
+    case ACTION_STRINGS.FETCH_SUCCESS:
       return {
         ...state,
         list: action.payload,
@@ -32,7 +37,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         },
         error: {...DEFAULT_NO_ERROR},
       };
-    case Types.FETCH_ERROR:
+    case ACTION_STRINGS.FETCH_ERROR:
       return {
         ...state,
         fetching: {
@@ -43,15 +48,15 @@ const reducer = (state = INITIAL_STATE, action) => {
       };
 
     // FETCH ONE
-    case Types.FETCH_ONE_START:
+    case ACTION_STRINGS.FETCH_ONE_START:
       return {
         ...state,
         fetching: {
           ...state.fetching,
-          fetchOne: {...DEFAULT_FETCHING_STATE, state: true},
+          fetchOne: {...DEFAULT_FETCHING_STATE, isFetching: true},
         },
       };
-    case Types.FETCH_ONE_SUCCESS:
+    case ACTION_STRINGS.FETCH_ONE_SUCCESS:
       return {
         ...state,
         conversation: action.payload,
@@ -61,7 +66,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         },
         error: {...DEFAULT_NO_ERROR},
       };
-    case Types.FETCH_ONE_ERROR:
+    case ACTION_STRINGS.FETCH_ONE_ERROR:
       return {
         ...state,
         fetching: {
@@ -70,20 +75,25 @@ const reducer = (state = INITIAL_STATE, action) => {
         },
         error: {timestamp: Date.now(), message: action.payload},
       };
-    case Types.CLEAR_CONVERSATION:
-      return {...state, conversation: {}, error: {...DEFAULT_NO_ERROR}};
 
-    case Types.ADD_LAST_MESSAGE: {
+    case ACTION_STRINGS.CLEAR_CONVERSATION:
+      return {...state, conversation: null, error: {...DEFAULT_NO_ERROR}};
+
+    case ACTION_STRINGS.ADD_LAST_MESSAGE: {
       const list = state.list;
 
       const conversation = list.find(
         ({uuid}) => uuid === action.payload.conversationUUID,
       );
-      console.log({conversation});
-      if (!conversation) return state;
+
+      if (!conversation) {
+        return state;
+      }
 
       const index = list.indexOf(conversation);
-      if (index < 0) return state;
+      if (index < 0) {
+        return state;
+      }
 
       list[index] = {
         ...conversation,
@@ -94,7 +104,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {...state, list: [...list], error: {...DEFAULT_NO_ERROR}};
     }
 
-    case Types.RESET_ERROR:
+    case ACTION_STRINGS.RESET_ERROR:
       return {...state, error: {...DEFAULT_NO_ERROR}};
 
     default:

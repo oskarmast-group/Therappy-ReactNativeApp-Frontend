@@ -7,6 +7,7 @@ import Summary from './pages/Summary';
 import InfoButton from '../../components/InfoButton';
 import {useAlert} from '../../alert';
 import ALERT_TYPES from '../../alert/interfaces/AlertTypes';
+import BottomNavBar from './components/BottomNavBar';
 
 const Home: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -46,9 +47,10 @@ const Home: React.FC = () => {
         />
       )}
       <Routes>
-        <Route path="/" element={<Navigate to={'/resumen'} />} />
-        <Route path="/resumen" element={<Summary />} />
+        <Route path="/" element={<Navigate to={'resumen'} />} />
+        <Route path="resumen" element={<Summary />} />
       </Routes>
+      <BottomNavBar />
     </MainContainer>
   );
 };

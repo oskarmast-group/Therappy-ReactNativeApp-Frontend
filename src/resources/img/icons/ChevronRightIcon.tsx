@@ -1,7 +1,10 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
+import {PRIMARY_GREEN} from '../../constants/colors';
 
-const ChevronRightIcon: React.FC<{color?: string}> = ({color = '#717402'}) => (
+const ChevronRightIcon: React.FC<{color?: string}> = ({
+  color = PRIMARY_GREEN,
+}) => (
   <Svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
     <Path fill="none" d="M0 0h200v200H0z" />
     <Path

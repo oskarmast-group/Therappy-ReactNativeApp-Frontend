@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 0,
+    elevation: 2,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
