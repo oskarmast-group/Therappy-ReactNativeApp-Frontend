@@ -15,10 +15,10 @@ const Actions: React.FC<{
 }> = ({onSubmit, onClose, confirmButtonText, cancelButtonText}) => {
   return (
     <ActionsContainer>
-      <CancelButton onPress={onClose}>
+      <CancelButton onPress={onClose} flex={1}>
         <ButtonText color={PRIMARY_GREEN}>{cancelButtonText}</ButtonText>
       </CancelButton>
-      <Button onPress={onSubmit}>
+      <Button onPress={onSubmit} flex={1}>
         <ButtonText>{confirmButtonText}</ButtonText>
       </Button>
     </ActionsContainer>
@@ -42,7 +42,11 @@ const ConfirmDialog: React.FC<{
           {config.title}
         </BaseText>
       )}
-      <Body>{config.body}</Body>
+      {typeof config.body === 'string' ? (
+        <Body>{config.body}</Body>
+      ) : (
+        config.body
+      )}
       <Actions
         onSubmit={onSubmit}
         onClose={onClose}

@@ -67,7 +67,7 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
       />
       {user.extraData.therapist.status === ClientTherapistStatus.PENDING && (
         <InfoButton
-          text="¿Por qué no puedo agendar más sesiones?"
+          content="¿Por qué no puedo agendar más sesiones?"
           buttonProps={{onPress: onClick}}
         />
       )}

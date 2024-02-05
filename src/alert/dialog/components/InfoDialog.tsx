@@ -12,7 +12,7 @@ const Actions: React.FC<{onClose: () => void; buttonText: string}> = ({
 }) => {
   return (
     <ActionsContainer>
-      <Button onPress={onClose}>
+      <Button onPress={onClose} flex={1}>
         <ButtonText>{buttonText}</ButtonText>
       </Button>
     </ActionsContainer>

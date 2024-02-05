@@ -44,6 +44,7 @@ const AppointmentCard: React.FC<{app: BaseAppointment}> = ({app}) => {
         paddingTop={5}
         paddingBottom={5}
         width={'50%'}
+        flex={1}
         onPress={() => onAccept(app.id)}
         disabled={
           appointments.fetching.isFetching &&

@@ -1,17 +1,13 @@
 import React, {ReactNode} from 'react';
-import Button from './Button';
-import {StyleSheet, TouchableOpacityProps, View} from 'react-native';
+import Button, {ButtonProps} from './Button';
+import {StyleSheet, View} from 'react-native';
 import {BaseText, TextProps} from './Text';
 import InfoIcon from '../resources/img/icons/InfoIcon';
-
-interface ButtonProps extends TouchableOpacityProps {
-  backgroundColor?: string;
-}
 
 interface InfoButtonProps {
   buttonProps?: ButtonProps;
   textProps?: TextProps;
-  text: string;
+  content: string | ReactNode;
   icon?: ReactNode;
 }
 
@@ -21,6 +17,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     alignItems: 'center',
+    flexShrink: 1,
   },
   iconContainer: {
     width: 33,
@@ -29,7 +26,7 @@ const styles = StyleSheet.create({
 });
 
 const InfoButton: React.FC<InfoButtonProps> = ({
-  text,
+  content,
   buttonProps,
   icon,
   textProps = {},
@@ -38,9 +35,13 @@ const InfoButton: React.FC<InfoButtonProps> = ({
     <Button {...buttonProps}>
       <View style={styles.container}>
         <View style={styles.iconContainer}>{icon ? icon : <InfoIcon />}</View>
-        <BaseText fontSize={14} color="white" {...textProps}>
-          {text}
-        </BaseText>
+        {typeof content === 'string' ? (
+          <BaseText fontSize={14} color="white" {...textProps}>
+            {content}
+          </BaseText>
+        ) : (
+          content
+        )}
       </View>
     </Button>
   );

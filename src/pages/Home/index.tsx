@@ -13,9 +13,14 @@ import {useSocket} from '../../Socket';
 import {SocketMessage} from '../../interfaces/Conversation/Message';
 import Messages from './pages/Messages';
 import Calendar from './pages/Calendar';
+import {BaseText} from '../../components/Text';
+import {authAPI} from '../../resources/api';
+import {ActivityIndicator, View} from 'react-native';
 
 const Home: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [confirmationEmailLoading, setConfirmationEmailLoading] =
+    useState(false);
   const {data: user, dispatcher: userDispatcher} = useUser();
   const {dispatcher: conversationsDispatcher} = useConversations();
   const alert = useAlert();
@@ -47,27 +52,51 @@ const Home: React.FC = () => {
     setMenuOpen(!menuOpen);
   };
 
-  //TODO: const showEmailConfirmationAlert = () => {
-  //   alert({
-  //     type: ALERT_TYPES.CUSTOM,
-  //     config: {
-  //       body: EmailConfirmationDialog,
-  //       props: {
-  //         userId: user.current?.id,
-  //       },
-  //     },
-  //   })
-  //     .then(() => {})
-  //     .catch(() => {});
-  // };
+  const showEmailConfirmationAlert = () => {
+    alert({
+      type: ALERT_TYPES.CONFIRM,
+      config: {
+        title: 'Verificación de correo pendiente',
+        body: (
+          <View>
+            <BaseText>
+              Para poder usar la app necesitas verificar tu dirección de correo
+              electrónico.
+            </BaseText>
+            <BaseText>
+              Revisa tu bandeja de entrada por un correo de Terappy. Si no te
+              llegó te lo podemos volver a enviar.
+            </BaseText>
+          </View>
+        ),
+        cancelButtonText: 'Ok',
+        confirmButtonText: 'Enviar Correo',
+      },
+    })
+      .then(async () => {
+        setConfirmationEmailLoading(true);
+        await authAPI.requestEmailConfirmation();
+        setConfirmationEmailLoading(false);
+      })
+      .catch(() => {});
+  };
 
   return (
     <MainContainer menuOpen={menuOpen} toggleMenu={toggleMenu}>
       <Menu toggleMenu={toggleMenu} />
       {user.current && !user.current.emailVerified && (
         <InfoButton
-          buttonProps={{backgroundColor: 'red', onPress: () => {}}}
-          text={'Verificación de correo pendiente'}
+          buttonProps={{
+            backgroundColor: 'red',
+            onPress: showEmailConfirmationAlert,
+          }}
+          content={
+            confirmationEmailLoading ? (
+              <ActivityIndicator color={'white'} />
+            ) : (
+              'Verificación de correo pendiente'
+            )
+          }
           textProps={{fontSize: 16, weight: 700}}
         />
       )}
