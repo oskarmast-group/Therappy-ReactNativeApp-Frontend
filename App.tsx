@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import store from './src/state/store';
 import SocketProvider from './src/Socket';
 import AlertServiceProvider from './src/alert';
+import Logout from './src/pages/Logout';
 
 function App(): JSX.Element {
   return (
@@ -16,6 +17,7 @@ function App(): JSX.Element {
           <AlertServiceProvider>
             <Routes>
               <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
               <Route path="/" element={<Navigate to={'/home'} />} />
               <Route
                 path="/home/*"
