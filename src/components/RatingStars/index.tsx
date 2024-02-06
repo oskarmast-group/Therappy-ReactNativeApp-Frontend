@@ -19,7 +19,7 @@ const getStar = (reviewAvg: number, i: number) => {
   return <StarEmptyIcon />;
 };
 
-const getStarsArray = (reviewAvg?: number) => {
+const getStarsArray = (reviewAvg?: number | null) => {
   if (!reviewAvg) {
     return [];
   }
@@ -30,10 +30,10 @@ const getStarsArray = (reviewAvg?: number) => {
   return stars;
 };
 
-const RatingStars: React.FC<{reviewAvg?: number; reviewsCount?: number}> = ({
-  reviewAvg,
-  reviewsCount,
-}) => {
+const RatingStars: React.FC<{
+  reviewAvg?: number | null;
+  reviewsCount?: number;
+}> = ({reviewAvg, reviewsCount}) => {
   const stars = useMemo(() => getStarsArray(reviewAvg), [reviewAvg]);
   return (
     <View style={styles.container}>

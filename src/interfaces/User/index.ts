@@ -22,7 +22,7 @@ export type NestedClient = NestedBaseUser;
 export interface NestedTherapist extends NestedBaseUser {
   title: string;
   invitationAccepted: boolean;
-  reviewAvg?: number;
+  reviewAvg?: number | null;
   reviewsCount?: number;
 }
 

@@ -29,7 +29,10 @@ const ClientCard: React.FC<{
       <LinkContainer id={id} shouldRender={clickable}>
         <View style={styles.imageContainer}>
           {profileImg ? (
-            <Image source={{uri: `${IMAGES_URL}${profileImg}`}} />
+            <Image
+              style={styles.image}
+              source={{uri: `${IMAGES_URL}${profileImg}`}}
+            />
           ) : (
             <ProfileIcon />
           )}

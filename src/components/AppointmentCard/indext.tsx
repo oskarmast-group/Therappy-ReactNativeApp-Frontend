@@ -22,7 +22,10 @@ const AppointmentCard: React.FC<{app: BaseAppointment; withDate?: boolean}> = ({
         <View style={styles.linkChildrenContainer}>
           <View style={styles.imageContainer}>
             {app.profileImg ? (
-              <Image source={{uri: `${IMAGES_URL}${app.profileImg}`}} />
+              <Image
+                style={styles.image}
+                source={{uri: `${IMAGES_URL}${app.profileImg}`}}
+              />
             ) : (
               <ProfileIcon />
             )}

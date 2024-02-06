@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 12,
   },
+  image: {
+    width: 66,
+    height: 66,
+  },
   informationContainer: {
     flex: 1,
     minHeight: 50,

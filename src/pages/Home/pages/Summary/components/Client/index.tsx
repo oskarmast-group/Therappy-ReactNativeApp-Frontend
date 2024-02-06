@@ -11,6 +11,7 @@ import {useAlert} from '../../../../../../alert';
 import ALERT_TYPES from '../../../../../../alert/interfaces/AlertTypes';
 import {View} from 'react-native';
 import ClientTherapistStatus from '../../../../../../interfaces/User/ClientTherapistStatus';
+import TherapistSelectionSection from './TherapistSelectionSection';
 
 const Client: React.FC<{user: ClientInterface}> = ({user}) => {
   const {data: appointments, dispatcher: appointmentsDispatcher} =
@@ -55,7 +56,7 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
       .catch(() => {});
   };
 
-  return (
+  return !user.extraData?.therapist ? (
     <Container>
       <NextAppointmentSection />
       <BaseText fontSize={18} weight={800} marginTop={4} marginBottom={4}>
@@ -72,6 +73,8 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
         />
       )}
     </Container>
+  ) : (
+    <TherapistSelectionSection />
   );
 };
 

@@ -1,11 +1,12 @@
 // import Axios from 'axios';
 // import Authorization from './auth';
 import {API} from '../constants/urls';
-// import crudder from './crudder';
 import profile from './profile';
 // import stripeClients from './stripeClients';
 import appointments from './appointments';
 import conversations from './conversations';
+import category from './category';
+import therapist from './therapist';
 // import messages from './messages';
 // import notifications from './notifications';
 import authCrudder from './auth-crud';
@@ -26,11 +27,10 @@ import documentation from './documentation';
 //   }
 // }
 
-// const Crudder = crudder(API);
 export const authAPI = authCrudder(API, 'auth');
 export const profileAPI = profile(API, 'profile');
-// export const therapistAPI = Crudder('therapist');
-// export const categoriesAPI = Crudder('categories');
+export const therapistAPI = therapist(API, 'therapist');
+export const categoriesAPI = category(API, 'categories');
 // export const stripeClientsAPI = stripeClients(API, 'stripe-clients');
 // export const stripeTherapistAPI = stripeTherapist(API, 'stripe-therapist');
 export const appointmentsAPI = appointments(API, 'appointments');

@@ -35,7 +35,10 @@ const ConversationCard: React.FC<{conversation: Conversation}> = ({
         <View style={styles.linkChildrenContainer}>
           <View style={styles.imageContainer}>
             {user?.profileImg ? (
-              <Image source={{uri: `${IMAGES_URL}${user.profileImg}`}} />
+              <Image
+                style={styles.image}
+                source={{uri: `${IMAGES_URL}${user.profileImg}`}}
+              />
             ) : (
               <ProfileIcon />
             )}

@@ -1,14 +1,15 @@
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import Dispatcher from './dispatcher';
 import selector from './selector';
-import {useMemo} from 'react';
+import {Dispatch, useMemo} from 'react';
+import {TherapistActions} from './actionTypes';
 
-const useCategories = () => {
-  const dispatch = useDispatch();
+const useTherapist = () => {
+  const dispatch = useDispatch<Dispatch<TherapistActions>>();
   const dispatcher = useMemo(() => new Dispatcher(dispatch), [dispatch]);
   const data = useSelector(selector, shallowEqual);
 
-  return [data, dispatcher];
+  return {data, dispatcher};
 };
 
-export default useCategories;
+export default useTherapist;

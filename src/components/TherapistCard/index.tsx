@@ -7,6 +7,7 @@ import ProfileIcon from '../../resources/img/icons/ProfileIcon';
 import {BaseText} from '../Text';
 import {NestedTherapist} from '../../interfaces/User';
 import RatingStars from '../RatingStars';
+import {BaseTherapist} from '../../interfaces/Therapist';
 
 const LinkContainer: React.FC<
   PropsWithChildren<{id: number; shouldRender: boolean}>
@@ -21,7 +22,7 @@ const LinkContainer: React.FC<
 };
 
 const TherapistCard: React.FC<{
-  therapist: NestedTherapist;
+  therapist: NestedTherapist | BaseTherapist;
   clickable: boolean;
 }> = ({therapist, clickable = true}) => {
   const {id, title, name, lastName, profileImg, reviewAvg, reviewsCount} =
@@ -31,7 +32,10 @@ const TherapistCard: React.FC<{
       <LinkContainer id={id} shouldRender={clickable}>
         <View style={styles.imageContainer}>
           {profileImg ? (
-            <Image source={{uri: `${IMAGES_URL}${profileImg}`}} />
+            <Image
+              style={styles.image}
+              source={{uri: `${IMAGES_URL}${profileImg}`}}
+            />
           ) : (
             <ProfileIcon />
           )}

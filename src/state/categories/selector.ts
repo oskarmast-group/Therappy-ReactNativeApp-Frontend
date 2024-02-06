@@ -1,4 +1,5 @@
 import {createSelector} from 'reselect';
-const selector = state => state.therapists;
+import {AppState} from '../store';
+const selector = (state: AppState) => state.categories;
 
 export default createSelector([selector], data => data);
