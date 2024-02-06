@@ -6,23 +6,16 @@ const {styles} = StyleSheet.create({
     height: 56,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    gap: 20,
     alignItems: 'center',
     '@media (max-height: 670px)': {
       height: 36,
     },
   },
   menuButton: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-    borderWidth: 0,
-    padding: 0,
-    margin: 0,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
     width: 25,
+    height: 25,
   },
 });
 

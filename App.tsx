@@ -8,6 +8,7 @@ import store from './src/state/store';
 import SocketProvider from './src/Socket';
 import AlertServiceProvider from './src/alert';
 import Logout from './src/pages/Logout';
+import Therapist from './src/pages/Therapist';
 
 function App(): JSX.Element {
   return (
@@ -23,7 +24,10 @@ function App(): JSX.Element {
                 path="/home/*"
                 element={<PrivateRoute component={Home} />}
               />
-              <Route path="/*" element={<PrivateRoute component={Home} />} />
+              <Route
+                path="/terapeutas/*"
+                element={<PrivateRoute component={Therapist} />}
+              />
             </Routes>
           </AlertServiceProvider>
         </SocketProvider>
