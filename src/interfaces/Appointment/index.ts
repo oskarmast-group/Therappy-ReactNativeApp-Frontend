@@ -1,15 +1,18 @@
 import AppointmentStatus from './AppointmentStatus';
 
-export interface BaseAppointment {
+export interface PublicAppointment {
   id: number;
   date: string;
+  therapistId: number;
+}
+
+export interface BaseAppointment extends PublicAppointment {
   status: AppointmentStatus;
   roomId: string | null;
   name: string;
   lastName: string;
   profileImg: string | null;
   title?: string;
-  therapistId?: number;
   clientId?: number;
 }
 

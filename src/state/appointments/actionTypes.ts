@@ -80,6 +80,21 @@ export type FetchOneError = {
   payload: any;
 };
 
+export type GetServerTimeStart = {
+  type: ACTION_STRINGS.GET_SERVER_TIME_START;
+  payload: null;
+};
+
+export type GetServerTimeSuccess = {
+  type: ACTION_STRINGS.GET_SERVER_TIME_SUCCESS;
+  payload: number;
+};
+
+export type GetServerTimeError = {
+  type: ACTION_STRINGS.GET_SERVER_TIME_ERROR;
+  payload: any;
+};
+
 export type AppointmentActions =
   | FetchStart
   | FetchSuccess
@@ -96,4 +111,7 @@ export type AppointmentActions =
   | FetchOneStart
   | FetchOneSuccess
   | FetchOneError
+  | GetServerTimeStart
+  | GetServerTimeSuccess
+  | GetServerTimeError
   | ResetError<ACTION_STRINGS.RESET_ERROR>;

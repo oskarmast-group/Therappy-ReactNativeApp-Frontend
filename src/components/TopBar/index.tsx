@@ -2,7 +2,7 @@ import React from 'react';
 import {BaseText} from '../Text';
 import GoBackIcon from '../../resources/img/icons/GoBackIcon';
 import {View} from 'react-native';
-import {Link, useLocation} from 'react-router-native';
+import {Link} from 'react-router-native';
 import styles from './styles';
 import {PRIMARY_GREEN} from '../../resources/constants/colors';
 
@@ -10,8 +10,6 @@ const TopBar: React.FC<{title?: string; backRoute?: string}> = ({
   title = '',
   backRoute,
 }) => {
-  const location = useLocation();
-  console.log(location);
   return (
     <View style={styles.container}>
       <Link to={backRoute ?? '../..'}>

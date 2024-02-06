@@ -41,8 +41,10 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
       executeCall<Appointment>(() =>
         Axios.get<Appointment>(url + `/${id}`, {headers: headers()}),
       ),
-    // serverTime: id =>
-    //   executeCall(() => Axios.get(url + '/time-now', {headers})),
+    serverTime: () =>
+      executeCall<{now: number}>(() =>
+        Axios.get<{now: number}>(url + '/time-now', {headers: headers()}),
+      ),
   };
 };
 

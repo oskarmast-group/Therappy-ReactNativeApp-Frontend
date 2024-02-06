@@ -17,6 +17,9 @@ import {
   FetchUpcomingError,
   FetchUpcomingStart,
   FetchUpcomingSuccess,
+  GetServerTimeError,
+  GetServerTimeStart,
+  GetServerTimeSuccess,
 } from './actionTypes';
 
 // export const fetchMetadataStartAction = (payload: string): FetchMetadataStart => ({
@@ -117,6 +120,23 @@ export const fetchOneSuccessAction = (
 
 export const fetchOneErrorAction = (payload: any): FetchOneError => ({
   type: ACTION_STRINGS.FETCH_ONE_ERROR,
+  payload,
+});
+
+export const getServerTimeStartAction = (): GetServerTimeStart => ({
+  type: ACTION_STRINGS.GET_SERVER_TIME_START,
+  payload: null,
+});
+
+export const getServerTimeSuccessAction = (
+  payload: number,
+): GetServerTimeSuccess => ({
+  type: ACTION_STRINGS.GET_SERVER_TIME_SUCCESS,
+  payload,
+});
+
+export const getServerTimeErrorAction = (payload: any): GetServerTimeError => ({
+  type: ACTION_STRINGS.GET_SERVER_TIME_ERROR,
   payload,
 });
 

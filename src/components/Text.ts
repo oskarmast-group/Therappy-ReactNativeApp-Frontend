@@ -13,6 +13,8 @@ export interface TextProps {
   flexGrow?: number;
   flexShrink?: number;
   flex?: number;
+  fontStyle?: 'italic' | 'normal';
+  opacity?: number;
 }
 
 export const BaseText = styled.Text<TextProps>`
@@ -29,6 +31,8 @@ export const BaseText = styled.Text<TextProps>`
   ${({flexShrink}) => (flexShrink ? `flex-shrink:${flexShrink};` : '')}
   ${({flexGrow}) => (flexGrow ? `flex-grow:${flexGrow};` : '')}
   ${({flex}) => (flex ? `flex:${flex};` : '')}
+  font-style: ${({fontStyle}) => fontStyle ?? 'normal'};
+  opacity: ${({opacity}) => opacity ?? 1};
 `;
 
 export const Title = styled.Text`

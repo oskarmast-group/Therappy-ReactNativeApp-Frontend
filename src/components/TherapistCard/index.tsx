@@ -1,6 +1,6 @@
 import React, {PropsWithChildren} from 'react';
-import {Image, View} from 'react-native';
-import styles from './styles';
+import {StyleSheet, View} from 'react-native';
+import styles, {ImageComponent, ImageContainer} from './styles';
 import {Link} from 'react-router-native';
 import {IMAGES_URL} from '../../resources/constants/urls';
 import ProfileIcon from '../../resources/img/icons/ProfileIcon';
@@ -24,22 +24,37 @@ const LinkContainer: React.FC<
 const TherapistCard: React.FC<{
   therapist: NestedTherapist | BaseTherapist;
   clickable: boolean;
-}> = ({therapist, clickable = true}) => {
+  withBorder?: boolean;
+  imageProps?: {
+    width?: number;
+    height?: number;
+    borderRadius?: number;
+  };
+}> = ({therapist, clickable = true, withBorder = true, imageProps}) => {
   const {id, title, name, lastName, profileImg, reviewAvg, reviewsCount} =
     therapist;
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        withBorder
+          ? StyleSheet.compose(styles.container, styles.containerBorder)
+          : styles.container
+      }>
       <LinkContainer id={id} shouldRender={clickable}>
-        <View style={styles.imageContainer}>
+        <ImageContainer
+          width={imageProps?.width}
+          height={imageProps?.height}
+          borderRadius={imageProps?.borderRadius}>
           {profileImg ? (
-            <Image
-              style={styles.image}
+            <ImageComponent
+              width={imageProps?.width}
+              height={imageProps?.height}
               source={{uri: `${IMAGES_URL}${profileImg}`}}
             />
           ) : (
             <ProfileIcon />
           )}
-        </View>
+        </ImageContainer>
         <View style={styles.informationContainer}>
           <BaseText fontSize={18} marginBottom={5}>{`${
             title ?? ''

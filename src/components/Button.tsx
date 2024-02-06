@@ -22,13 +22,9 @@ const Button = styled.TouchableOpacity<ButtonProps>`
   padding-bottom: ${({paddingBottom}) => paddingBottom ?? 10}px;
   padding-left: ${({paddingLeft}) => paddingLeft ?? 10}px;
   border-radius: 50px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
   ${({flexShrink}) => (flexShrink ? `flex-shrink:${flexShrink};` : '')}
   ${({flexGrow}) => (flexGrow ? `flex-grow:${flexGrow};` : '')}
   ${({flex}) => (flex ? `flex:${flex};` : '')}
-  cursor: pointer;
   background-color: ${({disabled, backgroundColor}) =>
     disabled ? '#cccccc' : backgroundColor ?? PRIMARY_GREEN};
   opacity: ${({disabled}) => (disabled ? 0.6 : 1)};

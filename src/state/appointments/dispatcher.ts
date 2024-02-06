@@ -6,6 +6,7 @@ import {
   fetchPendingStartAction,
   fetchStartAction,
   fetchUpcomingStartAction,
+  getServerTimeStartAction,
   resetError,
 } from './actions';
 
@@ -31,7 +32,7 @@ export default class Dispatcher {
   fetchOneStart = (roomId: string) =>
     this._dispatch(fetchOneStartAction(roomId));
 
-  // getServerTimeStart = () => this.dispatch({ type: Types.GET_SERVER_TIME_START, payload: {} });
+  getServerTimeStart = () => this._dispatch(getServerTimeStartAction());
 
   // cancelStart = (payload) => this.dispatch({ type: Types.CANCEL_START, payload });
 

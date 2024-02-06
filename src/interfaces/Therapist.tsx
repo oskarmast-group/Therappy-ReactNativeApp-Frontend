@@ -1,3 +1,4 @@
+import {PublicAppointment} from './Appointment';
 import TimeAvailability from './TimeAvailability';
 
 export interface BaseTherapist {
@@ -15,7 +16,7 @@ interface Therapist extends BaseTherapist {
   experience: string | null;
   phrase: string | null;
   timeAvailability: TimeAvailability;
-  appointments: {date: string; id: number; therapistId: number}[];
+  appointments: PublicAppointment[];
 }
 
 export default Therapist;

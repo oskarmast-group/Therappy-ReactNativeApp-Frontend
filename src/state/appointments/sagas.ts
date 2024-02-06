@@ -14,6 +14,8 @@ import {
   fetchSuccessAction,
   fetchUpcomingErrorAction,
   fetchUpcomingSuccessAction,
+  getServerTimeErrorAction,
+  getServerTimeSuccessAction,
 } from './actions';
 import ACTION_STRINGS from './actionStrings';
 import {appointmentsAPI} from '../../resources/api';
@@ -146,20 +148,23 @@ function* fetchOneStart() {
   yield takeLatest(ACTION_STRINGS.FETCH_ONE_START, fetchOneStartAsync);
 }
 
-// function* getServerTimeStartAsync() {
-//     try {
-//         const res = yield appointmentsAPI.serverTime();
-//         yield put({ type: Types.GET_SERVER_TIME_SUCCESS, payload: res.now });
-//     } catch (error) {
-//         const message = processError(error);
-//         console.error(message);
-//         yield put({ type: Types.GET_SERVER_TIME_ERROR, payload: message });
-//     }
-// }
+function* getServerTimeStartAsync(): Generator<unknown, void, {now: number}> {
+  try {
+    const res = yield appointmentsAPI.serverTime();
+    yield put(getServerTimeSuccessAction(res.now));
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(getServerTimeErrorAction(message));
+  }
+}
 
-// function* getServerTimeStart() {
-//     yield takeLatest(Types.GET_SERVER_TIME_START, getServerTimeStartAsync);
-// }
+function* getServerTimeStart() {
+  yield takeLatest(
+    ACTION_STRINGS.GET_SERVER_TIME_START,
+    getServerTimeStartAsync,
+  );
+}
 
 // function* cancelStartAsync({ payload }) {
 //     try {
@@ -208,8 +213,7 @@ export default function* sagas() {
     call(fetchPendingStart),
     call(acceptStart),
     call(fetchOneStart),
-
-    // call(getServerTimeStart),
+    call(getServerTimeStart),
     // call(cancelStart),
     // call(rejectStart),
   ]);

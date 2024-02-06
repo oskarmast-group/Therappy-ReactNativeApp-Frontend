@@ -144,21 +144,24 @@ const reducer = (
         error: {timestamp: Date.now(), message: action.payload},
       };
 
-    // case Types.GET_SERVER_TIME_START:
-    //   return {...state, fetching: {config: {key: 'serverTime'}, state: true}};
-    // case Types.GET_SERVER_TIME_SUCCESS:
-    //   return {
-    //     ...state,
-    //     serverTime: action.payload,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.GET_SERVER_TIME_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    case ACTION_STRINGS.GET_SERVER_TIME_START:
+      return {
+        ...state,
+        fetching: {config: {key: 'serverTime'}, isFetching: true},
+      };
+    case ACTION_STRINGS.GET_SERVER_TIME_SUCCESS:
+      return {
+        ...state,
+        serverTime: action.payload,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.GET_SERVER_TIME_ERROR:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
     // case Types.CANCEL_START:
     //   return {...state, fetching: {config: {key: 'cancel'}, state: true}};
