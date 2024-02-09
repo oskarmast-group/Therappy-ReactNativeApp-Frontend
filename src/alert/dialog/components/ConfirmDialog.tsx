@@ -1,7 +1,7 @@
 import React from 'react';
-import Base from './Base';
-import Header from './Header';
-import ActionsContainer from './ActionsContainer';
+import Base from '../common/Base';
+import Header from '../common/Header';
+import ActionsContainer from '../common/ActionsContainer';
 import {ConfirmDialogConfig} from '../../interfaces/DialogConfig';
 import Button, {ButtonText, CancelButton} from '../../../components/Button';
 import {BaseText, Body} from '../../../components/Text';

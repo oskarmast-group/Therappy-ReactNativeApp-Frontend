@@ -20,11 +20,14 @@ interface ConfirmAlertOptions extends BaseOptions {
   config: ConfirmDialogConfig;
 }
 
-interface CustomAlertOptions extends BaseOptions {
+interface CustomAlertOptions<P = any> extends BaseOptions {
   type: ALERT_TYPES.CUSTOM;
-  config: CustomDialogConfig;
+  config: CustomDialogConfig<P>;
 }
 
-type AlertOptions = InfoAlertOptions | ConfirmAlertOptions | CustomAlertOptions;
+type AlertOptions<P = any> =
+  | InfoAlertOptions
+  | ConfirmAlertOptions
+  | CustomAlertOptions<P>;
 
 export default AlertOptions;

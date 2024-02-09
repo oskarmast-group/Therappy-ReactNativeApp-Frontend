@@ -1,3 +1,5 @@
+import {CustomDialogProps} from './CustomDialogProps';
+
 export interface InfoDialogConfig {
   showCloseButton?: boolean;
   header?: React.ReactNode;
@@ -15,7 +17,7 @@ export interface ConfirmDialogConfig {
   cancelButtonText: string;
 }
 
-export interface CustomDialogConfig {
-  body: React.FC;
-  props: any;
+export interface CustomDialogConfig<P = any> {
+  body: React.FC<CustomDialogProps>;
+  props: P;
 }

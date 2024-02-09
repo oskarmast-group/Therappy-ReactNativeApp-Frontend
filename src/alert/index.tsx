@@ -8,16 +8,12 @@ import React, {
 import Dialog from './dialog';
 import AlertOptions from './interfaces/AlertOptions';
 
-interface AlertServiceContextProps {
-  alert: (options: AlertOptions) => Promise<void>;
-  closeAlert: () => void;
-  submitAlert: (value: any) => void; // Define the type of 'value' as per your requirement
+interface AlertServiceContextProps<T = any> {
+  alert: (options: AlertOptions) => Promise<T>;
 }
 
 const AlertServiceContext = createContext<AlertServiceContextProps>({
   alert: () => Promise.reject(),
-  closeAlert: () => {},
-  submitAlert: () => {},
 });
 
 const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({children}) => {
@@ -27,30 +23,25 @@ const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({children}) => {
     reject: () => void;
   } | null>(null);
 
-  const setStateOpen = (options: AlertOptions) => {
+  function setStateOpen<T = any>(options: AlertOptions): Promise<T> {
     setAlertState(options);
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<T>((resolve, reject) => {
       promise.current = {resolve, reject};
     });
-  };
+  }
 
   const handleClose = () => {
     promise.current?.reject();
     setAlertState(null);
   };
 
-  const handleSubmit = (value: any) => {
+  const handleSubmit = (value?: any) => {
     promise.current?.resolve(value);
     setAlertState(null);
   };
 
   return (
-    <AlertServiceContext.Provider
-      value={{
-        alert: setStateOpen,
-        closeAlert: handleClose,
-        submitAlert: handleSubmit,
-      }}>
+    <AlertServiceContext.Provider value={{alert: setStateOpen}}>
       {children}
       <Dialog
         open={!!alertState}
@@ -62,14 +53,11 @@ const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({children}) => {
   );
 };
 
-const useAlert = (): ((options: AlertOptions) => Promise<void>) => {
+function useAlert<T = any, P = any>(): (
+  options: AlertOptions<P>,
+) => Promise<T> {
   return useContext(AlertServiceContext).alert;
-};
-
-const useAlertHelpers = (): [(value: any) => void, () => void] => {
-  const {submitAlert, closeAlert} = useContext(AlertServiceContext);
-  return [submitAlert, closeAlert];
-};
+}
 
 export default AlertServiceProvider;
-export {AlertServiceProvider, useAlert, useAlertHelpers};
+export {AlertServiceProvider, useAlert};

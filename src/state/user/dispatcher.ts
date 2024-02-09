@@ -1,6 +1,15 @@
 import {Dispatch} from 'react';
-import {UserActions} from './actionTypes';
-import {fetchStartAction, resetError} from './actions';
+import {
+  UpdateStartPayload,
+  UpdateTherapistStartPayload,
+  UserActions,
+} from './actionTypes';
+import {
+  fetchStartAction,
+  resetError,
+  updateStartAction,
+  updateTherapistStartAction,
+} from './actions';
 export default class Dispatcher {
   _dispatch: Dispatch<UserActions>;
 
@@ -13,10 +22,11 @@ export default class Dispatcher {
   //   updateImageStart = image =>
   //     this.dispatch({type: Types.UPDATE_IMAGE_START, payload: image});
 
-  //   updateStart = payload => this.dispatch({type: Types.UPDATE_START, payload});
+  updateStart = (payload: UpdateStartPayload) =>
+    this._dispatch(updateStartAction(payload));
 
-  //   updateTherapistStart = payload =>
-  //     this.dispatch({type: Types.UPDATE_THERAPIST_START, payload});
+  updateTherapistStart = (payload: UpdateTherapistStartPayload) =>
+    this._dispatch(updateTherapistStartAction(payload));
 
   //   setupIntentStart = () =>
   //     this.dispatch({type: Types.SETUP_INTENT_START, payload: {}});

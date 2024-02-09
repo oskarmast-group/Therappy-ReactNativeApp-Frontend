@@ -43,7 +43,7 @@ const List: React.FC = () => {
 
   return (
     <MainContainer withSideMenu={false} withBottomNavigation={false}>
-      <TopBar title={'Terapeutas'} />
+      <TopBar title={'Terapeutas'} backRoute={'../..'} />
       <View style={styles.searchContainer}>
         <View style={styles.imageContainer}>
           <SearchIcon />

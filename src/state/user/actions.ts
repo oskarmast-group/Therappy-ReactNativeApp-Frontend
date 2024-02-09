@@ -10,22 +10,13 @@ import {
   FetchSuccess,
   UpdateDocumentation,
   UpdateDocumentationPayload,
+  UpdateError,
+  UpdateStart,
+  UpdateStartPayload,
+  UpdateSuccess,
+  UpdateTherapistStart,
+  UpdateTherapistStartPayload,
 } from './actionTypes';
-
-// export const fetchMetadataStartAction = (payload: string): FetchMetadataStart => ({
-//     type: ACTION_STRINGS.FETCH_METADATA_START,
-//     payload,
-// });
-
-// export const fetchMetadataSuccessAction = (payload: Metadata): FetchMetadataSuccess => ({
-//     type: ACTION_STRINGS.FETCH_METADATA_SUCCESS,
-//     payload,
-// });
-
-// export const fetchMetadataErrorAction = (payload: any): FetchError => ({
-//     type: ACTION_STRINGS.FETCH_METADATA_ERROR,
-//     payload,
-// });
 
 export const fetchStartAction = (): FetchStart => ({
   type: ACTION_STRINGS.FETCH_START,
@@ -60,6 +51,30 @@ export const deleteDocumentationAction = (
   payload: string,
 ): DeleteDocumentation => ({
   type: ACTION_STRINGS.DELETE_DOCUMENTATION,
+  payload,
+});
+
+export const updateStartAction = (
+  payload: UpdateStartPayload,
+): UpdateStart => ({
+  type: ACTION_STRINGS.UPDATE_START,
+  payload,
+});
+
+export const updateSuccessAction = (): UpdateSuccess => ({
+  type: ACTION_STRINGS.UPDATE_SUCCESS,
+  payload: null,
+});
+
+export const updateErrorAction = (payload: any): UpdateError => ({
+  type: ACTION_STRINGS.UPDATE_ERROR,
+  payload,
+});
+
+export const updateTherapistStartAction = (
+  payload: UpdateTherapistStartPayload,
+): UpdateTherapistStart => ({
+  type: ACTION_STRINGS.UPDATE_THERAPIST_START,
   payload,
 });
 

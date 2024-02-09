@@ -20,6 +20,7 @@
     "react-native-media-query": "^2.0.1",
     "react-native-mmkv": "^2.11.0",
     "react-native-svg": "^14.1.0",
+    "react-native-ui-datepicker": "^2.0.0",
     "react-redux": "^7.2.8",
     "react-router-native": "^6.20.1",
     "redux": "^4.2.1",

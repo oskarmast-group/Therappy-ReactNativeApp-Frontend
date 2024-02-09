@@ -52,20 +52,20 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         error: {timestamp: Date.now(), message: action.payload},
       };
 
-    // // UPDATE
-    // case Types.UPDATE_START:
-    // case Types.UPDATE_THERAPIST_START:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       update: {
-    //         config: {key: action.payload.key},
-    //         state: true,
-    //       },
-    //     },
-    //   };
-    // case Types.UPDATE_IMAGE_START:
+    // UPDATE
+    case ACTION_STRINGS.UPDATE_START:
+    case ACTION_STRINGS.UPDATE_THERAPIST_START:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          update: {
+            config: {key: action.payload.key},
+            isFetching: true,
+          },
+        },
+      };
+    // case ACTION_STRINGS.UPDATE_IMAGE_START:
     //   return {
     //     ...state,
     //     fetching: {
@@ -73,24 +73,24 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
     //       update: {config: {key: 'image'}, state: true},
     //     },
     //   };
-    // case Types.UPDATE_SUCCESS:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       update: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.UPDATE_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       update: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    case ACTION_STRINGS.UPDATE_SUCCESS:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          update: {...DEFAULT_FETCHING_STATE},
+        },
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.UPDATE_ERROR:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          update: {...DEFAULT_FETCHING_STATE},
+        },
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
     // // SETUP INTENT
     // case Types.SETUP_INTENT_START:

@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     position: 'relative',
+    paddingTop: 10,
+    paddingBottom: 5,
   },
   input: {
     borderWidth: 0,
@@ -51,6 +53,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     paddingVertical: 5,
     paddingHorizontal: 10,
+  },
+  label: {
+    position: 'absolute',
+    top: 0,
+    left: 10,
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  labelWithIcon: {
+    left: 45,
   },
 });
 

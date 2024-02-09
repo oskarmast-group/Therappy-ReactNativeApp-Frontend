@@ -23,7 +23,7 @@ const Profile: React.FC = () => {
 
   return (
     <MainContainer withSideMenu={false} withBottomNavigation={false}>
-      <TopBar />
+      <TopBar backRoute={'../..'} />
       {!therapists.fetching.isFetching && therapists.current && (
         <Scrollable>
           <TherapistCard

@@ -3,10 +3,11 @@ import AlertOptions from '../interfaces/AlertOptions';
 import ALERT_TYPES from '../interfaces/AlertTypes';
 import InfoDialog from './components/InfoDialog';
 import ConfirmDialog from './components/ConfirmDialog';
+import {CustomDialogProps} from '../interfaces/CustomDialogProps';
 
 const Dialog: React.FC<{
   open: boolean;
-  onSubmit: (value: any) => void;
+  onSubmit: (value?: any) => void;
   onClose: () => void;
   alertOptions: AlertOptions | null;
 }> = ({open, onSubmit, onClose, alertOptions}) => {
@@ -27,17 +28,17 @@ const Dialog: React.FC<{
           config={config}
         />
       );
-    // case ALERT_TYPES.CUSTOM:
-    //   const CustomBody = config.body;
-    //   const props = config.props ?? {};
-    //   return (
-    //     <CustomBody
-    //       open={open}
-    //       onSubmit={onSubmit}
-    //       onClose={onClose}
-    //       {...props}
-    //     />
-    //   );
+    case ALERT_TYPES.CUSTOM:
+      const CustomBody: React.FC<CustomDialogProps> = config.body;
+      const props = config.props;
+      return (
+        <CustomBody
+          open={open}
+          onSubmit={onSubmit}
+          onClose={onClose}
+          props={props}
+        />
+      );
     default:
       return null;
   }

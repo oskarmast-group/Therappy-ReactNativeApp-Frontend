@@ -56,7 +56,7 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
       .catch(() => {});
   };
 
-  return !user.extraData?.therapist ? (
+  return user.extraData?.therapist ? (
     <Container>
       <NextAppointmentSection />
       <BaseText fontSize={18} weight={800} marginTop={4} marginBottom={4}>

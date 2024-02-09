@@ -1,5 +1,7 @@
 import Documentation from '../../interfaces/Documentation';
 import User from '../../interfaces/User';
+import UpdateTherapistFields from '../../interfaces/User/UpdateTherapistFields';
+import UpdateUserFields from '../../interfaces/User/UpdateUserFields';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 
@@ -38,6 +40,36 @@ export type DeleteDocumentation = {
   payload: string;
 };
 
+export type UpdateStartPayload = {
+  key: keyof UpdateUserFields;
+  value: string;
+};
+
+export type UpdateStart = {
+  type: ACTION_STRINGS.UPDATE_START;
+  payload: UpdateStartPayload;
+};
+
+export type UpdateSuccess = {
+  type: ACTION_STRINGS.UPDATE_SUCCESS;
+  payload: null;
+};
+
+export type UpdateError = {
+  type: ACTION_STRINGS.UPDATE_ERROR;
+  payload: any;
+};
+
+export type UpdateTherapistStartPayload = {
+  key: keyof UpdateTherapistFields;
+  value: string;
+};
+
+export type UpdateTherapistStart = {
+  type: ACTION_STRINGS.UPDATE_THERAPIST_START;
+  payload: UpdateTherapistStartPayload;
+};
+
 export type UserActions =
   | FetchError
   | FetchStart
@@ -45,4 +77,8 @@ export type UserActions =
   | AddDocumentation
   | UpdateDocumentation
   | DeleteDocumentation
+  | UpdateStart
+  | UpdateSuccess
+  | UpdateError
+  | UpdateTherapistStart
   | ResetError<ACTION_STRINGS.RESET_ERROR>;

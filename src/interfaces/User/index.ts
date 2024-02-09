@@ -28,9 +28,9 @@ export interface NestedTherapist extends NestedBaseUser {
 
 export type NestedUser = NestedClient | NestedBaseUser;
 
-interface CompleteUser extends BaseUser {
+export interface CompleteUser extends BaseUser {
   email: string;
-  phoneNumer: string | null;
+  phoneNumber: string | null;
   phoneCountryCode: string | null;
   countryOrigin: string;
   userType: UserType;

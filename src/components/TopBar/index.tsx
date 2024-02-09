@@ -12,7 +12,7 @@ const TopBar: React.FC<{title?: string; backRoute?: string}> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Link to={backRoute ?? '../..'}>
+      <Link to={backRoute ?? '..'}>
         <View style={styles.menuButton}>
           <GoBackIcon />
         </View>

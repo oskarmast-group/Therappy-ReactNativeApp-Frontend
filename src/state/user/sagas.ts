@@ -1,14 +1,21 @@
 import {takeLatest, put, all, call} from 'redux-saga/effects';
 import {
   profileAPI,
+  therapistAPI,
   //   stripeClientsAPI,
   //   stripeTherapistAPI,
-  //   therapistAPI,
 } from '../../resources/api';
 import Types from './actionStrings';
 import User from '../../interfaces/User';
-import {fetchErrorAction, fetchSuccessAction} from './actions';
+import {
+  fetchErrorAction,
+  fetchSuccessAction,
+  updateErrorAction,
+  updateSuccessAction,
+} from './actions';
 import {processError} from '../utils';
+import ACTION_STRINGS from './actionStrings';
+import {UpdateStart, UpdateTherapistStart} from './actionTypes';
 
 function* fetchStartAsync(): Generator<unknown, void, User> {
   try {
@@ -42,21 +49,44 @@ function* fetchStart() {
 //   yield takeLatest(Types.UPDATE_IMAGE_START, updateImageStartAsync);
 // }
 
-// function* updateStartAsync({payload}) {
-//   try {
-//     const {key, value} = payload;
-//     yield profileAPI.update({[key]: value});
-//     yield put({type: Types.UPDATE_SUCCESS, payload: {}});
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.UPDATE_ERROR, payload: message});
-//   }
-// }
+function* updateStartAsync({
+  payload,
+}: UpdateStart): Generator<unknown, void, null> {
+  try {
+    const {key, value} = payload;
+    yield profileAPI.update({[key]: value});
+    yield put(updateSuccessAction());
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(updateErrorAction(message));
+  }
+}
 
-// function* updateStart() {
-//   yield takeLatest(Types.UPDATE_START, updateStartAsync);
-// }
+function* updateStart() {
+  yield takeLatest(ACTION_STRINGS.UPDATE_START, updateStartAsync);
+}
+
+function* updateTherapistStartAsync({
+  payload,
+}: UpdateTherapistStart): Generator<unknown, void, null> {
+  try {
+    const {key, value} = payload;
+    yield therapistAPI.update({[key]: value});
+    yield put(updateSuccessAction());
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(updateErrorAction(message));
+  }
+}
+
+function* updateTherapistStart() {
+  yield takeLatest(
+    ACTION_STRINGS.UPDATE_THERAPIST_START,
+    updateTherapistStartAsync,
+  );
+}
 
 // function* updateSuccess() {
 //   yield takeLatest(Types.UPDATE_SUCCESS, fetchStartAsync);
@@ -96,22 +126,6 @@ function* fetchStart() {
 //     Types.FETCH_PAYMENT_METHODS_START,
 //     fetchPaymentMethodsStartAsync,
 //   );
-// }
-
-// function* updateTherapistStartAsync({payload}) {
-//   try {
-//     const {key, value} = payload;
-//     yield therapistAPI.update({[key]: value});
-//     yield put({type: Types.UPDATE_SUCCESS, payload: {}});
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.UPDATE_ERROR, payload: message});
-//   }
-// }
-
-// function* updateTherapistStart() {
-//   yield takeLatest(Types.UPDATE_THERAPIST_START, updateTherapistStartAsync);
 // }
 
 // function* deletePaymentMethodStartAsync({payload}) {
@@ -176,11 +190,11 @@ export default function* sagas() {
   yield all([
     call(fetchStart),
     // call(updateImageStart),
-    // call(updateStart),
+    call(updateStart),
+    call(updateTherapistStart),
     // call(updateSuccess),
     // call(setupIntentStart),
     // call(fetchPaymentMethodsStart),
-    // call(updateTherapistStart),
     // call(deletePaymentMethodStart),
     // call(acceptInvitationStart),
     // call(fetchAccountInformationStart),
