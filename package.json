@@ -17,6 +17,7 @@
     "react-native-collapsible": "^1.6.1",
     "react-native-document-picker": "^9.1.0",
     "react-native-dotenv": "^3.4.9",
+    "react-native-image-picker": "^7.1.0",
     "react-native-media-query": "^2.0.1",
     "react-native-mmkv": "^2.11.0",
     "react-native-svg": "^14.1.0",

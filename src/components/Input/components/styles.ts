@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 0,
     marginTop: 10,
+    fontSize: 16,
   },
   imageContainer: {
     width: 25,

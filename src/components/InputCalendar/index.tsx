@@ -74,7 +74,7 @@ const InputCalendar: React.FC<{
         <View style={styles.imageContainer}>{!!icon && icon}</View>
       )}
       <View style={styles.inputContainer}>
-        <BaseText>{formattedValue}</BaseText>
+        <BaseText fontSize={16}>{formattedValue}</BaseText>
       </View>
       {!!label && (
         <View style={styles.labelContainer}>

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {DARKER_TEXT} from '../../../resources/constants/colors';
+import {DARKER_TEXT, DARK_TEXT} from '../../../resources/constants/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,8 +58,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '500',
+    color: DARK_TEXT,
   },
   labelWithIcon: {
     left: 45,

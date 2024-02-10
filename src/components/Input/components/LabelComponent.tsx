@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef} from 'react';
 import {Animated, TextInputProps} from 'react-native';
+import {DARK_TEXT} from '../../../resources/constants/colors';
 
 interface LabelComponentProps extends TextInputProps {
   isActive: boolean;
@@ -9,7 +10,7 @@ interface LabelComponentProps extends TextInputProps {
 
 const FONT_SIZE = {
   MAX: 16,
-  MIN: 14,
+  MIN: 12,
 };
 
 const TOP_VALUE = {
@@ -52,6 +53,7 @@ const LabelComponent: React.FC<LabelComponentProps> = ({
         left: withIcon ? 45 : 10,
         fontSize: fontSizeValue,
         fontWeight: '500',
+        color: DARK_TEXT,
       }}
       {...rest}>
       {children}

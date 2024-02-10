@@ -12,6 +12,7 @@ import UpdateUserFields from '../../interfaces/User/UpdateUserFields';
 import UpdateTherapistFields from '../../interfaces/User/UpdateTherapistFields';
 import InputCalendar from '../../components/InputCalendar';
 import {dateFormat} from '../../utils/date';
+import ProfileUpload from './components/ProfileUpload';
 
 const Profile: React.FC = () => {
   const {data: user, dispatcher: userDispatcher} = useUser();
@@ -106,6 +107,7 @@ const Profile: React.FC = () => {
           <Loading />
         ) : (
           <View style={styles.container}>
+            <ProfileUpload />
             <Input
               inputProps={{
                 value: userData.name,
@@ -149,9 +151,6 @@ const Profile: React.FC = () => {
                   inputProps={{
                     value: therapistData.title,
                     onChangeText: value => onChangeTherapist('title')(value),
-                    numberOfLines: 5,
-                    multiline: true,
-                    textAlignVertical: 'top',
                   }}
                   labelProps={{label: 'Título'}}
                   editable={true}
