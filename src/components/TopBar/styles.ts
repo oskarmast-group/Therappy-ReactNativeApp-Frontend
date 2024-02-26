@@ -3,14 +3,17 @@ import StyleSheet from 'react-native-media-query';
 const {styles} = StyleSheet.create({
   container: {
     width: '100%',
-    height: 56,
+    minHeight: 56,
     display: 'flex',
     flexDirection: 'row',
+    flexBasis: 0,
+    flexShrink: 0,
+    flexGrow: 0,
     justifyContent: 'flex-start',
     gap: 20,
     alignItems: 'center',
     '@media (max-height: 670px)': {
-      height: 36,
+      minHeight: 36,
     },
   },
   menuButton: {

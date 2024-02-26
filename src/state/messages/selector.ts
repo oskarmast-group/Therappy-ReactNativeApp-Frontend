@@ -1,4 +1,5 @@
 import {createSelector} from 'reselect';
-const selector = state => state.messages;
+import {AppState} from '../store';
+const selector = (state: AppState) => state.messages;
 
 export default createSelector([selector], data => data);

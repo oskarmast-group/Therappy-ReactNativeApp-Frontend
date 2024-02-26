@@ -5,10 +5,10 @@ interface BaseMessage {
   type: MessageType;
   createdAt: string;
   from: MessageUser;
-  readTimestamp: string;
+  readTimestamp: string | null;
 }
 
-interface AssignmentMessage extends BaseMessage {
+export interface AssignmentMessage extends BaseMessage {
   type: MessageType.ASSIGNMENT;
   payload: {
     clientId: number;
@@ -16,7 +16,7 @@ interface AssignmentMessage extends BaseMessage {
   };
 }
 
-interface TextMessage extends BaseMessage {
+export interface TextMessage extends BaseMessage {
   type: MessageType.TEXT;
   payload: {
     message: string;

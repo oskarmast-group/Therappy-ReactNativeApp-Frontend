@@ -1,64 +1,64 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {
-  ActivityIndicator,
-  StyleSheet,
-  TouchableOpacity,
+  // ActivityIndicator,
+  // StyleSheet,
+  // TouchableOpacity,
   View,
 } from 'react-native';
 import styles from './styles';
 import ProfileIcon from '../../../../resources/img/icons/ProfileIcon';
 import {Image} from 'react-native';
 import {IMAGES_URL} from '../../../../resources/constants/urls';
-import CameraIcon from '../../../../resources/img/icons/CameraIcon';
+// import CameraIcon from '../../../../resources/img/icons/CameraIcon';
 import useUser from '../../../../state/user';
 
 const ProfileUpload: React.FC = () => {
-  const {data: user, dispatcher: userDispatcher} = useUser();
+  const {data: user /*, dispatcher: userDispatcher*/} = useUser();
 
-  const onUpload = useCallback(() => {
-    // DocumentPicker.pickSingle({
-    //   type: [types.doc, types.docx, types.pdf],
-    // })
-    //   .then(response => {
-    //     if (response.type === null || response.name === null) {
-    //       throw new Error('Formato invalido');
-    //     }
-    //     const file = new File(response.uri, response.type, response.name);
-    //     if (type === 'new') {
-    //       const data = {
-    //         doc: file,
-    //         documentType: props.documentType,
-    //         uuid: 'newdoc',
-    //       };
-    //       dispatcher.newDocStart(data);
-    //       return;
-    //     }
-    //   })
-    //   .catch(e => {
-    //     console.error(e);
-    //     if (!DocumentPicker.isCancel(e)) {
-    //       alert({
-    //         type: ALERT_TYPES.INFO,
-    //         config: {
-    //           title: 'Formato incorrecto',
-    //           body: (
-    //             <BaseText>
-    //               Verifica que el documento que intentas subir sea válido, menor
-    //               a 200kB y de tipo doc, docx o pdf.
-    //             </BaseText>
-    //           ),
-    //           buttonText: 'OK',
-    //         },
-    //       })
-    //         .then(() => {})
-    //         .catch(() => {});
-    //     }
-    //   });
-  }, [userDispatcher]);
+  // const onUpload = useCallback(() => {
+  // DocumentPicker.pickSingle({
+  //   type: [types.doc, types.docx, types.pdf],
+  // })
+  //   .then(response => {
+  //     if (response.type === null || response.name === null) {
+  //       throw new Error('Formato invalido');
+  //     }
+  //     const file = new File(response.uri, response.type, response.name);
+  //     if (type === 'new') {
+  //       const data = {
+  //         doc: file,
+  //         documentType: props.documentType,
+  //         uuid: 'newdoc',
+  //       };
+  //       dispatcher.newDocStart(data);
+  //       return;
+  //     }
+  //   })
+  //   .catch(e => {
+  //     console.error(e);
+  //     if (!DocumentPicker.isCancel(e)) {
+  //       alert({
+  //         type: ALERT_TYPES.INFO,
+  //         config: {
+  //           title: 'Formato incorrecto',
+  //           body: (
+  //             <BaseText>
+  //               Verifica que el documento que intentas subir sea válido, menor
+  //               a 200kB y de tipo doc, docx o pdf.
+  //             </BaseText>
+  //           ),
+  //           buttonText: 'OK',
+  //         },
+  //       })
+  //         .then(() => {})
+  //         .catch(() => {});
+  //     }
+  //   });
+  // }, []);
 
-  const loadingPicture =
-    user.fetching.update.isFetching &&
-    user.fetching.update.config?.key === 'image';
+  // const loadingPicture =
+  //   user.fetching.update.isFetching &&
+  //   user.fetching.update.config?.key === 'image';
 
   return (
     <View style={styles.container}>

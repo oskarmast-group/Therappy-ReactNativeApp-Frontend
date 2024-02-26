@@ -3,6 +3,10 @@ import User from '../../interfaces/User';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 import {
+  AcceptInvitationError,
+  AcceptInvitationStart,
+  AcceptInvitationStartPayload,
+  AcceptInvitationSuccess,
   AddDocumentation,
   DeleteDocumentation,
   FetchError,
@@ -75,6 +79,25 @@ export const updateTherapistStartAction = (
   payload: UpdateTherapistStartPayload,
 ): UpdateTherapistStart => ({
   type: ACTION_STRINGS.UPDATE_THERAPIST_START,
+  payload,
+});
+
+export const acceptInvitationStartAction = (
+  payload: AcceptInvitationStartPayload,
+): AcceptInvitationStart => ({
+  type: ACTION_STRINGS.ACCEPT_INVITATION_START,
+  payload,
+});
+
+export const acceptInvitationSuccessAction = (): AcceptInvitationSuccess => ({
+  type: ACTION_STRINGS.ACCEPT_INVITATION_SUCCESS,
+  payload: null,
+});
+
+export const acceptInvitationErrorAction = (
+  payload: any,
+): AcceptInvitationError => ({
+  type: ACTION_STRINGS.ACCEPT_INVITATION_ERROR,
   payload,
 });
 

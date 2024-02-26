@@ -8,14 +8,21 @@ import {
 import Types from './actionStrings';
 import User from '../../interfaces/User';
 import {
+  acceptInvitationErrorAction,
+  acceptInvitationSuccessAction,
   fetchErrorAction,
+  fetchStartAction,
   fetchSuccessAction,
   updateErrorAction,
   updateSuccessAction,
 } from './actions';
 import {processError} from '../utils';
 import ACTION_STRINGS from './actionStrings';
-import {UpdateStart, UpdateTherapistStart} from './actionTypes';
+import {
+  AcceptInvitationStart,
+  UpdateStart,
+  UpdateTherapistStart,
+} from './actionTypes';
 
 function* fetchStartAsync(): Generator<unknown, void, User> {
   try {
@@ -152,21 +159,26 @@ function* updateTherapistStart() {
 //   );
 // }
 
-// function* acceptInvitationStartAsync({payload}) {
-//   try {
-//     yield profileAPI.assignmentResponse(payload);
-//     yield put({type: Types.ACCEPT_INVITATION_SUCCESS, payload: {}});
-//     yield put({type: Types.FETCH_START, payload: {}});
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.ACCEPT_INVITATION_SUCCESS, payload: message});
-//   }
-// }
+function* acceptInvitationStartAsync({
+  payload,
+}: AcceptInvitationStart): Generator<unknown, void, null> {
+  try {
+    yield profileAPI.assignmentResponse(payload);
+    yield put(acceptInvitationSuccessAction());
+    yield put(fetchStartAction());
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(acceptInvitationErrorAction(message));
+  }
+}
 
-// function* acceptInvitationStart() {
-//   yield takeLatest(Types.ACCEPT_INVITATION_START, acceptInvitationStartAsync);
-// }
+function* acceptInvitationStart() {
+  yield takeLatest(
+    ACTION_STRINGS.ACCEPT_INVITATION_START,
+    acceptInvitationStartAsync,
+  );
+}
 
 // function* fetchAccountInformationStartAsync() {
 //   try {
@@ -196,7 +208,7 @@ export default function* sagas() {
     // call(setupIntentStart),
     // call(fetchPaymentMethodsStart),
     // call(deletePaymentMethodStart),
-    // call(acceptInvitationStart),
+    call(acceptInvitationStart),
     // call(fetchAccountInformationStart),
   ]);
 }

@@ -1,30 +1,35 @@
-import {DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR} from 'state/constants';
-import Types from './types';
+import {DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR} from '../constants';
+import ACTION_STRINGS from './actionStrings';
+import {MessagesActions} from './actionTypes';
+import MessagesState from './state';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: MessagesState = {
   list: [],
   markedAsRead: [],
   fetching: {
     fetch: {...DEFAULT_FETCHING_STATE},
-    fetchOne: {...DEFAULT_FETCHING_STATE},
+    sendMessage: {...DEFAULT_FETCHING_STATE},
     markRead: {...DEFAULT_FETCHING_STATE},
   },
   extraMessagesToFetch: 0,
   error: {...DEFAULT_NO_ERROR},
 };
 
-const reducer = (state = INITIAL_STATE, action) => {
+const reducer = (
+  state = INITIAL_STATE,
+  action: MessagesActions,
+): MessagesState => {
   switch (action.type) {
     // FETCH
-    case Types.FETCH_START:
+    case ACTION_STRINGS.FETCH_START:
       return {
         ...state,
         fetching: {
           ...state.fetching,
-          fetch: {...DEFAULT_FETCHING_STATE, state: true},
+          fetch: {...DEFAULT_FETCHING_STATE, isFetching: true},
         },
       };
-    case Types.FETCH_SUCCESS:
+    case ACTION_STRINGS.FETCH_SUCCESS:
       return {
         ...state,
         list: action.payload,
@@ -34,7 +39,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         },
         error: {...DEFAULT_NO_ERROR},
       };
-    case Types.FETCH_ERROR:
+    case ACTION_STRINGS.FETCH_ERROR:
       return {
         ...state,
         fetching: {
@@ -45,68 +50,55 @@ const reducer = (state = INITIAL_STATE, action) => {
       };
 
     // SEND MESSAGE
-    case Types.SEND_MESSAGE_START:
+    case ACTION_STRINGS.SEND_MESSAGE_START:
       return {
         ...state,
         list: [...state.list, action.payload],
         fetching: {
           ...state.fetching,
-          fetchOne: {
-            config: {id: action.payload.uuid},
-            state: true,
+          sendMessage: {
+            config: {uuid: action.payload.uuid},
+            isFetching: true,
           },
         },
       };
-    case Types.SEND_MESSAGE_SUCCESS: {
+    case ACTION_STRINGS.SEND_MESSAGE_SUCCESS: {
       const newList = [...state.list];
       const message = newList.find(msg => msg.uuid === action.payload.uuid);
-      const index = newList.indexOf(message);
-      newList[index] = action.payload;
+      if (message) {
+        const index = newList.indexOf(message);
+        newList[index] = action.payload;
+      }
       return {
         ...state,
         list: newList,
         fetching: {
           ...state.fetching,
-          fetchOne: {...DEFAULT_FETCHING_STATE},
+          sendMessage: {...DEFAULT_FETCHING_STATE},
         },
         error: {...DEFAULT_NO_ERROR},
       };
     }
-    case Types.SEND_MESSAGE_ERROR:
+    case ACTION_STRINGS.SEND_MESSAGE_ERROR:
       return {
         ...state,
         fetching: {
           ...state.fetching,
-          fetchOne: {...DEFAULT_FETCHING_STATE},
+          sendMessage: {...DEFAULT_FETCHING_STATE},
         },
         error: {timestamp: Date.now(), message: action.payload},
       };
 
-    case Types.ADD_MESSAGE:
-      return {
-        ...state,
-        list: [...state.list, action.payload],
-      };
-
-    case Types.CLEAR_CHAT:
-      return {...state, list: []};
-
-    case Types.SET_EXTRA_MESSAGES_TO_FETCH:
-      return {
-        ...state,
-        extraMessagesToFetch: action.payload,
-      };
-
     // MARK AS READ
-    case Types.MARK_AS_READ_START:
+    case ACTION_STRINGS.MARK_AS_READ_START:
       return {
         ...state,
         fetching: {
           ...state.fetching,
-          markRead: {...DEFAULT_FETCHING_STATE, state: true},
+          markRead: {...DEFAULT_FETCHING_STATE, isFetching: true},
         },
       };
-    case Types.MARK_AS_READ_SUCCESS:
+    case ACTION_STRINGS.MARK_AS_READ_SUCCESS:
       return {
         ...state,
         markedAsRead: [...state.markedAsRead, ...action.payload],
@@ -116,7 +108,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         },
         error: {...DEFAULT_NO_ERROR},
       };
-    case Types.MARK_AS_READ_ERROR:
+    case ACTION_STRINGS.MARK_AS_READ_ERROR:
       return {
         ...state,
         fetching: {
@@ -126,10 +118,26 @@ const reducer = (state = INITIAL_STATE, action) => {
         error: {timestamp: Date.now(), message: action.payload},
       };
 
-    case Types.CLEAR_READ_LIST:
+    // OTHER ACTIONS
+    case ACTION_STRINGS.ADD_MESSAGE:
+      return {
+        ...state,
+        list: [...state.list, action.payload],
+      };
+
+    case ACTION_STRINGS.CLEAR_CHAT:
+      return {...state, list: []};
+
+    case ACTION_STRINGS.SET_EXTRA_MESSAGES_TO_FETCH:
+      return {
+        ...state,
+        extraMessagesToFetch: action.payload,
+      };
+
+    case ACTION_STRINGS.CLEAR_READ_LIST:
       return {...state, markedAsRead: [], error: {...DEFAULT_NO_ERROR}};
 
-    case Types.RESET_ERROR:
+    case ACTION_STRINGS.RESET_ERROR:
       return {...state, error: {...DEFAULT_NO_ERROR}};
 
     default:

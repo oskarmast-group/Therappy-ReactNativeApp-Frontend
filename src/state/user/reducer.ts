@@ -178,33 +178,33 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
     //     error: {timestamp: Date.now(), message: action.payload},
     //   };
 
-    // // ACCEPT INVITATION
-    // case Types.ACCEPT_INVITATION_START:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       acceptInvitation: {...DEFAULT_FETCHING_STATE, state: true},
-    //     },
-    //   };
-    // case Types.ACCEPT_INVITATION_SUCCESS:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       acceptInvitation: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.ACCEPT_INVITATION_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       acceptInvitation: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    // ACCEPT INVITATION
+    case ACTION_STRINGS.ACCEPT_INVITATION_START:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          acceptInvitation: {...DEFAULT_FETCHING_STATE, isFetching: true},
+        },
+      };
+    case ACTION_STRINGS.ACCEPT_INVITATION_SUCCESS:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          acceptInvitation: {...DEFAULT_FETCHING_STATE},
+        },
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.ACCEPT_INVITATION_ERROR:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          acceptInvitation: {...DEFAULT_FETCHING_STATE},
+        },
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
     // // ACCOUNT INFORMATION
     // case Types.FETCH_ACCOUNT_INFORMATION_START:

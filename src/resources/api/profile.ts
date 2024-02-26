@@ -3,6 +3,7 @@ import Authorization from './auth';
 import {executeCall} from './utils';
 import User from '../../interfaces/User';
 import UpdateUserFields from '../../interfaces/User/UpdateUserFields';
+import {AcceptInvitationStartPayload} from '../../state/user/actionTypes';
 
 const crudder = (domain: string, resource: string, withAuth = true) => {
   const url = `${domain}/${resource}`;
@@ -22,10 +23,12 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
           UpdateUserFields
         >(url, data, {headers: headers()}),
       ),
-    // assignmentResponse: data =>
-    //   executeCall(() =>
-    //     Axios.post(url + '/assignment-response', data, {headers}),
-    //   ),
+    assignmentResponse: (data: AcceptInvitationStartPayload) =>
+      executeCall<{accepted: boolean}>(() =>
+        Axios.post<{accepted: boolean}>(url + '/assignment-response', data, {
+          headers: headers(),
+        }),
+      ),
   };
 };
 

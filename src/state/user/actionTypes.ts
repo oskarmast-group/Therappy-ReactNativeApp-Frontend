@@ -70,6 +70,26 @@ export type UpdateTherapistStart = {
   payload: UpdateTherapistStartPayload;
 };
 
+export type AcceptInvitationStartPayload = {
+  accept: boolean;
+  invitationUUID: string;
+};
+
+export type AcceptInvitationStart = {
+  type: ACTION_STRINGS.ACCEPT_INVITATION_START;
+  payload: AcceptInvitationStartPayload;
+};
+
+export type AcceptInvitationSuccess = {
+  type: ACTION_STRINGS.ACCEPT_INVITATION_SUCCESS;
+  payload: null;
+};
+
+export type AcceptInvitationError = {
+  type: ACTION_STRINGS.ACCEPT_INVITATION_ERROR;
+  payload: any;
+};
+
 export type UserActions =
   | FetchError
   | FetchStart
@@ -81,4 +101,7 @@ export type UserActions =
   | UpdateSuccess
   | UpdateError
   | UpdateTherapistStart
+  | AcceptInvitationStart
+  | AcceptInvitationSuccess
+  | AcceptInvitationError
   | ResetError<ACTION_STRINGS.RESET_ERROR>;

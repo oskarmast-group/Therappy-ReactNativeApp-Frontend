@@ -4,7 +4,7 @@ import therapists from './therapists/reducer';
 import categories from './categories/reducer';
 import appointments from './appointments/reducer';
 import conversations from './conversations/reducer';
-// import messages from './messages/reducer';
+import messages from './messages/reducer';
 import requiredDocumentation from './requiredDocumentation/reducer';
 
 const rootReducer = combineReducers({
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   categories,
   appointments,
   conversations,
-  // messages,
+  messages,
   requiredDocumentation,
 });
 

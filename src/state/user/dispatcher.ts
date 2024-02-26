@@ -1,10 +1,12 @@
 import {Dispatch} from 'react';
 import {
+  AcceptInvitationStartPayload,
   UpdateStartPayload,
   UpdateTherapistStartPayload,
   UserActions,
 } from './actionTypes';
 import {
+  acceptInvitationStartAction,
   fetchStartAction,
   resetError,
   updateStartAction,
@@ -40,8 +42,8 @@ export default class Dispatcher {
   //   fetchAccountInformationStart = () =>
   //     this.dispatch({type: Types.FETCH_ACCOUNT_INFORMATION_START, payload: {}});
 
-  //   acceptInvitationStart = payload =>
-  //     this.dispatch({type: Types.ACCEPT_INVITATION_START, payload});
+  acceptInvitationStart = (payload: AcceptInvitationStartPayload) =>
+    this._dispatch(acceptInvitationStartAction(payload));
 
   resetError = () => this._dispatch(resetError());
 }

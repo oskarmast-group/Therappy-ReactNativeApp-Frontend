@@ -7,7 +7,7 @@ import appointments from './appointments';
 import conversations from './conversations';
 import category from './category';
 import therapist from './therapist';
-// import messages from './messages';
+import messages from './messages';
 // import notifications from './notifications';
 import authCrudder from './auth-crud';
 // import stripeTherapist from './stripeTherapist';
@@ -35,7 +35,7 @@ export const categoriesAPI = category(API, 'categories');
 // export const stripeTherapistAPI = stripeTherapist(API, 'stripe-therapist');
 export const appointmentsAPI = appointments(API, 'appointments');
 export const conversationsAPI = conversations(API, 'conversations');
-// export const messagesAPI = messages(API, 'messages');
+export const messagesAPI = messages(API, 'messages');
 // export const notificationsAPI = notifications(API, 'notifications');
 export const requiredDocumentationAPI = requiredDocumentation(
   API,
