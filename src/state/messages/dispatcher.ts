@@ -10,7 +10,7 @@ import {
   sendMessageStartAction,
   setExtraMessagesToFetchAction,
 } from './actions';
-import Message from '../../interfaces/Conversation/Message';
+import Message, {MessagePayload} from '../../interfaces/Conversation/Message';
 
 export default class Dispatcher {
   _dispatch: Dispatch<MessagesActions>;
@@ -21,7 +21,7 @@ export default class Dispatcher {
 
   fetchStart = () => this._dispatch(fetchStartAction());
 
-  sendMessageStart = (payload: Message) =>
+  sendMessageStart = (payload: MessagePayload) =>
     this._dispatch(sendMessageStartAction(payload));
 
   markAsReadStart = () => this._dispatch(markAsReadStartAction());

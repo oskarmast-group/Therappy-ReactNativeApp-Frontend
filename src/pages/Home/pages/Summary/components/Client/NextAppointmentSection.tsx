@@ -4,7 +4,7 @@ import {BaseText} from '../../../../../../components/Text';
 import useAppointments from '../../../../../../state/appointments';
 import AppointmentStatus from '../../../../../../interfaces/Appointment/AppointmentStatus';
 import {useSocket} from '../../../../../../Socket';
-import AppointmentCard from '../../../../../../components/AppointmentCard/indext';
+import AppointmentCard from '../../../../../../components/AppointmentCard';
 
 const NextAppointmentSection: React.FC = () => {
   const {data: appointments, dispatcher: appointmentsDispatcher} =

@@ -4,7 +4,7 @@ import styles from './styles';
 import {BaseAppointment} from '../../../../../../interfaces/Appointment';
 import {BaseText} from '../../../../../../components/Text';
 import {dateFormat, getDisplayDate} from '../../../../../../utils/date';
-import AppointmentCard from '../../../../../../components/AppointmentCard/indext';
+import AppointmentCard from '../../../../../../components/AppointmentCard';
 
 const AppointmentsList: React.FC<{list: BaseAppointment[]}> = ({list}) => {
   const dates = useMemo(() => {

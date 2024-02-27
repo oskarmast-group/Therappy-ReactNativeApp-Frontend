@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 0,
     marginTop: 10,
+    fontFamily: 'Open Sans',
   },
   imageContainer: {
     width: 25,

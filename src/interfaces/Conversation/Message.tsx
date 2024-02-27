@@ -25,6 +25,18 @@ export interface TextMessage extends BaseMessage {
 
 type Message = AssignmentMessage | TextMessage;
 
+export interface MessagePayload {
+  uuid: string;
+  type: MessageType;
+  createdAt: string;
+  from: {
+    id: number;
+  };
+  payload: {
+    message: string;
+  };
+}
+
 interface SocketFields {
   conversationUUID: string;
 }

@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     padding: 0,
     marginTop: 10,
     fontSize: 16,
+    fontFamily: 'Open Sans',
   },
   imageContainer: {
     width: 25,

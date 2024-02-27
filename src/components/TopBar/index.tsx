@@ -1,10 +1,10 @@
 import React from 'react';
 import {BaseText} from '../Text';
 import GoBackIcon from '../../resources/img/icons/GoBackIcon';
-import {View} from 'react-native';
-import {Link} from 'react-router-native';
+import {TouchableOpacity, View} from 'react-native';
 import styles from './styles';
 import {PRIMARY_GREEN} from '../../resources/constants/colors';
+import {useRouter} from '../../providers/RouterProvider';
 
 const TopBar: React.FC<{
   title?: string;
@@ -12,13 +12,14 @@ const TopBar: React.FC<{
   fontSize?: number;
   color?: string;
 }> = ({title = '', backRoute, fontSize = 26, color = PRIMARY_GREEN}) => {
+  const {goBack} = useRouter();
   return (
     <View style={styles.container}>
-      <Link to={backRoute ?? '..'}>
+      <TouchableOpacity onPress={() => goBack(backRoute ?? '..')}>
         <View style={styles.menuButton}>
           <GoBackIcon />
         </View>
-      </Link>
+      </TouchableOpacity>
       <BaseText
         flexGrow={1}
         fontSize={fontSize}

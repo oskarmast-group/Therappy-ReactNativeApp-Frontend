@@ -10,6 +10,7 @@ import Loading from '../../components/Loading';
 import {DARKER_TEXT} from '../../resources/constants/colors';
 import {MessageScrollProvider} from './MessageScrollProvider';
 import MessagesList from './components/MessagesList';
+import MessageInput from './components/MessageInput';
 
 const Conversation: React.FC = () => {
   const {data: conversations, dispatcher: conversationsDispatcher} =
@@ -71,7 +72,7 @@ const Conversation: React.FC = () => {
         conversations.conversation?.uuid && (
           <MessageScrollProvider>
             <MessagesList />
-            {/* <MessageInput /> */}
+            <MessageInput />
           </MessageScrollProvider>
         )
       )}

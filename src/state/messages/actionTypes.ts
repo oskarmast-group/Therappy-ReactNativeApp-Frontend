@@ -1,4 +1,4 @@
-import Message from '../../interfaces/Conversation/Message';
+import Message, {MessagePayload} from '../../interfaces/Conversation/Message';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 
@@ -19,7 +19,7 @@ export type FetchError = {
 
 export type SendMessageStart = {
   type: ACTION_STRINGS.SEND_MESSAGE_START;
-  payload: Message;
+  payload: MessagePayload;
 };
 
 export type SendMessageSuccess = {

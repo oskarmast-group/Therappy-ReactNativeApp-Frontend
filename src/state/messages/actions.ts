@@ -1,4 +1,4 @@
-import Message from '../../interfaces/Conversation/Message';
+import Message, {MessagePayload} from '../../interfaces/Conversation/Message';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 import {
@@ -32,7 +32,9 @@ export const fetchErrorAction = (payload: any): FetchError => ({
   payload,
 });
 
-export const sendMessageStartAction = (payload: Message): SendMessageStart => ({
+export const sendMessageStartAction = (
+  payload: MessagePayload,
+): SendMessageStart => ({
   type: ACTION_STRINGS.SEND_MESSAGE_START,
   payload,
 });
