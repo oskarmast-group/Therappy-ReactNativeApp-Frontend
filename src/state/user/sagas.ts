@@ -81,6 +81,7 @@ function* updateTherapistStartAsync({
     const {key, value} = payload;
     yield therapistAPI.update({[key]: value});
     yield put(updateSuccessAction());
+    yield put(fetchStartAction());
   } catch (error) {
     const message = processError(error);
     console.error(message);

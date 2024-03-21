@@ -1,4 +1,5 @@
 import Documentation from '../../interfaces/Documentation';
+import TimeAvailability from '../../interfaces/TimeAvailability';
 import User from '../../interfaces/User';
 import UpdateTherapistFields from '../../interfaces/User/UpdateTherapistFields';
 import UpdateUserFields from '../../interfaces/User/UpdateUserFields';
@@ -62,7 +63,7 @@ export type UpdateError = {
 
 export type UpdateTherapistStartPayload = {
   key: keyof UpdateTherapistFields;
-  value: string;
+  value: string | TimeAvailability;
 };
 
 export type UpdateTherapistStart = {

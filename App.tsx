@@ -9,6 +9,7 @@ import Profile from './src/pages/Profile';
 import Conversation from './src/pages/Conversations';
 import {useWindowDimensions} from 'react-native';
 import useMessages from './src/state/messages';
+import Timetable from './src/pages/Timetable';
 
 function App(): JSX.Element {
   const {height} = useWindowDimensions();
@@ -47,6 +48,7 @@ function App(): JSX.Element {
         path="/conversacion/:conversationId"
         element={<PrivateRoute component={Conversation} />}
       />
+      <Route path="/horario" element={<PrivateRoute component={Timetable} />} />
     </Routes>
   );
 }

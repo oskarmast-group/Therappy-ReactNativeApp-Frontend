@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {PRIMARY_GREEN} from '../resources/constants/colors';
+import {PRIMARY_GREEN, TEXT} from '../resources/constants/colors';
 
 export interface TextProps {
   color?: string;
@@ -19,7 +19,7 @@ export interface TextProps {
 
 export const BaseText = styled.Text<TextProps>`
   font-family: 'Open Sans';
-  color: ${({color}) => color ?? '#1e2205'};
+  color: ${({color}) => color ?? TEXT};
   font-weight: ${({weight}) => weight ?? 'normal'};
   font-size: ${({fontSize}) => (fontSize ? `${fontSize}px` : '16px')};
   margin-top: ${({marginTop}) => (marginTop ? `${marginTop}px` : '0')};
