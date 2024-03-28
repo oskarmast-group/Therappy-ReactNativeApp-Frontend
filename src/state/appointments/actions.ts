@@ -5,6 +5,10 @@ import {
   AcceptError,
   AcceptStart,
   AcceptSuccess,
+  CancelError,
+  CancelStart,
+  CancelSuccess,
+  ClearCurrent,
   FetchError,
   FetchOneError,
   FetchOneStart,
@@ -20,22 +24,10 @@ import {
   GetServerTimeError,
   GetServerTimeStart,
   GetServerTimeSuccess,
+  RejectError,
+  RejectStart,
+  RejectSuccess,
 } from './actionTypes';
-
-// export const fetchMetadataStartAction = (payload: string): FetchMetadataStart => ({
-//     type: ACTION_STRINGS.FETCH_METADATA_START,
-//     payload,
-// });
-
-// export const fetchMetadataSuccessAction = (payload: Metadata): FetchMetadataSuccess => ({
-//     type: ACTION_STRINGS.FETCH_METADATA_SUCCESS,
-//     payload,
-// });
-
-// export const fetchMetadataErrorAction = (payload: any): FetchError => ({
-//     type: ACTION_STRINGS.FETCH_METADATA_ERROR,
-//     payload,
-// });
 
 export const fetchStartAction = (): FetchStart => ({
   type: ACTION_STRINGS.FETCH_START,
@@ -90,7 +82,7 @@ export const fetchPendingErrorAction = (payload: any): FetchPendingError => ({
 
 export const acceptStartAction = (
   appointmentId: number,
-  roomId?: string,
+  roomId?: string | null,
 ): AcceptStart => ({
   type: ACTION_STRINGS.ACCEPT_START,
   payload: {appointmentId, roomId},
@@ -137,6 +129,44 @@ export const getServerTimeSuccessAction = (
 
 export const getServerTimeErrorAction = (payload: any): GetServerTimeError => ({
   type: ACTION_STRINGS.GET_SERVER_TIME_ERROR,
+  payload,
+});
+
+export const clearCurrentAction = (): ClearCurrent => ({
+  type: ACTION_STRINGS.CLEAR_CURRENT,
+  payload: null,
+});
+
+export const cancelStartAction = (roomId: string): CancelStart => ({
+  type: ACTION_STRINGS.CANCEL_START,
+  payload: {roomId},
+});
+
+export const cancelSuccessAction = (payload: Appointment): CancelSuccess => ({
+  type: ACTION_STRINGS.CANCEL_SUCCESS,
+  payload,
+});
+
+export const cancelErrorAction = (payload: any): CancelError => ({
+  type: ACTION_STRINGS.CANCEL_ERROR,
+  payload,
+});
+
+export const rejectStartAction = (
+  appointmentId: number,
+  roomId?: string | null,
+): RejectStart => ({
+  type: ACTION_STRINGS.REJECT_START,
+  payload: {appointmentId, roomId},
+});
+
+export const rejectSuccessAction = (payload: Appointment): RejectSuccess => ({
+  type: ACTION_STRINGS.REJECT_SUCCESS,
+  payload,
+});
+
+export const rejectErrorAction = (payload: any): RejectError => ({
+  type: ACTION_STRINGS.REJECT_ERROR,
   payload,
 });
 

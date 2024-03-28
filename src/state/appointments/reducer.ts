@@ -163,41 +163,41 @@ const reducer = (
         error: {timestamp: Date.now(), message: action.payload},
       };
 
-    // case Types.CANCEL_START:
-    //   return {...state, fetching: {config: {key: 'cancel'}, state: true}};
-    // case Types.CANCEL_SUCCESS:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.CANCEL_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    case ACTION_STRINGS.CANCEL_START:
+      return {...state, fetching: {config: {key: 'cancel'}, isFetching: true}};
+    case ACTION_STRINGS.CANCEL_SUCCESS:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.CANCEL_ERROR:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
-    // case Types.REJECT_START:
-    //   return {...state, fetching: {config: {key: 'reject'}, state: true}};
-    // case Types.REJECT_SUCCESS:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.REJECT_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {...DEFAULT_FETCHING_STATE},
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    case ACTION_STRINGS.REJECT_START:
+      return {...state, fetching: {config: {key: 'reject'}, isFetching: true}};
+    case ACTION_STRINGS.REJECT_SUCCESS:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.REJECT_ERROR:
+      return {
+        ...state,
+        fetching: {...DEFAULT_FETCHING_STATE},
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
-    // case Types.CLEAR_CURRENT:
-    //   return {...state, appointment: {}};
+    case ACTION_STRINGS.CLEAR_CURRENT:
+      return {...state, appointment: null};
 
-    // case Types.RESET_ERROR:
-    //   return {...state, error: {...DEFAULT_NO_ERROR}};
+    case ACTION_STRINGS.RESET_ERROR:
+      return {...state, error: {...DEFAULT_NO_ERROR}};
 
     default:
       return state;

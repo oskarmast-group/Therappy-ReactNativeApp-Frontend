@@ -2,6 +2,11 @@ import Axios, {AxiosResponse} from 'axios';
 import Authorization from './auth';
 import {executeCall} from './utils';
 import Appointment, {BaseAppointment} from '../../interfaces/Appointment';
+import {
+  AcceptStartPayload,
+  CancelStartPayload,
+  RejectStartPayload,
+} from '../../state/appointments/actionTypes';
 
 const crudder = (domain: string, resource: string, withAuth = true) => {
   const url = `${domain}/${resource}`;
@@ -21,22 +26,46 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
       executeCall<BaseAppointment[]>(() =>
         Axios.get<BaseAppointment[]>(url + '/upcoming', {headers: headers()}),
       ),
-    // reserve: data =>
-    //   executeCall(() => Axios.post(url + '/reserve', data, {headers})),
-    // confirm: data =>
-    //   executeCall(() => Axios.post(url + '/confirm', data, {headers})),
-    accept: (data: {appointmentId: number}) =>
+    reserve: (data: {therapistId: number; dateISO: string}) =>
       executeCall<Appointment>(() =>
         Axios.post<
           Appointment,
           AxiosResponse<Appointment, any>,
-          {appointmentId: number}
+          {therapistId: number; dateISO: string}
+        >(url + '/reserve', data, {headers: headers()}),
+      ),
+    confirm: (data: {appointmentId: number; paymentMethodId?: string | null}) =>
+      executeCall<Appointment>(() =>
+        Axios.post<
+          Appointment,
+          AxiosResponse<Appointment, any>,
+          {appointmentId: number; paymentMethodId?: string | null}
+        >(url + '/confirm', data, {headers: headers()}),
+      ),
+    accept: (data: AcceptStartPayload) =>
+      executeCall<Appointment>(() =>
+        Axios.post<
+          Appointment,
+          AxiosResponse<Appointment, any>,
+          AcceptStartPayload
         >(url + '/accept', data, {headers: headers()}),
       ),
-    // reject: data =>
-    //   executeCall(() => Axios.post(url + '/reject', data, {headers})),
-    // cancel: data =>
-    //   executeCall(() => Axios.post(url + '/cancel', data, {headers})),
+    reject: (data: RejectStartPayload) =>
+      executeCall<Appointment>(() =>
+        Axios.post<
+          Appointment,
+          AxiosResponse<Appointment, any>,
+          RejectStartPayload
+        >(url + '/reject', data, {headers: headers()}),
+      ),
+    cancel: (data: CancelStartPayload) =>
+      executeCall<Appointment>(() =>
+        Axios.post<
+          Appointment,
+          AxiosResponse<Appointment, any>,
+          CancelStartPayload
+        >(url + '/cancel', data, {headers: headers()}),
+      ),
     view: (id: string) =>
       executeCall<Appointment>(() =>
         Axios.get<Appointment>(url + `/${id}`, {headers: headers()}),

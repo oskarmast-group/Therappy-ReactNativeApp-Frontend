@@ -4,6 +4,8 @@ import {processError} from '../utils';
 import {
   acceptErrorAction,
   acceptSuccessAction,
+  cancelErrorAction,
+  cancelSuccessAction,
   fetchErrorAction,
   fetchOneErrorAction,
   fetchOneStartAction,
@@ -16,10 +18,17 @@ import {
   fetchUpcomingSuccessAction,
   getServerTimeErrorAction,
   getServerTimeSuccessAction,
+  rejectErrorAction,
+  rejectSuccessAction,
 } from './actions';
 import ACTION_STRINGS from './actionStrings';
 import {appointmentsAPI} from '../../resources/api';
-import {AcceptStart, FetchOneStart} from './actionTypes';
+import {
+  AcceptStart,
+  CancelStart,
+  FetchOneStart,
+  RejectStart,
+} from './actionTypes';
 
 function* fetchUpcomingStartAsync(): Generator<
   unknown,
@@ -166,43 +175,47 @@ function* getServerTimeStart() {
   );
 }
 
-// function* cancelStartAsync({ payload }) {
-//     try {
-//         yield appointmentsAPI.cancel(payload);
-//         yield put({ type: Types.CANCEL_SUCCESS, payload: {} });
-//         yield put({ type: Types.FETCH_ONE_START, payload: payload.roomId });
-//     } catch (error) {
-//         const message = processError(error);
-//         console.error(message);
-//         yield put({ type: Types.CANCEL_ERROR, payload: message });
-//     }
-// }
+function* cancelStartAsync({
+  payload,
+}: CancelStart): Generator<unknown, void, Appointment> {
+  try {
+    const res = yield appointmentsAPI.cancel(payload);
+    yield put(cancelSuccessAction(res));
+    yield put(fetchOneStartAction(payload.roomId));
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(cancelErrorAction(message));
+  }
+}
 
-// function* cancelStart() {
-//   yield takeLatest(Types.CANCEL_START, cancelStartAsync);
-// }
+function* cancelStart() {
+  yield takeLatest(ACTION_STRINGS.CANCEL_START, cancelStartAsync);
+}
 
-// function* rejectStartAsync({ payload }) {
-//     try {
-//         const { appointmentId, roomId } = payload;
-//         const res = yield appointmentsAPI.reject({ appointmentId });
-//         yield put({ type: Types.REJECT_SUCCESS, payload: res });
+function* rejectStartAsync({
+  payload,
+}: RejectStart): Generator<unknown, void, Appointment> {
+  try {
+    const {appointmentId, roomId} = payload;
+    const res = yield appointmentsAPI.reject({appointmentId});
+    yield put(rejectSuccessAction(res));
 
-//         if(roomId) {
-//             yield put({ type: Types.FETCH_ONE_START, payload: roomId });
-//         } else {
-//             yield put({ type: Types.FETCH_PENDING_START, payload: {} });
-//         }
-//     } catch (error) {
-//         const message = processError(error);
-//         console.error(message);
-//         yield put({ type: Types.REJECT_ERROR, payload: message });
-//     }
-// }
+    if (roomId) {
+      yield put(fetchOneStartAction(roomId));
+    } else {
+      yield put(fetchPendingStartAction());
+    }
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(rejectErrorAction(message));
+  }
+}
 
-// function* rejectStart() {
-//   yield takeLatest(Types.REJECT_START, rejectStartAsync);
-// }
+function* rejectStart() {
+  yield takeLatest(ACTION_STRINGS.REJECT_START, rejectStartAsync);
+}
 
 export default function* sagas() {
   yield all([
@@ -214,7 +227,7 @@ export default function* sagas() {
     call(acceptStart),
     call(fetchOneStart),
     call(getServerTimeStart),
-    // call(cancelStart),
-    // call(rejectStart),
+    call(cancelStart),
+    call(rejectStart),
   ]);
 }

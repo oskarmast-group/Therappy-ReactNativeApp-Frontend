@@ -47,12 +47,14 @@ export type FetchPendingError = {
   payload: any;
 };
 
+export type AcceptStartPayload = {
+  appointmentId: number;
+  roomId?: string | null;
+};
+
 export type AcceptStart = {
   type: ACTION_STRINGS.ACCEPT_START;
-  payload: {
-    appointmentId: number;
-    roomId?: string;
-  };
+  payload: AcceptStartPayload;
 };
 
 export type AcceptSuccess = {
@@ -95,6 +97,50 @@ export type GetServerTimeError = {
   payload: any;
 };
 
+export type ClearCurrent = {
+  type: ACTION_STRINGS.CLEAR_CURRENT;
+  payload: null;
+};
+
+export type CancelStartPayload = {
+  roomId: string;
+};
+
+export type CancelStart = {
+  type: ACTION_STRINGS.CANCEL_START;
+  payload: CancelStartPayload;
+};
+
+export type CancelSuccess = {
+  type: ACTION_STRINGS.CANCEL_SUCCESS;
+  payload: Appointment;
+};
+
+export type CancelError = {
+  type: ACTION_STRINGS.CANCEL_ERROR;
+  payload: any;
+};
+
+export type RejectStartPayload = {
+  appointmentId: number;
+  roomId?: string | null;
+};
+
+export type RejectStart = {
+  type: ACTION_STRINGS.REJECT_START;
+  payload: RejectStartPayload;
+};
+
+export type RejectSuccess = {
+  type: ACTION_STRINGS.REJECT_SUCCESS;
+  payload: Appointment;
+};
+
+export type RejectError = {
+  type: ACTION_STRINGS.REJECT_ERROR;
+  payload: any;
+};
+
 export type AppointmentActions =
   | FetchStart
   | FetchSuccess
@@ -114,4 +160,11 @@ export type AppointmentActions =
   | GetServerTimeStart
   | GetServerTimeSuccess
   | GetServerTimeError
+  | ClearCurrent
+  | CancelStart
+  | CancelSuccess
+  | CancelError
+  | RejectStart
+  | RejectSuccess
+  | RejectError
   | ResetError<ACTION_STRINGS.RESET_ERROR>;

@@ -2,11 +2,14 @@ import {Dispatch} from 'react';
 import {AppointmentActions} from './actionTypes';
 import {
   acceptStartAction,
+  cancelStartAction,
+  clearCurrentAction,
   fetchOneStartAction,
   fetchPendingStartAction,
   fetchStartAction,
   fetchUpcomingStartAction,
   getServerTimeStartAction,
+  rejectStartAction,
   resetError,
 } from './actions';
 
@@ -22,7 +25,7 @@ export default class Dispatcher {
 
   fetchUpcomingStart = () => this._dispatch(fetchUpcomingStartAction());
 
-  acceptStart = (appointmentId: number, roomId?: string) =>
+  acceptStart = (appointmentId: number, roomId?: string | null) =>
     this._dispatch(acceptStartAction(appointmentId, roomId));
 
   // reserveStart = (payload) => this.dispatch({ type: Types.RESERVE_START, payload });
@@ -34,11 +37,12 @@ export default class Dispatcher {
 
   getServerTimeStart = () => this._dispatch(getServerTimeStartAction());
 
-  // cancelStart = (payload) => this.dispatch({ type: Types.CANCEL_START, payload });
+  cancelStart = (roomId: string) => this._dispatch(cancelStartAction(roomId));
 
-  // rejectStart = (payload) => this.dispatch({ type: Types.REJECT_START, payload });
+  rejectStart = (appointmentId: number, roomId?: string | null) =>
+    this._dispatch(rejectStartAction(appointmentId, roomId));
 
-  // clearCurrent = () => this.dispatch({ type: Types.CLEAR_CURRENT, payload: {} });
+  clearCurrent = () => this._dispatch(clearCurrentAction());
 
   resetError = () => this._dispatch(resetError());
 }
