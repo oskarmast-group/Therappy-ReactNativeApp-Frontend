@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {PRIMARY_GREEN, TEXT} from '../resources/constants/colors';
+import { Link } from 'react-router-native';
 
 export interface TextProps {
   color?: string;
@@ -46,6 +47,11 @@ export const Body = styled.Text`
   margin: 0;
   font-size: 14px;
   color: #1e2205;
+`;
+
+export const CustomLink = styled(Link)`
+    color: #1e2205;
+    text-decoration: none;
 `;
 
 export const SectionTitle = styled.Text`

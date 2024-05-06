@@ -11,6 +11,7 @@ import {useWindowDimensions} from 'react-native';
 import useMessages from './src/state/messages';
 import Timetable from './src/pages/Timetable';
 import Appointment from './src/pages/Appointment';
+import Register from './src/pages/Register';
 
 function App(): JSX.Element {
   const {height} = useWindowDimensions();
@@ -38,6 +39,7 @@ function App(): JSX.Element {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
+      <Route path="/registro" element={<Register />} />
       <Route path="/" element={<Navigate to={'/home'} />} />
       <Route path="/home/*" element={<PrivateRoute component={Home} />} />
       <Route

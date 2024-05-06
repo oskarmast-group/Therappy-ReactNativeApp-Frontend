@@ -54,6 +54,14 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
+  registerButton: {
+    marginTop: 30,
+    maxWidth: 200,
+    color: "#ffffff",
+  },
+  inputWithMarginTop: {
+    marginTop: 20,
+  }
 });
 
 export default styles;

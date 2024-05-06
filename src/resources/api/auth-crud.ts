@@ -8,14 +8,16 @@ const authCrudder = (domain: string, resource: string) => {
 
   const headers = Authorization();
 
+  console.log(url, headers);
+
   return {
     login: (data: {email: string; password: string}) =>
       executeCall<LoginResponse>(() =>
         Axios.post<LoginResponse>(`${url}/login`, data, {headers: {}}),
       ),
-    // register: data =>
-    //   executeCall(() => Axios.post(`${url}/register`, data, {headers: {}})),
-    // confirmation: data =>
+    register: (data:{email: string; password: string; name: string; lastName: string; phone: string; userType: string, countryOrigin: string}) =>
+      executeCall(() => Axios.post(`${url}/register`, data, {headers: {}})),
+    // confirmation: (data) =>
     //   executeCall(() => Axios.post(`${url}/confirmation`, data, {headers})),
     requestEmailConfirmation: () =>
       executeCall<{message: string}>(() =>
@@ -25,10 +27,10 @@ const authCrudder = (domain: string, resource: string) => {
           {headers},
         ),
       ),
-    // requestPasswordRecovery: data =>
-    //   executeCall(() => Axios.post(`${url}/request-password-recovery`, data)),
-    // passwordRecovery: data =>
-    //   executeCall(() => Axios.post(`${url}/new-password`, data)),
+    requestPasswordRecovery: data =>
+      executeCall(() => Axios.post(`${url}/request-password-recovery`, data)),
+    passwordRecovery: data =>
+      executeCall(() => Axios.post(`${url}/new-password`, data)),
   };
 };
 

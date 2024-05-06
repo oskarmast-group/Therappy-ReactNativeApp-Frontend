@@ -1,18 +1,16 @@
-import {parsePhoneNumber, isValidPhoneNumber} from 'react-phone-number-input';
+import libphonenumber from 'google-libphonenumber';
+
+const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
 
 export const getFullPhoneNumber = (countryCode, number) => {
-  return `${getFormattedCountryCode(countryCode)} ${number}`;
-};
-
-export const getFormattedCountryCode = countryCode => {
-  return `+${countryCode}`;
+  return `+${countryCode} ${number}`;
 };
 
 export const isValidNumber = (countryCode, number) => {
   try {
     const formNumber = getFullPhoneNumber(countryCode, number);
-    const parsedNumber = parsePhoneNumber(formNumber);
-    return !!parsedNumber && isValidPhoneNumber(formNumber);
+    const parsedNumber = phoneUtil.parse(formNumber);
+    return phoneUtil.isValidNumber(parsedNumber);
   } catch (e) {
     return false;
   }
