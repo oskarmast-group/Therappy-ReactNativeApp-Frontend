@@ -9,8 +9,11 @@ import {
   AcceptInvitationSuccess,
   AddDocumentation,
   DeleteDocumentation,
+  DeletePaymentMethodStart,
   FetchError,
   FetchStart,
+  FetchPaymentMethodsStart,
+  FetchAccountInformationStart,
   FetchSuccess,
   UpdateDocumentation,
   UpdateDocumentationPayload,
@@ -21,6 +24,21 @@ import {
   UpdateTherapistStart,
   UpdateTherapistStartPayload,
 } from './actionTypes';
+
+export const fetchPaymentMethodsStartAction = (): FetchPaymentMethodsStart => ({
+  type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_START,
+  payload: {},
+});
+
+export const deletePaymentMethodStartAction = (payload: string): DeletePaymentMethodStart => ({
+  type: ACTION_STRINGS.DELETE_PAYMENT_METHOD_START,
+  payload,
+});
+
+export const fetchAccountInformationStartAction = (): FetchAccountInformationStart => ({
+  type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_START,
+  payload: {},
+});
 
 export const fetchStartAction = (): FetchStart => ({
   type: ACTION_STRINGS.FETCH_START,

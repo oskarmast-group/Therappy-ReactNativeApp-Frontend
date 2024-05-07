@@ -44,7 +44,7 @@ export const Title = styled.Text`
 
 export const Body = styled.Text`
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   color: #1e2205;
 `;
 
@@ -59,6 +59,13 @@ export const SectionTitle = styled.Text`
   font-weight: 700;
   margin: 15px 0;
   margin-bottom: 5px;
+`;
+
+export const H4Title = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000;
 `;
 
 export const ErrorText = styled(BaseText)`

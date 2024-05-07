@@ -22,7 +22,7 @@ const InfoDialog: React.FC<{
   config: InfoDialogConfig;
 }> = ({ open, onClose, config }) => {
   return (
-    <Base open={open} onClose={onClose} showCloseButton={config.showCloseButton ?? true}>
+    <Base open={open} onPress={onClose} showCloseButton={config.showCloseButton ?? true}>
       {config.header && <Header>{config.header}</Header>}
       {config.title && (
         <BaseText fontSize={19} weight={800} marginBottom={16}>

@@ -6,6 +6,51 @@ import UpdateUserFields from '../../interfaces/User/UpdateUserFields';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 
+export type FetchPaymentMethodsStart = {
+  type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_START;
+  payload: {};
+};
+
+export type FetchPaymentMethodsSuccess = {
+  type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_SUCCESS;
+  payload: {};
+};
+
+export type FetchPaymentMethodsError = {
+  type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_ERROR;
+  payload: {};
+};
+
+export type DeletePaymentMethodStart = {
+  type: ACTION_STRINGS.DELETE_PAYMENT_METHOD_START;
+  payload: {};
+};
+
+export type DeletePaymentMethodSuccess = {
+  type: ACTION_STRINGS.DELETE_PAYMENT_METHOD_SUCCESS;
+  payload: {};
+};
+
+export type DeletePaymentMethodError = {
+  type: ACTION_STRINGS.DELETE_PAYMENT_METHOD_ERROR;
+  payload: {};
+};
+
+export type FetchAccountInformationStart = {
+  type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_START;
+  payload: {};
+};
+
+export type FetchAccountInformationSuccess = {
+  type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_SUCCESS;
+  payload: {};
+};
+
+export type FetchAccountInformationError = {
+  type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_ERROR;
+  payload: any;
+};
+
 export type FetchStart = {
   type: ACTION_STRINGS.FETCH_START;
   payload: null;
@@ -92,6 +137,15 @@ export type AcceptInvitationError = {
 };
 
 export type UserActions =
+  | FetchPaymentMethodsStart
+  | FetchPaymentMethodsSuccess
+  | FetchPaymentMethodsError
+  | DeletePaymentMethodStart
+  | DeletePaymentMethodSuccess
+  | DeletePaymentMethodError
+  | FetchAccountInformationStart
+  | FetchAccountInformationSuccess
+  | FetchAccountInformationError
   | FetchError
   | FetchStart
   | FetchSuccess

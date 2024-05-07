@@ -7,8 +7,46 @@ import UserType from '../../interfaces/User/UserType';
 const INITIAL_STATE: UserState = {
   current: null,
   setupIntentToken: null,
-  paymentMethods: [],
-  accountInformation: {},
+  paymentMethods: [
+    {
+      id: '',
+      object: '',
+      allow_redisplay: '',
+      billing_details: [{}],
+      card: [{}],
+      created: new Date(),
+      customer: '',
+      livemode: false,
+      metadata: [{}],
+      type: '',
+    },
+  ],
+  accountInformation: {
+    id: 0,
+    details_submitted: false,
+    requirements: {},
+    settings: {
+      payouts: {
+        schedule: {
+          interval: '',
+          weekly_anchor: '',
+          monthly_anchor: '',
+          delay_days: 0,
+        },
+      },
+    },
+    balance: {
+      available: [
+        {
+          amount: 0,
+          currency: '',
+          source_types: {
+            card: 0,
+          },
+        },
+      ],
+    },
+  },
   fetching: {
     fetch: { ...DEFAULT_FETCHING_STATE },
     update: { ...DEFAULT_FETCHING_STATE },
@@ -121,62 +159,62 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
     //     error: {timestamp: Date.now(), message: action.payload},
     //   };
 
-    // // DELETE PAYMENT METHOD
-    // case Types.DELETE_PAYMENT_METHOD_START:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       deletePaymentMethod: {...DEFAULT_FETCHING_STATE, state: true},
-    //     },
-    //   };
-    // case Types.DELETE_PAYMENT_METHOD_SUCCESS:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       deletePaymentMethod: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.DELETE_PAYMENT_METHOD_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       deletePaymentMethod: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    // DELETE PAYMENT METHOD
+    case ACTION_STRINGS.DELETE_PAYMENT_METHOD_START:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          deletePaymentMethod: { ...DEFAULT_FETCHING_STATE, isFetching: true },
+        },
+      };
+    case ACTION_STRINGS.DELETE_PAYMENT_METHOD_SUCCESS:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          deletePaymentMethod: { ...DEFAULT_FETCHING_STATE },
+        },
+        error: { ...DEFAULT_NO_ERROR },
+      };
+    case ACTION_STRINGS.DELETE_PAYMENT_METHOD_ERROR:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          deletePaymentMethod: { ...DEFAULT_FETCHING_STATE },
+        },
+        error: { timestamp: Date.now(), message: action.payload },
+      };
 
-    // // PAYMENT METHODS
-    // case Types.FETCH_PAYMENT_METHODS_START:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       paymentMethods: {...DEFAULT_FETCHING_STATE, state: true},
-    //     },
-    //   };
-    // case Types.FETCH_PAYMENT_METHODS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     paymentMethods: action.payload,
-    //     fetching: {
-    //       ...state.fetching,
-    //       paymentMethods: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.FETCH_PAYMENT_METHODS_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       paymentMethods: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    // PAYMENT METHODS
+    case ACTION_STRINGS.FETCH_PAYMENT_METHODS_START:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          paymentMethods: { ...DEFAULT_FETCHING_STATE, isFetching: true },
+        },
+      };
+    case ACTION_STRINGS.FETCH_PAYMENT_METHODS_SUCCESS:
+      return {
+        ...state,
+        paymentMethods: action.payload,
+        fetching: {
+          ...state.fetching,
+          paymentMethods: { ...DEFAULT_FETCHING_STATE },
+        },
+        error: { ...DEFAULT_NO_ERROR },
+      };
+    case ACTION_STRINGS.FETCH_PAYMENT_METHODS_ERROR:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          paymentMethods: { ...DEFAULT_FETCHING_STATE },
+        },
+        error: { timestamp: Date.now(), message: action.payload },
+      };
 
     // ACCEPT INVITATION
     case ACTION_STRINGS.ACCEPT_INVITATION_START:
@@ -206,34 +244,34 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         error: { timestamp: Date.now(), message: action.payload },
       };
 
-    // // ACCOUNT INFORMATION
-    // case Types.FETCH_ACCOUNT_INFORMATION_START:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       accountInformation: {...DEFAULT_FETCHING_STATE, state: true},
-    //     },
-    //   };
-    // case Types.FETCH_ACCOUNT_INFORMATION_SUCCESS:
-    //   return {
-    //     ...state,
-    //     accountInformation: action.payload,
-    //     fetching: {
-    //       ...state.fetching,
-    //       accountInformation: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.FETCH_ACCOUNT_INFORMATION_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       accountInformation: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    // ACCOUNT INFORMATION
+    case ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_START:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          accountInformation: { ...DEFAULT_FETCHING_STATE, isFetching: true },
+        },
+      };
+    case ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_SUCCESS:
+      return {
+        ...state,
+        accountInformation: action.payload,
+        fetching: {
+          ...state.fetching,
+          accountInformation: { ...DEFAULT_FETCHING_STATE },
+        },
+        error: { ...DEFAULT_NO_ERROR },
+      };
+    case ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_ERROR:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          accountInformation: { ...DEFAULT_FETCHING_STATE },
+        },
+        error: { timestamp: Date.now(), message: action.payload },
+      };
 
     case ACTION_STRINGS.ADD_DOCUMENTATION: {
       if (!state.current || state.current.userType !== UserType.THERAPIST) {

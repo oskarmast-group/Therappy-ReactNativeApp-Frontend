@@ -55,4 +55,26 @@ export const CancelButton = styled(Button)`
   border: 2px solid ${PRIMARY_GREEN};
 `;
 
+export const IconButton = styled(Button)`
+  border: none;
+  outline: none;
+  padding: 5px;
+  background-color: ${PRIMARY_GREEN};
+  border-radius: 12px;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  cursor: pointer;
+  align-items: center;
+  img {
+    height: 14px;
+    width: auto;
+  }
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #fbfbfd;
+  }
+`;
+
 export default Button;

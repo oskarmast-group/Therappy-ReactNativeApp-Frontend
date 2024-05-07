@@ -1,10 +1,5 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import {
-  profileAPI,
-  therapistAPI,
-  //   stripeClientsAPI,
-  //   stripeTherapistAPI,
-} from '../../resources/api';
+import { profileAPI, stripeClientsAPI, stripeTherapistAPI, therapistAPI } from '../../resources/api';
 import Types from './actionStrings';
 import User from '../../interfaces/User';
 import {
@@ -104,50 +99,44 @@ function* updateTherapistStart() {
 //   yield takeLatest(Types.SETUP_INTENT_START, setupIntentStartAsync);
 // }
 
-// function* fetchPaymentMethodsStartAsync() {
-//   try {
-//     const res = yield stripeClientsAPI.paymentMethods();
-//     yield put({
-//       type: Types.FETCH_PAYMENT_METHODS_SUCCESS,
-//       payload: res.methods,
-//     });
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.FETCH_PAYMENT_METHODS_ERROR, payload: message});
-//   }
-// }
+function* fetchPaymentMethodsStartAsync() {
+  try {
+    const res = yield stripeClientsAPI.paymentMethods();
+    yield put({
+      type: Types.FETCH_PAYMENT_METHODS_SUCCESS,
+      payload: res.methods,
+    });
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put({ type: Types.FETCH_PAYMENT_METHODS_ERROR, payload: message });
+  }
+}
 
-// function* fetchPaymentMethodsStart() {
-//   yield takeLatest(
-//     Types.FETCH_PAYMENT_METHODS_START,
-//     fetchPaymentMethodsStartAsync,
-//   );
-// }
+function* fetchPaymentMethodsStart() {
+  yield takeLatest(Types.FETCH_PAYMENT_METHODS_START, fetchPaymentMethodsStartAsync);
+}
 
-// function* deletePaymentMethodStartAsync({payload}) {
-//   try {
-//     const res = yield stripeClientsAPI.deletePaymentMethod({
-//       paymentId: payload,
-//     });
-//     yield put({
-//       type: Types.DELETE_PAYMENT_METHOD_SUCCESS,
-//       payload: res.methods,
-//     });
-//     yield put({type: Types.FETCH_PAYMENT_METHODS_START, payload: {}});
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.DELETE_PAYMENT_METHOD_ERROR, payload: message});
-//   }
-// }
+function* deletePaymentMethodStartAsync({ payload }: any) {
+  try {
+    const res = yield stripeClientsAPI.deletePaymentMethod({
+      paymentId: payload,
+    });
+    yield put({
+      type: Types.DELETE_PAYMENT_METHOD_SUCCESS,
+      payload: res.methods,
+    });
+    yield put({ type: Types.FETCH_PAYMENT_METHODS_START, payload: {} });
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put({ type: Types.DELETE_PAYMENT_METHOD_ERROR, payload: message });
+  }
+}
 
-// function* deletePaymentMethodStart() {
-//   yield takeLatest(
-//     Types.DELETE_PAYMENT_METHOD_START,
-//     deletePaymentMethodStartAsync,
-//   );
-// }
+function* deletePaymentMethodStart() {
+  yield takeLatest(Types.DELETE_PAYMENT_METHOD_START, deletePaymentMethodStartAsync);
+}
 
 function* acceptInvitationStartAsync({ payload }: AcceptInvitationStart): Generator<unknown, void, null> {
   try {
@@ -165,23 +154,20 @@ function* acceptInvitationStart() {
   yield takeLatest(ACTION_STRINGS.ACCEPT_INVITATION_START, acceptInvitationStartAsync);
 }
 
-// function* fetchAccountInformationStartAsync() {
-//   try {
-//     const res = yield stripeTherapistAPI.accountInformation();
-//     yield put({type: Types.FETCH_ACCOUNT_INFORMATION_SUCCESS, payload: res});
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.FETCH_ACCOUNT_INFORMATION_ERROR, payload: message});
-//   }
-// }
+function* fetchAccountInformationStartAsync() {
+  try {
+    const res = yield stripeTherapistAPI.accountInformation();
+    yield put({ type: Types.FETCH_ACCOUNT_INFORMATION_SUCCESS, payload: res });
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put({ type: Types.FETCH_ACCOUNT_INFORMATION_ERROR, payload: message });
+  }
+}
 
-// function* fetchAccountInformationStart() {
-//   yield takeLatest(
-//     Types.FETCH_ACCOUNT_INFORMATION_START,
-//     fetchAccountInformationStartAsync,
-//   );
-// }
+function* fetchAccountInformationStart() {
+  yield takeLatest(Types.FETCH_ACCOUNT_INFORMATION_START, fetchAccountInformationStartAsync);
+}
 
 export default function* sagas() {
   yield all([
@@ -191,9 +177,9 @@ export default function* sagas() {
     call(updateTherapistStart),
     // call(updateSuccess),
     // call(setupIntentStart),
-    // call(fetchPaymentMethodsStart),
-    // call(deletePaymentMethodStart),
+    call(fetchPaymentMethodsStart),
+    call(deletePaymentMethodStart),
     call(acceptInvitationStart),
-    // call(fetchAccountInformationStart),
+    call(fetchAccountInformationStart),
   ]);
 }

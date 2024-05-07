@@ -1,16 +1,20 @@
 import { Dispatch } from 'react';
 import {
   AcceptInvitationStartPayload,
+  DeletePaymentMethodStart,
   UpdateStartPayload,
   UpdateTherapistStartPayload,
   UserActions,
 } from './actionTypes';
 import {
   acceptInvitationStartAction,
+  fetchPaymentMethodsStartAction,
   fetchStartAction,
   resetError,
   updateStartAction,
   updateTherapistStartAction,
+  deletePaymentMethodStartAction,
+  fetchAccountInformationStartAction,
 } from './actions';
 export default class Dispatcher {
   _dispatch: Dispatch<UserActions>;
@@ -31,14 +35,10 @@ export default class Dispatcher {
   //   setupIntentStart = () =>
   //     this.dispatch({type: Types.SETUP_INTENT_START, payload: {}});
 
-  //   deletePaymentMethodStart = payload =>
-  //     this.dispatch({type: Types.DELETE_PAYMENT_METHOD_START, payload});
+  deletePaymentMethodStart = (payload: string) => this._dispatch(deletePaymentMethodStartAction(payload));
 
-  //   fetchPaymentMethodsStart = () =>
-  //     this.dispatch({type: Types.FETCH_PAYMENT_METHODS_START, payload: {}});
-
-  //   fetchAccountInformationStart = () =>
-  //     this.dispatch({type: Types.FETCH_ACCOUNT_INFORMATION_START, payload: {}});
+  fetchPaymentMethodsStart = () => this._dispatch(fetchPaymentMethodsStartAction());
+  fetchAccountInformationStart = () => this._dispatch(fetchAccountInformationStartAction());
 
   acceptInvitationStart = (payload: AcceptInvitationStartPayload) =>
     this._dispatch(acceptInvitationStartAction(payload));
