@@ -1,9 +1,9 @@
-import React, {PropsWithChildren} from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
 // import SideMenu from 'components/SideMenu';
-import {Platform, StatusBar} from 'react-native';
+import { Platform, StatusBar } from 'react-native';
 import TopWave from '../resources/img/shapes/TopWave';
-import {GREEN} from '../resources/constants/colors';
+import { GREEN } from '../resources/constants/colors';
 import BottomWave from '../resources/img/shapes/BottomWave';
 import SideMenu from '../components/SideMenu';
 
@@ -19,7 +19,7 @@ const Content = styled.View`
   display: flex;
 `;
 
-const Main = styled.View<{fullscreen: boolean}>`
+const Main = styled.View<{ fullscreen: boolean }>`
   padding: 20px;
   padding-top: 0;
   padding-bottom: 0;
@@ -27,7 +27,7 @@ const Main = styled.View<{fullscreen: boolean}>`
   flex-grow: 1;
   flex-shrink: 1;
 
-  margin-bottom: ${props => (props.fullscreen ? '0px' : '58px')};
+  margin-bottom: ${(props) => (props.fullscreen ? '0px' : '58px')};
 `;
 
 const TopDecoration = styled.View`
@@ -40,9 +40,9 @@ const BottomDecoration = styled.View`
   width: 100%;
 `;
 
-const IOSStatus = styled.View<{height?: number}>`
+const IOSStatus = styled.View<{ height?: number }>`
   background-color: ${GREEN};
-  height: ${({height}) => (height ? height : 0)}px;
+  height: ${({ height }) => (height ? height : 0)}px;
   width: 100%;
 `;
 
@@ -66,11 +66,7 @@ const MainContainer: React.FC<
 }) => {
   return (
     <>
-      {Platform.OS === 'ios' ? (
-        <IOSStatus />
-      ) : (
-        <StatusBar barStyle={'light-content'} backgroundColor={GREEN} />
-      )}
+      {Platform.OS === 'ios' ? <IOSStatus /> : <StatusBar barStyle={'light-content'} backgroundColor={GREEN} />}
       <AppContainer>
         <Content pointerEvents="box-none">
           {withTopDecoration && (
@@ -84,9 +80,7 @@ const MainContainer: React.FC<
               <BottomWave />
             </BottomDecoration>
           )}
-          {withSideMenu && (
-            <SideMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
-          )}
+          {withSideMenu && <SideMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />}
         </Content>
       </AppContainer>
     </>

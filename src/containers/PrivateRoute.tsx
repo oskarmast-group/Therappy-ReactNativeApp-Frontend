@@ -1,6 +1,6 @@
 import React from 'react';
-import {Navigate, useLocation} from 'react-router-native';
-import {getToken} from '../resources/api/auth';
+import { Navigate, useLocation } from 'react-router-native';
+import { getToken } from '../resources/api/auth';
 
 interface PrivateRouteInterface {
   groupId?: number;
@@ -13,20 +13,18 @@ const useAuth = () => {
   const token = getToken();
 
   if (!token) {
-    return {isAuthenticated: false};
+    return { isAuthenticated: false };
   }
 
-  return {isAuthenticated: true};
+  return { isAuthenticated: true };
 };
 
-const PrivateRoute: React.FC<PrivateRouteInterface> = ({
-  component: Component,
-}) => {
+const PrivateRoute: React.FC<PrivateRouteInterface> = ({ component: Component }) => {
   const location = useLocation();
-  const {isAuthenticated} = useAuth();
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{from: location}} />;
+    return <Navigate to="/login" state={{ from: location }} />;
   }
 
   return <Component />;

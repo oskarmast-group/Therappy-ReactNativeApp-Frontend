@@ -1,11 +1,4 @@
-import {
-  takeLatest,
-  put,
-  all,
-  call,
-  takeEvery,
-  select,
-} from 'redux-saga/effects';
+import { takeLatest, put, all, call, takeEvery, select } from 'redux-saga/effects';
 import conversationSelector from '../conversations/selector';
 import messagesSelector from './selector';
 import userSelector from '../user/selector';
@@ -19,26 +12,18 @@ import {
 } from './actions';
 import ConversationState from '../conversations/state';
 import MessagesState from './state';
-import {messagesAPI} from '../../resources/api';
+import { messagesAPI } from '../../resources/api';
 import Message from '../../interfaces/Conversation/Message';
-import {processError} from '../utils';
+import { processError } from '../utils';
 import ACTION_STRINGS from './actionStrings';
-import {SendMessageStart} from './actionTypes';
+import { SendMessageStart } from './actionTypes';
 import UserState from '../user/state';
 
-function* fetchStartAsync(): Generator<
-  unknown,
-  void,
-  ConversationState | MessagesState | Message[]
-> {
+function* fetchStartAsync(): Generator<unknown, void, ConversationState | MessagesState | Message[]> {
   try {
-    const conversationState: ConversationState = (yield select(
-      conversationSelector,
-    )) as ConversationState;
+    const conversationState: ConversationState = (yield select(conversationSelector)) as ConversationState;
 
-    const messagesState: MessagesState = (yield select(
-      messagesSelector,
-    )) as MessagesState;
+    const messagesState: MessagesState = (yield select(messagesSelector)) as MessagesState;
 
     if (!conversationState.conversation?.uuid) {
       throw Error('Unknown');
@@ -60,22 +45,15 @@ function* fetchStart() {
   yield takeLatest(ACTION_STRINGS.FETCH_START, fetchStartAsync);
 }
 
-function* sendMessageStartAsync({
-  payload,
-}: SendMessageStart): Generator<unknown, void, ConversationState | Message> {
+function* sendMessageStartAsync({ payload }: SendMessageStart): Generator<unknown, void, ConversationState | Message> {
   try {
-    const conversationState = (yield select(
-      conversationSelector,
-    )) as ConversationState;
+    const conversationState = (yield select(conversationSelector)) as ConversationState;
 
     if (!conversationState.conversation?.uuid) {
       throw Error('Unknown');
     }
 
-    const res = (yield messagesAPI.send(
-      {...payload},
-      conversationState.conversation.uuid,
-    )) as Message;
+    const res = (yield messagesAPI.send({ ...payload }, conversationState.conversation.uuid)) as Message;
     yield put(sendMessageSuccessAction(res));
   } catch (error) {
     const message = processError(error);
@@ -88,20 +66,14 @@ function* sendMessageStart() {
   yield takeEvery(ACTION_STRINGS.SEND_MESSAGE_START, sendMessageStartAsync);
 }
 
-function* markAsReadStartAsync(): Generator<
-  unknown,
-  void,
-  MessagesState | UserState
-> {
+function* markAsReadStartAsync(): Generator<unknown, void, MessagesState | UserState> {
   try {
     const messagesState = (yield select(messagesSelector)) as MessagesState;
     const userState = (yield select(userSelector)) as UserState;
 
     const toMark = messagesState.list
-      .filter(
-        msg => userState.current?.id !== msg.from.id && !msg.readTimestamp,
-      )
-      .map(({uuid}) => uuid);
+      .filter((msg) => userState.current?.id !== msg.from.id && !msg.readTimestamp)
+      .map(({ uuid }) => uuid);
 
     const alreadyMarked = new Set(messagesState.markedAsRead);
 

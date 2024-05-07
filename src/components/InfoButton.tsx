@@ -1,7 +1,7 @@
-import React, {ReactNode} from 'react';
-import Button, {ButtonProps} from './Button';
-import {StyleSheet, View} from 'react-native';
-import {BaseText, TextProps} from './Text';
+import React, { ReactNode } from 'react';
+import Button, { ButtonProps } from './Button';
+import { StyleSheet, View } from 'react-native';
+import { BaseText, TextProps } from './Text';
 import InfoIcon from '../resources/img/icons/InfoIcon';
 
 interface InfoButtonProps {
@@ -25,12 +25,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InfoButton: React.FC<InfoButtonProps> = ({
-  content,
-  buttonProps,
-  icon,
-  textProps = {},
-}) => {
+const InfoButton: React.FC<InfoButtonProps> = ({ content, buttonProps, icon, textProps = {} }) => {
   return (
     <Button {...buttonProps}>
       <View style={styles.container}>

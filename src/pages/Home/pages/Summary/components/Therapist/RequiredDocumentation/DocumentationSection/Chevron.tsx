@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useRef} from 'react';
-import {Animated} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated } from 'react-native';
 import ChevronRightIcon from '../../../../../../../../resources/img/icons/ChevronRightIcon';
 
-const Chevron: React.FC<{open: boolean}> = ({open}) => {
+const Chevron: React.FC<{ open: boolean }> = ({ open }) => {
   const animation = useRef(new Animated.Value(open ? 1 : 0)).current;
 
   useEffect(() => {
@@ -24,8 +24,9 @@ const Chevron: React.FC<{open: boolean}> = ({open}) => {
       style={{
         width: 15,
         height: 15,
-        transform: [{rotate: rotation}],
-      }}>
+        transform: [{ rotate: rotation }],
+      }}
+    >
       <ChevronRightIcon />
     </Animated.View>
   );

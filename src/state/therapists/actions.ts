@@ -1,4 +1,4 @@
-import Therapist, {BaseTherapist} from '../../interfaces/Therapist';
+import Therapist, { BaseTherapist } from '../../interfaces/Therapist';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 import {
@@ -25,16 +25,12 @@ export const fetchErrorAction = (payload: any): FetchError => ({
   payload,
 });
 
-export const fetchProfileStartAction = (
-  payload: number,
-): FetchProfileStart => ({
+export const fetchProfileStartAction = (payload: number): FetchProfileStart => ({
   type: ACTION_STRINGS.FETCH_PROFILE_START,
   payload,
 });
 
-export const fetchProfileSuccessAction = (
-  payload: Therapist,
-): FetchProfileSuccess => ({
+export const fetchProfileSuccessAction = (payload: Therapist): FetchProfileSuccess => ({
   type: ACTION_STRINGS.FETCH_PROFILE_SUCCESS,
   payload,
 });

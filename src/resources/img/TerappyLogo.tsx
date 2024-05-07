@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {Image, Svg} from 'react-native-svg';
+import { Image, Svg } from 'react-native-svg';
 
 function calculateDimensions(
   newWidth: number | null,
   newHeight: number | null,
   originalWidth: number,
   originalHeight: number,
-): {width: number; height: number} {
+): { width: number; height: number } {
   const aspectRatio = originalWidth / originalHeight;
 
   if (newWidth !== null) {
@@ -30,16 +30,8 @@ function calculateDimensions(
   };
 }
 
-const TerappyLogo: React.FC<{width?: number; height?: number}> = ({
-  width = null,
-  height = null,
-}) => {
-  const {width: newWidth, height: newHeight} = calculateDimensions(
-    width,
-    height,
-    264,
-    130,
-  );
+const TerappyLogo: React.FC<{ width?: number; height?: number }> = ({ width = null, height = null }) => {
+  const { width: newWidth, height: newHeight } = calculateDimensions(width, height, 264, 130);
   return (
     <Svg width={newWidth} height={newHeight}>
       <Image

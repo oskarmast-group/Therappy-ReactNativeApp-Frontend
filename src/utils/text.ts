@@ -1,8 +1,8 @@
-import {BaseAppointment} from '../interfaces/Appointment';
+import { BaseAppointment } from '../interfaces/Appointment';
 import AppointmentStatus from '../interfaces/Appointment/AppointmentStatus';
 // import {daysInOrder} from './time';
 
-export const getStatusText = ({status}: BaseAppointment) => {
+export const getStatusText = ({ status }: BaseAppointment) => {
   switch (status) {
     case AppointmentStatus.CONFIRMED:
       return 'Solicitada';
@@ -29,25 +29,9 @@ export const tranlateDay = {
   sunday: 'Domingo',
 };
 
-export const dayOfTheWeekTranslated = [
-  'Domingo',
-  'Lunes',
-  'Martes',
-  'Miércoles',
-  'Jueves',
-  'Viernes',
-  'Sábado',
-];
+export const dayOfTheWeekTranslated = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
-export const dayOfTheWeekTranslatedAbr = [
-  'Dom',
-  'Lun',
-  'Mar',
-  'Mie',
-  'Jue',
-  'Vie',
-  'Sab',
-];
+export const dayOfTheWeekTranslatedAbr = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
 
 // export const timeAvailabilityToString = ({hours}) => {
 //   const days = [];
@@ -64,7 +48,7 @@ export const dayOfTheWeekTranslatedAbr = [
 export const capitalize = (string: string) =>
   string
     .split(' ')
-    .map(item => item.charAt(0).toLocaleUpperCase() + item.slice(1))
+    .map((item) => item.charAt(0).toLocaleUpperCase() + item.slice(1))
     .join(' ');
 
 export const formatMoney = (
@@ -77,10 +61,7 @@ export const formatMoney = (
   try {
     const negativeSign = amount < 0 ? '-' : '';
     const amountRounded = Math.floor(Math.abs(amount));
-    const amountDecimal = (
-      (Math.abs(amount) % 1) *
-      Math.pow(10, decimalCount)
-    ).toFixed(0);
+    const amountDecimal = ((Math.abs(amount) % 1) * Math.pow(10, decimalCount)).toFixed(0);
 
     const amountLength = amountRounded.toString().length;
     const thousandPartsCount = Math.floor((amountLength - 1) / 3);
@@ -88,16 +69,10 @@ export const formatMoney = (
 
     const parts = [];
     for (let i = 0; i < thousandPartsCount; i++) {
-      parts.unshift(
-        amountRounded
-          .toString()
-          .substring(amountLength - (i + 1) * 3, amountLength - i * 3),
-      );
+      parts.unshift(amountRounded.toString().substring(amountLength - (i + 1) * 3, amountLength - i * 3));
     }
     if (thousandsPartsModulus !== 0) {
-      parts.unshift(
-        amountRounded.toString().substring(0, thousandsPartsModulus),
-      );
+      parts.unshift(amountRounded.toString().substring(0, thousandsPartsModulus));
     }
     return (
       negativeSign +

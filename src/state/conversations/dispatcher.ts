@@ -1,5 +1,5 @@
-import {Dispatch} from 'react';
-import {ConversationActions} from './actionTypes';
+import { Dispatch } from 'react';
+import { ConversationActions } from './actionTypes';
 import {
   addLastMessageAction,
   clearConversationAction,
@@ -7,7 +7,7 @@ import {
   fetchStartAction,
   resetError,
 } from './actions';
-import {SocketMessage} from '../../interfaces/Conversation/Message';
+import { SocketMessage } from '../../interfaces/Conversation/Message';
 
 export default class Dispatcher {
   _dispatch: Dispatch<ConversationActions>;
@@ -22,8 +22,7 @@ export default class Dispatcher {
 
   clearConversation = () => this._dispatch(clearConversationAction());
 
-  addLastMessage = (payload: SocketMessage) =>
-    this._dispatch(addLastMessageAction(payload));
+  addLastMessage = (payload: SocketMessage) => this._dispatch(addLastMessageAction(payload));
 
   resetError = () => this._dispatch(resetError());
 }

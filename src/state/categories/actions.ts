@@ -1,7 +1,7 @@
 import Category from '../../interfaces/Category';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
-import {FetchError, FetchStart, FetchSuccess} from './actionTypes';
+import { FetchError, FetchStart, FetchSuccess } from './actionTypes';
 
 export const fetchStartAction = (): FetchStart => ({
   type: ACTION_STRINGS.FETCH_START,

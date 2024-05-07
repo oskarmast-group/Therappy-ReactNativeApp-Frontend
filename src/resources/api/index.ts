@@ -1,6 +1,6 @@
 // import Axios from 'axios';
 // import Authorization from './auth';
-import {API} from '../constants/urls';
+import { API } from '../constants/urls';
 import profile from './profile';
 // import stripeClients from './stripeClients';
 import appointments from './appointments';
@@ -37,8 +37,5 @@ export const appointmentsAPI = appointments(API, 'appointments');
 export const conversationsAPI = conversations(API, 'conversations');
 export const messagesAPI = messages(API, 'messages');
 // export const notificationsAPI = notifications(API, 'notifications');
-export const requiredDocumentationAPI = requiredDocumentation(
-  API,
-  'required-documentation',
-);
+export const requiredDocumentationAPI = requiredDocumentation(API, 'required-documentation');
 export const documentationAPI = documentation(API, 'documentation');

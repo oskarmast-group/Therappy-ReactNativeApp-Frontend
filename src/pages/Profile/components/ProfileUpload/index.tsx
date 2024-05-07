@@ -7,13 +7,13 @@ import {
 } from 'react-native';
 import styles from './styles';
 import ProfileIcon from '../../../../resources/img/icons/ProfileIcon';
-import {Image} from 'react-native';
-import {IMAGES_URL} from '../../../../resources/constants/urls';
+import { Image } from 'react-native';
+import { IMAGES_URL } from '../../../../resources/constants/urls';
 // import CameraIcon from '../../../../resources/img/icons/CameraIcon';
 import useUser from '../../../../state/user';
 
 const ProfileUpload: React.FC = () => {
-  const {data: user /*, dispatcher: userDispatcher*/} = useUser();
+  const { data: user /*, dispatcher: userDispatcher*/ } = useUser();
 
   // const onUpload = useCallback(() => {
   // DocumentPicker.pickSingle({
@@ -64,10 +64,7 @@ const ProfileUpload: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.profileContainer}>
         {user?.current?.profileImg ? (
-          <Image
-            style={styles.profileImage}
-            source={{uri: `${IMAGES_URL}${user?.current?.profileImg}`}}
-          />
+          <Image style={styles.profileImage} source={{ uri: `${IMAGES_URL}${user?.current?.profileImg}` }} />
         ) : (
           <ProfileIcon />
         )}

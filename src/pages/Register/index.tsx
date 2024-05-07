@@ -1,16 +1,16 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import MainContainer from '../../containers/MainContainer';
 import Scrollable from '../../containers/Scrollable';
 import styled from 'styled-components/native';
-import {CustomLink, ErrorText, Title, BaseText} from '../../components/Text';
+import { CustomLink, ErrorText, Title, BaseText } from '../../components/Text';
 import Input from '../../components/Input';
-import {DARK_TEXT} from '../../resources/constants/colors';
+import { DARK_TEXT } from '../../resources/constants/colors';
 import Button from '../../components/Button';
 import TopBar from '../../components/TopBar';
-import {TextInput} from 'react-native';
-import {isValidNumber} from '../../utils/phone';
-import {authAPI} from '../../resources/api';
-import {StyleSheet} from 'react-native';
+import { TextInput } from 'react-native';
+import { isValidNumber } from '../../utils/phone';
+import { authAPI } from '../../resources/api';
+import { StyleSheet } from 'react-native';
 import styles from '../../components/Input/components/styles';
 import { UserTypes } from '../../resources/constants/config';
 import { storage } from '../../localStorage';
@@ -86,20 +86,20 @@ const Register: React.FC = () => {
 
   const register = async () => {
     try {
-        const res = await authAPI.register({
-            email: user,
-            password,
-            name,
-            lastName,
-            phone,
-            userType: UserTypes.CLIENT,
-            countryOrigin: 'MX',
-        });
-        storage.set('auth', JSON.stringify(res));
-        navigate('/');
+      const res = await authAPI.register({
+        email: user,
+        password,
+        name,
+        lastName,
+        phone,
+        userType: UserTypes.CLIENT,
+        countryOrigin: 'MX',
+      });
+      storage.set('auth', JSON.stringify(res));
+      navigate('/');
     } catch (e) {
-        console.error(e);
-        setError('Error');
+      console.error(e);
+      setError('Error');
     }
   };
 
@@ -107,15 +107,13 @@ const Register: React.FC = () => {
     <MainContainer withBottomDecoration={true} withBottomNavigation={false}>
       <TopBar />
       <Scrollable>
-        <Title style={{textAlign: 'center', color: DARK_TEXT}}>
-          Regístrate
-        </Title>
+        <Title style={{ textAlign: 'center', color: DARK_TEXT }}>Regístrate</Title>
         <FormContainer>
           <Input
-            labelProps={{label: 'Nombre(s)'}}
+            labelProps={{ label: 'Nombre(s)' }}
             inputProps={{
               value: name,
-              onChangeText: value => setName(value),
+              onChangeText: (value) => setName(value),
               autoCapitalize: 'none',
               onSubmitEditing: handleNameSubmit,
               blurOnSubmit: false,
@@ -123,10 +121,10 @@ const Register: React.FC = () => {
             }}
           />
           <Input
-            labelProps={{label: 'Apellido(s)'}}
+            labelProps={{ label: 'Apellido(s)' }}
             inputProps={{
               value: lastName,
-              onChangeText: value => setLastName(value),
+              onChangeText: (value) => setLastName(value),
               autoCapitalize: 'none',
               onSubmitEditing: handleLastNameSubmit,
               blurOnSubmit: false,
@@ -134,10 +132,10 @@ const Register: React.FC = () => {
             }}
           />
           <Input
-            labelProps={{label: 'Correo electrónico'}}
+            labelProps={{ label: 'Correo electrónico' }}
             inputProps={{
               value: user,
-              onChangeText: value => setUser(value),
+              onChangeText: (value) => setUser(value),
               autoCapitalize: 'none',
               keyboardType: 'email-address',
               onSubmitEditing: handleEmailSubmit,
@@ -147,33 +145,31 @@ const Register: React.FC = () => {
             }}
           />
           <Input
-            labelProps={{label: 'Teléfono'}}
+            labelProps={{ label: 'Teléfono' }}
             inputProps={{
               value: phone,
-              onChangeText: value => setPhone(value),
+              onChangeText: (value) => setPhone(value),
               keyboardType: 'phone-pad',
               onSubmitEditing: handlePhoneSubmit,
               ref: phoneInputRef,
             }}
           />
-          {!!phone && !isValidNumber('52', phone) && (
-            <ErrorText>Teléfono invalido</ErrorText>
-          )}
+          {!!phone && !isValidNumber('52', phone) && <ErrorText>Teléfono invalido</ErrorText>}
           <Input
-            labelProps={{label: 'Contraseña'}}
+            labelProps={{ label: 'Contraseña' }}
             inputProps={{
               value: password,
-              onChangeText: value => setPassword(value),
+              onChangeText: (value) => setPassword(value),
               autoComplete: 'password',
               onSubmitEditing: handlePasswordSubmit,
               ref: passwordInputRef,
             }}
           />
           <Input
-            labelProps={{label: 'Confirmar contraseña'}}
+            labelProps={{ label: 'Confirmar contraseña' }}
             inputProps={{
               value: confirmPassword,
-              onChangeText: value => setConfirmPassword(value),
+              onChangeText: (value) => setConfirmPassword(value),
               onSubmitEditing: handlePasswordConfirmSubmit,
               autoComplete: 'password',
               ref: passwordConfirmInputRef,
@@ -181,11 +177,13 @@ const Register: React.FC = () => {
           />
           {error && <ErrorText>{error}</ErrorText>}
           <Button style={styles.registerButton} onPress={register}>
-            <BaseText color='#fff'>Registrarse</BaseText>
+            <BaseText color="#fff">Registrarse</BaseText>
           </Button>
         </FormContainer>
         <CustomLink to="/registro-terapeutas">
-          <BaseText fontSize={20} weight={800} marginTop={20} color='#000' textAlign='center'>Soy psicoterapeuta</BaseText>
+          <BaseText fontSize={20} weight={800} marginTop={20} color="#000" textAlign="center">
+            Soy psicoterapeuta
+          </BaseText>
         </CustomLink>
       </Scrollable>
     </MainContainer>

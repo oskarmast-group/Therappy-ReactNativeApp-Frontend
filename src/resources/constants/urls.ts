@@ -1,8 +1,4 @@
-import {
-  REACT_APP_API_URL,
-  REACT_APP_DOCUMENTS_URL,
-  REACT_APP_IMAGES_URL,
-} from '@env';
+import { REACT_APP_API_URL, REACT_APP_DOCUMENTS_URL, REACT_APP_IMAGES_URL } from '@env';
 
 export const API = 'http://192.168.8.96:8080' || REACT_APP_API_URL;
 

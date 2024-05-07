@@ -1,9 +1,9 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import Container from '../Container';
-import {BaseText} from '../../../../../../components/Text';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import { BaseText } from '../../../../../../components/Text';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import ClientCard from '../../../../../../components/ClientCard';
-import {Therapist as TherapistInterface} from '../../../../../../interfaces/User';
+import { Therapist as TherapistInterface } from '../../../../../../interfaces/User';
 
 const styles = StyleSheet.create({
   listContainer: {
@@ -17,12 +17,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const PatientListSection: React.FC<{user: TherapistInterface}> = ({user}) => {
-  const clientsList = useMemo(
-    () =>
-      Array.isArray(user.extraData?.clients) ? user.extraData.clients : [],
-    [user],
-  );
+const PatientListSection: React.FC<{ user: TherapistInterface }> = ({ user }) => {
+  const clientsList = useMemo(() => (Array.isArray(user.extraData?.clients) ? user.extraData.clients : []), [user]);
 
   return (
     <Container>
@@ -32,13 +28,9 @@ const PatientListSection: React.FC<{user: TherapistInterface}> = ({user}) => {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.listContainer}>
           {clientsList.length === 0 ? (
-            <BaseText>
-              Cuando tengas pacientes asignados, aparecerán aquí.
-            </BaseText>
+            <BaseText>Cuando tengas pacientes asignados, aparecerán aquí.</BaseText>
           ) : (
-            clientsList.map(client => (
-              <ClientCard key={client.id} client={client} clickable={false} />
-            ))
+            clientsList.map((client) => <ClientCard key={client.id} client={client} clickable={false} />)
           )}
         </ScrollView>
       </View>

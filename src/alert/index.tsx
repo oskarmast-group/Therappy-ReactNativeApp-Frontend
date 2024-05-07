@@ -1,10 +1,4 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useContext,
-  useRef,
-  useState,
-} from 'react';
+import React, { PropsWithChildren, createContext, useContext, useRef, useState } from 'react';
 import Dialog from './dialog';
 import AlertOptions from './interfaces/AlertOptions';
 
@@ -16,7 +10,7 @@ const AlertServiceContext = createContext<AlertServiceContextProps>({
   alert: () => Promise.reject(),
 });
 
-const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({children}) => {
+const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const [alertState, setAlertState] = useState<AlertOptions | null>(null);
   const promise = useRef<{
     resolve: (value: any) => void;
@@ -26,7 +20,7 @@ const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({children}) => {
   function setStateOpen<T = any>(options: AlertOptions): Promise<T> {
     setAlertState(options);
     return new Promise<T>((resolve, reject) => {
-      promise.current = {resolve, reject};
+      promise.current = { resolve, reject };
     });
   }
 
@@ -41,23 +35,16 @@ const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({children}) => {
   };
 
   return (
-    <AlertServiceContext.Provider value={{alert: setStateOpen}}>
+    <AlertServiceContext.Provider value={{ alert: setStateOpen }}>
       {children}
-      <Dialog
-        open={!!alertState}
-        onSubmit={handleSubmit}
-        onClose={handleClose}
-        alertOptions={alertState}
-      />
+      <Dialog open={!!alertState} onSubmit={handleSubmit} onClose={handleClose} alertOptions={alertState} />
     </AlertServiceContext.Provider>
   );
 };
 
-function useAlert<T = any, P = any>(): (
-  options: AlertOptions<P>,
-) => Promise<T> {
+function useAlert<T = any, P = any>(): (options: AlertOptions<P>) => Promise<T> {
   return useContext(AlertServiceContext).alert;
 }
 
 export default AlertServiceProvider;
-export {AlertServiceProvider, useAlert};
+export { AlertServiceProvider, useAlert };

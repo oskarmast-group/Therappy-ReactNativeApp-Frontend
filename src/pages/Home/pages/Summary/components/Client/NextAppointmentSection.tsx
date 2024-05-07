@@ -1,14 +1,13 @@
-import React, {useEffect, useMemo} from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Container from '../Container';
-import {BaseText} from '../../../../../../components/Text';
+import { BaseText } from '../../../../../../components/Text';
 import useAppointments from '../../../../../../state/appointments';
 import AppointmentStatus from '../../../../../../interfaces/Appointment/AppointmentStatus';
-import {useSocket} from '../../../../../../Socket';
+import { useSocket } from '../../../../../../Socket';
 import AppointmentCard from '../../../../../../components/AppointmentCard';
 
 const NextAppointmentSection: React.FC = () => {
-  const {data: appointments, dispatcher: appointmentsDispatcher} =
-    useAppointments();
+  const { data: appointments, dispatcher: appointmentsDispatcher } = useAppointments();
   const socket = useSocket();
 
   useEffect(() => {
@@ -23,9 +22,7 @@ const NextAppointmentSection: React.FC = () => {
   const upcomingAppointments = useMemo(
     () =>
       appointments.upcomingList.filter(
-        ({status}) =>
-          status !== AppointmentStatus.REJECTED &&
-          status !== AppointmentStatus.CANCELLED,
+        ({ status }) => status !== AppointmentStatus.REJECTED && status !== AppointmentStatus.CANCELLED,
       ),
     [appointments],
   );
@@ -41,7 +38,7 @@ const NextAppointmentSection: React.FC = () => {
             .sort((a, b) => {
               return new Date(a.date).getTime() - new Date(b.date).getTime();
             })
-            .filter(({status}) => status !== AppointmentStatus.REJECTED)[0]
+            .filter(({ status }) => status !== AppointmentStatus.REJECTED)[0]
         }
       />
     </Container>

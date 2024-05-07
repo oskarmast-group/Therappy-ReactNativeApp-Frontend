@@ -1,16 +1,6 @@
-import {Dispatch} from 'react';
-import {
-  NewDocStartPayload,
-  RequiredDocumentationActions,
-  UpdateStartPayload,
-} from './actionTypes';
-import {
-  fetchStartAction,
-  resetError,
-  updateStartAction,
-  newDocStartAction,
-  deleteStartAction,
-} from './actions';
+import { Dispatch } from 'react';
+import { NewDocStartPayload, RequiredDocumentationActions, UpdateStartPayload } from './actionTypes';
+import { fetchStartAction, resetError, updateStartAction, newDocStartAction, deleteStartAction } from './actions';
 
 export default class Dispatcher {
   _dispatch: Dispatch<RequiredDocumentationActions>;
@@ -21,13 +11,11 @@ export default class Dispatcher {
 
   fetchStart = () => this._dispatch(fetchStartAction());
 
-  newDocStart = (data: NewDocStartPayload) =>
-    this._dispatch(newDocStartAction(data));
+  newDocStart = (data: NewDocStartPayload) => this._dispatch(newDocStartAction(data));
 
   deleteStart = (uuid: string) => this._dispatch(deleteStartAction(uuid));
 
-  updateStart = (data: UpdateStartPayload) =>
-    this._dispatch(updateStartAction(data));
+  updateStart = (data: UpdateStartPayload) => this._dispatch(updateStartAction(data));
 
   resetError = () => this._dispatch(resetError());
 }

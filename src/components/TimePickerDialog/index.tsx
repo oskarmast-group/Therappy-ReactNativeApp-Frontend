@@ -1,21 +1,16 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
 import styles from './styles';
-import Button, {ButtonText} from '../Button';
+import Button, { ButtonText } from '../Button';
 import Base from '../../alert/dialog/common/Base';
-import {CustomDialogProps} from '../../alert/interfaces/CustomDialogProps';
+import { CustomDialogProps } from '../../alert/interfaces/CustomDialogProps';
 import DatePicker from 'react-native-date-picker';
 
 interface TimePickerDialogProps {
   initialTime: number;
 }
 
-const TimePickerDialog: React.FC<CustomDialogProps<TimePickerDialogProps>> = ({
-  open,
-  onSubmit,
-  onClose,
-  props,
-}) => {
+const TimePickerDialog: React.FC<CustomDialogProps<TimePickerDialogProps>> = ({ open, onSubmit, onClose, props }) => {
   const [time, setTime] = useState(props.initialTime);
 
   const onChangeTime = (selectedTime: Date) => {

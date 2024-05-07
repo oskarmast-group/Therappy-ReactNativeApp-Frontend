@@ -1,6 +1,6 @@
-import {Dispatch} from 'react';
-import {TherapistActions} from './actionTypes';
-import {fetchProfileStartAction, fetchStartAction, resetError} from './actions';
+import { Dispatch } from 'react';
+import { TherapistActions } from './actionTypes';
+import { fetchProfileStartAction, fetchStartAction, resetError } from './actions';
 export default class Dispatcher {
   _dispatch: Dispatch<TherapistActions>;
 
@@ -10,8 +10,7 @@ export default class Dispatcher {
 
   fetchStart = () => this._dispatch(fetchStartAction());
 
-  fetchProfileStart = (therapistId: number) =>
-    this._dispatch(fetchProfileStartAction(therapistId));
+  fetchProfileStart = (therapistId: number) => this._dispatch(fetchProfileStartAction(therapistId));
 
   resetError = () => this._dispatch(resetError());
 }

@@ -1,4 +1,4 @@
-import Appointment, {BaseAppointment} from '../../interfaces/Appointment';
+import Appointment, { BaseAppointment } from '../../interfaces/Appointment';
 import Reservation from '../../interfaces/Reservations';
 import ErrorState from '../interfaces/ErrorState';
 import FetchingState from '../interfaces/FetchingState';
@@ -11,7 +11,7 @@ interface AppointmentState {
   appointment: Appointment | null;
   serverTime: number | null;
   confirmed: boolean;
-  fetching: FetchingState<null | {key: string}>;
+  fetching: FetchingState<null | { key: string }>;
   error: ErrorState;
 }
 

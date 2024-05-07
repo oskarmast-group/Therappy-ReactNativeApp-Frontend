@@ -1,4 +1,4 @@
-import {Dispatch} from 'react';
+import { Dispatch } from 'react';
 import {
   AcceptInvitationStartPayload,
   UpdateStartPayload,
@@ -24,11 +24,9 @@ export default class Dispatcher {
   //   updateImageStart = image =>
   //     this.dispatch({type: Types.UPDATE_IMAGE_START, payload: image});
 
-  updateStart = (payload: UpdateStartPayload) =>
-    this._dispatch(updateStartAction(payload));
+  updateStart = (payload: UpdateStartPayload) => this._dispatch(updateStartAction(payload));
 
-  updateTherapistStart = (payload: UpdateTherapistStartPayload) =>
-    this._dispatch(updateTherapistStartAction(payload));
+  updateTherapistStart = (payload: UpdateTherapistStartPayload) => this._dispatch(updateTherapistStartAction(payload));
 
   //   setupIntentStart = () =>
   //     this.dispatch({type: Types.SETUP_INTENT_START, payload: {}});

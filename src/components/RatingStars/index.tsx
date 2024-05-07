@@ -1,8 +1,8 @@
-import React, {useMemo} from 'react';
-import {View} from 'react-native';
+import React, { useMemo } from 'react';
+import { View } from 'react-native';
 import styles from './styles';
-import {BaseText} from '../Text';
-import {DARKER_TEXT} from '../../resources/constants/colors';
+import { BaseText } from '../Text';
+import { DARKER_TEXT } from '../../resources/constants/colors';
 import StarEmptyIcon from '../../resources/img/icons/StarEmptyIcon';
 import StarIcon from '../../resources/img/icons/StarIcon';
 import StarHalfIcon from '../../resources/img/icons/StarHalfIcon';
@@ -33,13 +33,11 @@ const getStarsArray = (reviewAvg?: number | null) => {
 const RatingStars: React.FC<{
   reviewAvg?: number | null;
   reviewsCount?: number;
-}> = ({reviewAvg, reviewsCount}) => {
+}> = ({ reviewAvg, reviewsCount }) => {
   const stars = useMemo(() => getStarsArray(reviewAvg), [reviewAvg]);
   return (
     <View style={styles.container}>
-      {!!reviewAvg && (
-        <View style={styles.stars}>{stars.map(icon => icon)}</View>
-      )}
+      {!!reviewAvg && <View style={styles.stars}>{stars.map((icon) => icon)}</View>}
       {!!reviewAvg && (
         <BaseText fontSize={12} color={DARKER_TEXT}>
           {reviewAvg}

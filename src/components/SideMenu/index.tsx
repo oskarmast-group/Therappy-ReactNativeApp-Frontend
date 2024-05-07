@@ -1,12 +1,12 @@
 import React from 'react';
 import Container from './components/Container';
-import {TouchableOpacity, View} from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import Background from './components/Background';
 import styles from './components/styles';
-import {BaseText} from '../Text';
+import { BaseText } from '../Text';
 import CloseIcon from '../../resources/img/icons/CloseIcon';
-import {Link} from 'react-router-native';
-import {DARK_TEXT} from '../../resources/constants/colors';
+import { Link } from 'react-router-native';
+import { DARK_TEXT } from '../../resources/constants/colors';
 import PersonIcon from '../../resources/img/icons/PersonIcon';
 import ChevronRightIcon from '../../resources/img/icons/ChevronRightIcon';
 import CalendarIcon from '../../resources/img/icons/CalendarIcon';
@@ -16,21 +16,13 @@ import VideoIcon from '../../resources/img/icons/VideoIcon';
 import CardIcon from '../../resources/img/icons/CardIcon';
 import LogoutIcon from '../../resources/img/icons/LogoutIcon';
 
-const SideMenu: React.FC<{menuOpen: boolean; toggleMenu: () => void}> = ({
-  menuOpen,
-  toggleMenu,
-}) => {
-  const {data: user} = useUser();
+const SideMenu: React.FC<{ menuOpen: boolean; toggleMenu: () => void }> = ({ menuOpen, toggleMenu }) => {
+  const { data: user } = useUser();
   return (
     <Background open={menuOpen} onPress={toggleMenu}>
-      <Container
-        open={menuOpen}
-        onStartShouldSetResponder={() => true}
-        onResponderTerminationRequest={() => false}>
+      <Container open={menuOpen} onStartShouldSetResponder={() => true} onResponderTerminationRequest={() => false}>
         <View style={styles.topSection}>
-          <TouchableOpacity
-            style={styles.closeButtonContainer}
-            onPress={toggleMenu}>
+          <TouchableOpacity style={styles.closeButtonContainer} onPress={toggleMenu}>
             <CloseIcon color={'#ffffff'} />
           </TouchableOpacity>
           <BaseText fontSize={24} weight={700} color={'#fbfbfd'}>

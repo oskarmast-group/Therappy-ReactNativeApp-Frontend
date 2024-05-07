@@ -1,5 +1,5 @@
 import Documentation from '../Documentation';
-import {BaseInvitation} from '../Invitation';
+import { BaseInvitation } from '../Invitation';
 import TimeAvailability from '../TimeAvailability';
 import ClientTherapistStatus from './ClientTherapistStatus';
 import TherapistStatus from './TherapistStatus';

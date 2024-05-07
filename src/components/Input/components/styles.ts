@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {DARKER_TEXT} from '../../../resources/constants/colors';
+import { StyleSheet } from 'react-native';
+import { DARKER_TEXT } from '../../../resources/constants/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
   registerButton: {
     marginTop: 30,
     maxWidth: 200,
-    color: "#ffffff",
+    color: '#ffffff',
   },
   inputWithMarginTop: {
     marginTop: 20,
-  }
+  },
 });
 
 export default styles;

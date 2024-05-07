@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Container from '../../Container';
-import {BaseText} from '../../../../../../../components/Text';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import { BaseText } from '../../../../../../../components/Text';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import useAppointments from '../../../../../../../state/appointments';
-import {useSocket} from '../../../../../../../Socket';
+import { useSocket } from '../../../../../../../Socket';
 import Loading from '../../../../../../../components/Loading';
 import AppointmentCard from './AppointmentCard';
 
@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
 });
 
 const AppointmentsListSection: React.FC = () => {
-  const {data: appointments, dispatcher: appointmentsDispatcher} =
-    useAppointments();
+  const { data: appointments, dispatcher: appointmentsDispatcher } = useAppointments();
   const socket = useSocket();
 
   useEffect(() => {
@@ -49,13 +48,9 @@ const AppointmentsListSection: React.FC = () => {
           Object.keys(appointments.fetching.config).length === 0 ? (
             <Loading />
           ) : appointments.pendingList.length === 0 ? (
-            <BaseText>
-              Cuando tengas solicitudes a citas nuevas, aparecerán aquí.
-            </BaseText>
+            <BaseText>Cuando tengas solicitudes a citas nuevas, aparecerán aquí.</BaseText>
           ) : (
-            appointments.pendingList.map(app => (
-              <AppointmentCard key={app.id} app={app} />
-            ))
+            appointments.pendingList.map((app) => <AppointmentCard key={app.id} app={app} />)
           )}
         </ScrollView>
       </View>

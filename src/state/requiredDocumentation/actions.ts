@@ -24,9 +24,7 @@ export const fetchStartAction = (): FetchStart => ({
   payload: null,
 });
 
-export const fetchSuccessAction = (
-  payload: RequiredDocumentation[],
-): FetchSuccess => ({
+export const fetchSuccessAction = (payload: RequiredDocumentation[]): FetchSuccess => ({
   type: ACTION_STRINGS.FETCH_SUCCESS,
   payload,
 });
@@ -36,9 +34,7 @@ export const fetchErrorAction = (payload: any): FetchError => ({
   payload,
 });
 
-export const newDocStartAction = (
-  payload: NewDocStartPayload,
-): NewDocStart => ({
+export const newDocStartAction = (payload: NewDocStartPayload): NewDocStart => ({
   type: ACTION_STRINGS.NEW_DOC_START,
   payload,
 });
@@ -53,9 +49,7 @@ export const newDocErrorAction = (payload: any): NewDocError => ({
   payload,
 });
 
-export const updateStartAction = (
-  payload: UpdateStartPayload,
-): UpdateStart => ({
+export const updateStartAction = (payload: UpdateStartPayload): UpdateStart => ({
   type: ACTION_STRINGS.UPDATE_START,
   payload,
 });

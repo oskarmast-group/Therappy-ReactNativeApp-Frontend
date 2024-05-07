@@ -1,4 +1,4 @@
-import Conversation, {BaseConversation} from '../../interfaces/Conversation';
+import Conversation, { BaseConversation } from '../../interfaces/Conversation';
 import ErrorState from '../interfaces/ErrorState';
 import FetchingState from '../interfaces/FetchingState';
 

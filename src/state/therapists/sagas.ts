@@ -1,15 +1,10 @@
-import {takeLatest, put, all, call} from 'redux-saga/effects';
-import Therapist, {BaseTherapist} from '../../interfaces/Therapist';
-import {FetchProfileStart} from './actionTypes';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
+import Therapist, { BaseTherapist } from '../../interfaces/Therapist';
+import { FetchProfileStart } from './actionTypes';
 import ACTION_STRINGS from './actionStrings';
-import {processError} from '../utils';
-import {
-  fetchErrorAction,
-  fetchProfileErrorAction,
-  fetchProfileSuccessAction,
-  fetchSuccessAction,
-} from './actions';
-import {therapistAPI} from '../../resources/api';
+import { processError } from '../utils';
+import { fetchErrorAction, fetchProfileErrorAction, fetchProfileSuccessAction, fetchSuccessAction } from './actions';
+import { therapistAPI } from '../../resources/api';
 
 function* fetchStartAsync(): Generator<unknown, void, BaseTherapist[]> {
   try {
@@ -26,9 +21,7 @@ function* fetchStart() {
   yield takeLatest(ACTION_STRINGS.FETCH_START, fetchStartAsync);
 }
 
-function* fetchProfileStartAsync({
-  payload,
-}: FetchProfileStart): Generator<unknown, void, Therapist> {
+function* fetchProfileStartAsync({ payload }: FetchProfileStart): Generator<unknown, void, Therapist> {
   try {
     const res = yield therapistAPI.getOne(payload);
     yield put(fetchProfileSuccessAction(res));

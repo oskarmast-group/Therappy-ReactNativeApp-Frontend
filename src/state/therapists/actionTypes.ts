@@ -1,4 +1,4 @@
-import Therapist, {BaseTherapist} from '../../interfaces/Therapist';
+import Therapist, { BaseTherapist } from '../../interfaces/Therapist';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 

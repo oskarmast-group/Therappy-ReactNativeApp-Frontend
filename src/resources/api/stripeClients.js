@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import Authorization from './auth';
-import {executeCall} from './utils';
+import { executeCall } from './utils';
 
 const crudder = (domain, resource, withAuth = true) => {
   const url = `${domain}/${resource}`;
@@ -12,14 +12,9 @@ const crudder = (domain, resource, withAuth = true) => {
       headers,
       url,
     },
-    setupIntent: () =>
-      executeCall(() => Axios.get(url + '/setup-payment', {headers})),
-    paymentMethods: () =>
-      executeCall(() => Axios.get(url + '/payment-methods', {headers})),
-    deletePaymentMethod: data =>
-      executeCall(() =>
-        Axios.post(url + '/delete-payment-method', data, {headers}),
-      ),
+    setupIntent: () => executeCall(() => Axios.get(url + '/setup-payment', { headers })),
+    paymentMethods: () => executeCall(() => Axios.get(url + '/payment-methods', { headers })),
+    deletePaymentMethod: (data) => executeCall(() => Axios.post(url + '/delete-payment-method', data, { headers })),
   };
 };
 

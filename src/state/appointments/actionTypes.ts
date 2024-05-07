@@ -1,4 +1,4 @@
-import Appointment, {BaseAppointment} from '../../interfaces/Appointment';
+import Appointment, { BaseAppointment } from '../../interfaces/Appointment';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 
@@ -69,7 +69,7 @@ export type AcceptError = {
 
 export type FetchOneStart = {
   type: ACTION_STRINGS.FETCH_ONE_START;
-  payload: {roomId: string};
+  payload: { roomId: string };
 };
 
 export type FetchOneSuccess = {

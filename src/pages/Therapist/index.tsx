@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './pages/List';
 import Profile from './pages/Profile';
-import {Route, Routes} from 'react-router-native';
+import { Route, Routes } from 'react-router-native';
 
 const Therapist: React.FC = () => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
-import {StatusBar, View} from 'react-native';
+import { StatusBar, View } from 'react-native';
 import styled from 'styled-components/native';
-import {GREEN} from '../../resources/constants/colors';
+import { GREEN } from '../../resources/constants/colors';
 import TopWave from '../../resources/img/shapes/TopWave';
 
 const AppContainer = styled.SafeAreaView`
@@ -21,7 +21,7 @@ const Content = styled.View`
   display: flex;
 `;
 
-const Main = styled.View<{fullscreen?: boolean}>`
+const Main = styled.View<{ fullscreen?: boolean }>`
   padding: 20px;
   padding-top: 0;
   padding-bottom: 0;
@@ -29,7 +29,7 @@ const Main = styled.View<{fullscreen?: boolean}>`
   flex-grow: 0;
   flex-shrink: 1;
 
-  /* margin-bottom: ${props => (props.fullscreen ? '0px' : '58px')}; */
+  /* margin-bottom: ${(props) => (props.fullscreen ? '0px' : '58px')}; */
 `;
 
 const BarTest = styled.View`

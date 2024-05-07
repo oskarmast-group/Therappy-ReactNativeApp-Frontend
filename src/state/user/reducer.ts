@@ -1,7 +1,7 @@
 import ACTION_STRINGS from './actionStrings';
 import UserState from './state';
-import {UserActions} from './actionTypes';
-import {DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR} from '../constants';
+import { UserActions } from './actionTypes';
+import { DEFAULT_FETCHING_STATE, DEFAULT_NO_ERROR } from '../constants';
 import UserType from '../../interfaces/User/UserType';
 
 const INITIAL_STATE: UserState = {
@@ -10,15 +10,15 @@ const INITIAL_STATE: UserState = {
   paymentMethods: [],
   accountInformation: {},
   fetching: {
-    fetch: {...DEFAULT_FETCHING_STATE},
-    update: {...DEFAULT_FETCHING_STATE},
-    setup: {...DEFAULT_FETCHING_STATE},
-    deletePaymentMethod: {...DEFAULT_FETCHING_STATE},
-    paymentMethods: {...DEFAULT_FETCHING_STATE},
-    acceptInvitation: {...DEFAULT_FETCHING_STATE},
-    accountInformation: {...DEFAULT_FETCHING_STATE},
+    fetch: { ...DEFAULT_FETCHING_STATE },
+    update: { ...DEFAULT_FETCHING_STATE },
+    setup: { ...DEFAULT_FETCHING_STATE },
+    deletePaymentMethod: { ...DEFAULT_FETCHING_STATE },
+    paymentMethods: { ...DEFAULT_FETCHING_STATE },
+    acceptInvitation: { ...DEFAULT_FETCHING_STATE },
+    accountInformation: { ...DEFAULT_FETCHING_STATE },
   },
-  error: {...DEFAULT_NO_ERROR},
+  error: { ...DEFAULT_NO_ERROR },
 };
 
 const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
@@ -29,7 +29,7 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         ...state,
         fetching: {
           ...state.fetching,
-          fetch: {...DEFAULT_FETCHING_STATE, isFetching: true},
+          fetch: { ...DEFAULT_FETCHING_STATE, isFetching: true },
         },
       };
     case ACTION_STRINGS.FETCH_SUCCESS:
@@ -38,18 +38,18 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         current: action.payload,
         fetching: {
           ...state.fetching,
-          fetch: {...DEFAULT_FETCHING_STATE},
+          fetch: { ...DEFAULT_FETCHING_STATE },
         },
-        error: {...DEFAULT_NO_ERROR},
+        error: { ...DEFAULT_NO_ERROR },
       };
     case ACTION_STRINGS.FETCH_ERROR:
       return {
         ...state,
         fetching: {
           ...state.fetching,
-          fetch: {...DEFAULT_FETCHING_STATE},
+          fetch: { ...DEFAULT_FETCHING_STATE },
         },
-        error: {timestamp: Date.now(), message: action.payload},
+        error: { timestamp: Date.now(), message: action.payload },
       };
 
     // UPDATE
@@ -60,7 +60,7 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         fetching: {
           ...state.fetching,
           update: {
-            config: {key: action.payload.key},
+            config: { key: action.payload.key },
             isFetching: true,
           },
         },
@@ -78,18 +78,18 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         ...state,
         fetching: {
           ...state.fetching,
-          update: {...DEFAULT_FETCHING_STATE},
+          update: { ...DEFAULT_FETCHING_STATE },
         },
-        error: {...DEFAULT_NO_ERROR},
+        error: { ...DEFAULT_NO_ERROR },
       };
     case ACTION_STRINGS.UPDATE_ERROR:
       return {
         ...state,
         fetching: {
           ...state.fetching,
-          update: {...DEFAULT_FETCHING_STATE},
+          update: { ...DEFAULT_FETCHING_STATE },
         },
-        error: {timestamp: Date.now(), message: action.payload},
+        error: { timestamp: Date.now(), message: action.payload },
       };
 
     // // SETUP INTENT
@@ -184,7 +184,7 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         ...state,
         fetching: {
           ...state.fetching,
-          acceptInvitation: {...DEFAULT_FETCHING_STATE, isFetching: true},
+          acceptInvitation: { ...DEFAULT_FETCHING_STATE, isFetching: true },
         },
       };
     case ACTION_STRINGS.ACCEPT_INVITATION_SUCCESS:
@@ -192,18 +192,18 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         ...state,
         fetching: {
           ...state.fetching,
-          acceptInvitation: {...DEFAULT_FETCHING_STATE},
+          acceptInvitation: { ...DEFAULT_FETCHING_STATE },
         },
-        error: {...DEFAULT_NO_ERROR},
+        error: { ...DEFAULT_NO_ERROR },
       };
     case ACTION_STRINGS.ACCEPT_INVITATION_ERROR:
       return {
         ...state,
         fetching: {
           ...state.fetching,
-          acceptInvitation: {...DEFAULT_FETCHING_STATE},
+          acceptInvitation: { ...DEFAULT_FETCHING_STATE },
         },
-        error: {timestamp: Date.now(), message: action.payload},
+        error: { timestamp: Date.now(), message: action.payload },
       };
 
     // // ACCOUNT INFORMATION
@@ -269,9 +269,7 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         return state;
       }
 
-      const oldDocument = documentation.find(
-        ({uuid}) => action.payload.uuid === uuid,
-      );
+      const oldDocument = documentation.find(({ uuid }) => action.payload.uuid === uuid);
       if (!oldDocument) {
         return state;
       }
@@ -305,9 +303,7 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         return state;
       }
 
-      const oldDocument = documentation.find(
-        ({uuid}) => action.payload === uuid,
-      );
+      const oldDocument = documentation.find(({ uuid }) => action.payload === uuid);
       if (!oldDocument) {
         return state;
       }
@@ -332,7 +328,7 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
     }
 
     case ACTION_STRINGS.RESET_ERROR:
-      return {...state, error: {...DEFAULT_NO_ERROR}};
+      return { ...state, error: { ...DEFAULT_NO_ERROR } };
 
     default:
       return state;

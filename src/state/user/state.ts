@@ -9,7 +9,7 @@ interface UserState {
   accountInformation: {};
   fetching: {
     fetch: FetchingState<null>;
-    update: FetchingState<null | {key: string}>;
+    update: FetchingState<null | { key: string }>;
     setup: FetchingState<null>;
     deletePaymentMethod: FetchingState<null>;
     paymentMethods: FetchingState<null>;

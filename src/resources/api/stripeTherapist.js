@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import Authorization from './auth';
-import {executeCall} from './utils';
+import { executeCall } from './utils';
 
 const crudder = (domain, resource, withAuth = true) => {
   const url = `${domain}/${resource}`;
@@ -12,10 +12,8 @@ const crudder = (domain, resource, withAuth = true) => {
       headers,
       url,
     },
-    accountInformation: () =>
-      executeCall(() => Axios.get(url + '/account-information', {headers})),
-    accountLink: () =>
-      executeCall(() => Axios.get(url + '/account-link', {headers})),
+    accountInformation: () => executeCall(() => Axios.get(url + '/account-information', { headers })),
+    accountLink: () => executeCall(() => Axios.get(url + '/account-link', { headers })),
   };
 };
 

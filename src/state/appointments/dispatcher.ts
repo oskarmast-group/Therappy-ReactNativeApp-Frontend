@@ -1,5 +1,5 @@
-import {Dispatch} from 'react';
-import {AppointmentActions} from './actionTypes';
+import { Dispatch } from 'react';
+import { AppointmentActions } from './actionTypes';
 import {
   acceptStartAction,
   cancelStartAction,
@@ -32,8 +32,7 @@ export default class Dispatcher {
 
   // confirmStart = (payload) => this.dispatch({ type: Types.CONFIRM_START, payload });
 
-  fetchOneStart = (roomId: string) =>
-    this._dispatch(fetchOneStartAction(roomId));
+  fetchOneStart = (roomId: string) => this._dispatch(fetchOneStartAction(roomId));
 
   getServerTimeStart = () => this._dispatch(getServerTimeStartAction());
 

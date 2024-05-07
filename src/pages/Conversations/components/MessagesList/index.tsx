@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {NativeScrollEvent, NativeSyntheticEvent, View} from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native';
 import styles from './styles';
 import useMessages from '../../../../state/messages';
-import {useSocket} from '../../../../Socket';
+import { useSocket } from '../../../../Socket';
 import useUser from '../../../../state/user';
 import Message from '../../../../interfaces/Conversation/Message';
-import {IOScrollView} from 'react-native-intersection-observer';
+import { IOScrollView } from 'react-native-intersection-observer';
 import MessageComponent from './Message';
-import {useMessageScroll} from '../../MessageScrollProvider';
+import { useMessageScroll } from '../../MessageScrollProvider';
 
 const MessagesList: React.FC = () => {
-  const {data: state, dispatcher: messagesDispatcher} = useMessages();
-  const {data: userState} = useUser();
+  const { data: state, dispatcher: messagesDispatcher } = useMessages();
+  const { data: userState } = useUser();
   const socket = useSocket();
   const [showHidden, setShowHidden] = useState(false);
-  const {scrollRef, scrollToBottom, setIsAtBottom, checkAutoScroll} =
-    useMessageScroll();
+  const { scrollRef, scrollToBottom, setIsAtBottom, checkAutoScroll } = useMessageScroll();
 
   useEffect(() => {
     messagesDispatcher.fetchStart();
@@ -29,12 +28,12 @@ const MessagesList: React.FC = () => {
     if (!socket) {
       return;
     }
-    socket.off('new message').on('new message', payload => {
+    socket.off('new message').on('new message', (payload) => {
       messagesDispatcher.addMessage(payload);
     });
   }, [socket, messagesDispatcher]);
 
-  const {visibleList, invisibleList, firstUnread, lastUnread} = useMemo(() => {
+  const { visibleList, invisibleList, firstUnread, lastUnread } = useMemo(() => {
     let firstUnread: string | null = null;
     let lastUnread: string | null = null;
     const messages = state.list.sort((a, b) => {
@@ -43,8 +42,7 @@ const MessagesList: React.FC = () => {
     const visible: Message[] = [];
     let invisible: Message[] = [];
     for (const msg of messages) {
-      const unread =
-        userState.current?.id !== msg.from.id && msg.readTimestamp === null;
+      const unread = userState.current?.id !== msg.from.id && msg.readTimestamp === null;
       visible.push(msg);
       if (!firstUnread && unread) {
         firstUnread = msg.uuid;
@@ -52,11 +50,7 @@ const MessagesList: React.FC = () => {
       if (unread) {
         lastUnread = msg.uuid;
       }
-      if (
-        unread &&
-        visible.length > state.extraMessagesToFetch &&
-        messages.length > visible.length
-      ) {
+      if (unread && visible.length > state.extraMessagesToFetch && messages.length > visible.length) {
         invisible = messages.slice(visible.length);
         break;
       }
@@ -79,10 +73,8 @@ const MessagesList: React.FC = () => {
   }, [visibleList, checkAutoScroll]);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const {layoutMeasurement, contentOffset, contentSize} = event.nativeEvent;
-    setIsAtBottom(
-      layoutMeasurement.height + contentOffset.y >= contentSize.height - 25,
-    );
+    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+    setIsAtBottom(layoutMeasurement.height + contentOffset.y >= contentSize.height - 25);
     setShowHidden(true);
   };
 
@@ -112,7 +104,8 @@ const MessagesList: React.FC = () => {
           style={styles.scrollContainer}
           contentContainerStyle={styles.scrollContent}
           onScroll={handleScroll}
-          scrollEventThrottle={60}>
+          scrollEventThrottle={60}
+        >
           {list.map((msg, i) => (
             <MessageComponent
               key={msg.uuid}

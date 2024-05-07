@@ -1,25 +1,25 @@
 import React from 'react';
-import {add, addMinutes, isBefore} from 'date-fns';
-import {useMemo} from 'react';
-import {useEffect} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import { add, addMinutes, isBefore } from 'date-fns';
+import { useMemo } from 'react';
+import { useEffect } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import RemoveIcon from '../../../../resources/img/icons/RemoveIcon';
 import AddIcon from '../../../../resources/img/icons/AddIcon';
-import {dateFormat} from '../../../../utils/date';
-import {useHoursPicker} from '../../providers/HoursProvider';
-import {useAlert} from '../../../../alert';
+import { dateFormat } from '../../../../utils/date';
+import { useHoursPicker } from '../../providers/HoursProvider';
+import { useAlert } from '../../../../alert';
 import ALERT_TYPES from '../../../../alert/interfaces/AlertTypes';
 import TimePickerDialog from '../../../../components/TimePickerDialog';
 import uuid from 'react-native-uuid';
-import {BaseText} from '../../../../components/Text';
+import { BaseText } from '../../../../components/Text';
 
 interface TimePickerProps {
   hour: number;
   setHour: (hour: number) => void;
 }
 
-const TimePicker: React.FC<TimePickerProps> = ({hour, setHour}) => {
+const TimePicker: React.FC<TimePickerProps> = ({ hour, setHour }) => {
   const alert = useAlert();
 
   const onChangeTime = () => {
@@ -32,7 +32,7 @@ const TimePicker: React.FC<TimePickerProps> = ({hour, setHour}) => {
         },
       },
     })
-      .then(time => {
+      .then((time) => {
         setHour(time.getTime());
       })
       .catch(() => {});
@@ -75,7 +75,7 @@ const TimeInterval: React.FC<TimeIntervalProps> = ({
 
   useEffect(() => {
     return () => {
-      dispatch({type: 'REMOVE_ERROR', id: uniqueId});
+      dispatch({ type: 'REMOVE_ERROR', id: uniqueId });
     };
   }, [uniqueId, dispatch]);
 
@@ -92,37 +92,26 @@ const TimeInterval: React.FC<TimeIntervalProps> = ({
   }, [hour, previousValue]);
 
   useEffect(() => {
-    dispatch({type: 'SET_ERROR', id: uniqueId, error: hasError});
+    dispatch({ type: 'SET_ERROR', id: uniqueId, error: hasError });
   }, [dispatch, hasError, uniqueId]);
 
   return (
-    <View
-      style={
-        hasError
-          ? StyleSheet.compose(styles.container, styles.errorContainer)
-          : styles.container
-      }>
+    <View style={hasError ? StyleSheet.compose(styles.container, styles.errorContainer) : styles.container}>
       <TimePicker hour={hour} setHour={changeFirst} />
-      <BaseText fontSize={14}>
-        {`- ${dateFormat(add(new Date(hour), {minutes: 50}), 'h:mm a')}`}
-      </BaseText>
+      <BaseText fontSize={14}>{`- ${dateFormat(add(new Date(hour), { minutes: 50 }), 'h:mm a')}`}</BaseText>
       {hoursCount === 1 ? (
         <TouchableOpacity style={styles.intervalButton} onPress={addInterval}>
           <AddIcon />
         </TouchableOpacity>
       ) : (
         <>
-          <TouchableOpacity
-            style={styles.intervalButton}
-            onPress={removeInterval}>
+          <TouchableOpacity style={styles.intervalButton} onPress={removeInterval}>
             <View style={styles.iconContainer}>
               <RemoveIcon />
             </View>
           </TouchableOpacity>
           {isLast && (
-            <TouchableOpacity
-              style={styles.intervalButton}
-              onPress={addInterval}>
+            <TouchableOpacity style={styles.intervalButton} onPress={addInterval}>
               <View style={styles.iconContainer}>
                 <AddIcon />
               </View>

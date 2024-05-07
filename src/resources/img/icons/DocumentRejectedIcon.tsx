@@ -1,17 +1,10 @@
 import * as React from 'react';
-import Svg, {G, Circle, Path} from 'react-native-svg';
+import Svg, { G, Circle, Path } from 'react-native-svg';
 
 const DocumentRejectedIcon = () => (
   <Svg preserveAspectRatio="xMidYMid slice">
     <G transform="translate(-176 -382)">
-      <Circle
-        cx={7.5}
-        cy={7.5}
-        r={7.5}
-        fill="#cf142b"
-        data-name="Ellipse 19"
-        transform="translate(176 382)"
-      />
+      <Circle cx={7.5} cy={7.5} r={7.5} fill="#cf142b" data-name="Ellipse 19" transform="translate(176 382)" />
       <Path
         fill="#fff"
         stroke="#fff"

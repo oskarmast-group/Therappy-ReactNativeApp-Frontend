@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
-import DocumentPicker, {types} from 'react-native-document-picker';
+import React, { useCallback } from 'react';
+import DocumentPicker, { types } from 'react-native-document-picker';
 import File from '../../../../../../../../interfaces/File';
-import {useAlert} from '../../../../../../../../alert';
-import {BaseText} from '../../../../../../../../components/Text';
+import { useAlert } from '../../../../../../../../alert';
+import { BaseText } from '../../../../../../../../components/Text';
 import ALERT_TYPES from '../../../../../../../../alert/interfaces/AlertTypes';
 import useRequiredDocumentation from '../../../../../../../../state/requiredDocumentation';
 
@@ -20,18 +20,16 @@ export interface UpdateDocumentUploadProps {
   uuid: string;
 }
 
-export const useDocumentUpload = (
-  props: UpdateDocumentUploadProps | NewDocumentUploadProps,
-) => {
-  const {type} = props;
+export const useDocumentUpload = (props: UpdateDocumentUploadProps | NewDocumentUploadProps) => {
+  const { type } = props;
   const alert = useAlert();
-  const {dispatcher} = useRequiredDocumentation();
+  const { dispatcher } = useRequiredDocumentation();
 
   const onUpload = useCallback(() => {
     DocumentPicker.pickSingle({
       type: [types.doc, types.docx, types.pdf],
     })
-      .then(response => {
+      .then((response) => {
         if (response.type === null || response.name === null) {
           throw new Error('Formato invalido');
         }
@@ -53,7 +51,7 @@ export const useDocumentUpload = (
           dispatcher.updateStart(data);
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
         if (!DocumentPicker.isCancel(e)) {
           alert({
@@ -62,8 +60,7 @@ export const useDocumentUpload = (
               title: 'Formato incorrecto',
               body: (
                 <BaseText>
-                  Verifica que el documento que intentas subir sea válido, menor
-                  a 200kB y de tipo doc, docx o pdf.
+                  Verifica que el documento que intentas subir sea válido, menor a 200kB y de tipo doc, docx o pdf.
                 </BaseText>
               ),
               buttonText: 'OK',

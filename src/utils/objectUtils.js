@@ -1,11 +1,7 @@
 const addObjectPath = (obj, is, value) => {
   return is.length > 1
     ? addObjectPath(
-        obj.hasOwnProperty(is[0])
-          ? obj[is[0]]
-          : is.length === 1
-          ? (obj[is[0]] = value)
-          : (obj[is[0]] = {}),
+        obj.hasOwnProperty(is[0]) ? obj[is[0]] : is.length === 1 ? (obj[is[0]] = value) : (obj[is[0]] = {}),
         is.slice(1),
         value,
       )
@@ -34,7 +30,7 @@ export const getPathValue = (obj, is) => {
     const ref = multiPath(obj, is.split('.'));
 
     if (Array.isArray(ref)) return [...ref];
-    if (typeof ref === 'object') return {...ref};
+    if (typeof ref === 'object') return { ...ref };
 
     return ref;
   } catch (e) {

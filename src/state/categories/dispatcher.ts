@@ -1,6 +1,6 @@
-import {Dispatch} from 'react';
-import {CategoryActions} from './actionTypes';
-import {fetchStartAction, resetError} from './actions';
+import { Dispatch } from 'react';
+import { CategoryActions } from './actionTypes';
+import { fetchStartAction, resetError } from './actions';
 
 export default class Dispatcher {
   _dispatch: Dispatch<CategoryActions>;

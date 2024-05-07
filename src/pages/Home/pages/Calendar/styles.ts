@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {PRIMARY_GREEN} from '../../../../resources/constants/colors';
+import { StyleSheet } from 'react-native';
+import { PRIMARY_GREEN } from '../../../../resources/constants/colors';
 
 const styles = StyleSheet.create({
   tabContainer: {

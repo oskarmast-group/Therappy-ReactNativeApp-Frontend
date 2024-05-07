@@ -5,10 +5,7 @@ import TopBar from '../../../../components/TopBar';
 const NewAppointment: React.FC = () => {
   return (
     <MainContainer withSideMenu={false} withBottomNavigation={false}>
-      <TopBar
-        backRoute={appointments.confirmed ? '/' : undefined}
-        title={'Cita'}
-      />
+      <TopBar backRoute={appointments.confirmed ? '/' : undefined} title={'Cita'} />
     </MainContainer>
   );
 };

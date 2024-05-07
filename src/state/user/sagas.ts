@@ -1,4 +1,4 @@
-import {takeLatest, put, all, call} from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
 import {
   profileAPI,
   therapistAPI,
@@ -16,13 +16,9 @@ import {
   updateErrorAction,
   updateSuccessAction,
 } from './actions';
-import {processError} from '../utils';
+import { processError } from '../utils';
 import ACTION_STRINGS from './actionStrings';
-import {
-  AcceptInvitationStart,
-  UpdateStart,
-  UpdateTherapistStart,
-} from './actionTypes';
+import { AcceptInvitationStart, UpdateStart, UpdateTherapistStart } from './actionTypes';
 
 function* fetchStartAsync(): Generator<unknown, void, User> {
   try {
@@ -56,12 +52,10 @@ function* fetchStart() {
 //   yield takeLatest(Types.UPDATE_IMAGE_START, updateImageStartAsync);
 // }
 
-function* updateStartAsync({
-  payload,
-}: UpdateStart): Generator<unknown, void, null> {
+function* updateStartAsync({ payload }: UpdateStart): Generator<unknown, void, null> {
   try {
-    const {key, value} = payload;
-    yield profileAPI.update({[key]: value});
+    const { key, value } = payload;
+    yield profileAPI.update({ [key]: value });
     yield put(updateSuccessAction());
   } catch (error) {
     const message = processError(error);
@@ -74,12 +68,10 @@ function* updateStart() {
   yield takeLatest(ACTION_STRINGS.UPDATE_START, updateStartAsync);
 }
 
-function* updateTherapistStartAsync({
-  payload,
-}: UpdateTherapistStart): Generator<unknown, void, null> {
+function* updateTherapistStartAsync({ payload }: UpdateTherapistStart): Generator<unknown, void, null> {
   try {
-    const {key, value} = payload;
-    yield therapistAPI.update({[key]: value});
+    const { key, value } = payload;
+    yield therapistAPI.update({ [key]: value });
     yield put(updateSuccessAction());
     yield put(fetchStartAction());
   } catch (error) {
@@ -90,10 +82,7 @@ function* updateTherapistStartAsync({
 }
 
 function* updateTherapistStart() {
-  yield takeLatest(
-    ACTION_STRINGS.UPDATE_THERAPIST_START,
-    updateTherapistStartAsync,
-  );
+  yield takeLatest(ACTION_STRINGS.UPDATE_THERAPIST_START, updateTherapistStartAsync);
 }
 
 // function* updateSuccess() {
@@ -160,9 +149,7 @@ function* updateTherapistStart() {
 //   );
 // }
 
-function* acceptInvitationStartAsync({
-  payload,
-}: AcceptInvitationStart): Generator<unknown, void, null> {
+function* acceptInvitationStartAsync({ payload }: AcceptInvitationStart): Generator<unknown, void, null> {
   try {
     yield profileAPI.assignmentResponse(payload);
     yield put(acceptInvitationSuccessAction());
@@ -175,10 +162,7 @@ function* acceptInvitationStartAsync({
 }
 
 function* acceptInvitationStart() {
-  yield takeLatest(
-    ACTION_STRINGS.ACCEPT_INVITATION_START,
-    acceptInvitationStartAsync,
-  );
+  yield takeLatest(ACTION_STRINGS.ACCEPT_INVITATION_START, acceptInvitationStartAsync);
 }
 
 // function* fetchAccountInformationStartAsync() {

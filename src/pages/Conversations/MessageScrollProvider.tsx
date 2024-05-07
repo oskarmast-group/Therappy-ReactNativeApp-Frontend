@@ -1,6 +1,6 @@
-import React, {RefObject, useCallback, useState} from 'react';
-import {PropsWithChildren, createContext, useContext, useRef} from 'react';
-import {IOScrollViewController} from 'react-native-intersection-observer';
+import React, { RefObject, useCallback, useState } from 'react';
+import { PropsWithChildren, createContext, useContext, useRef } from 'react';
+import { IOScrollViewController } from 'react-native-intersection-observer';
 
 interface MessageScrollContextProps {
   scrollRef: null | RefObject<IOScrollViewController>;
@@ -16,9 +16,7 @@ const MessageScrollContext = createContext<MessageScrollContextProps>({
   setIsAtBottom: () => {},
 });
 
-export const MessageScrollProvider: React.FC<PropsWithChildren<{}>> = ({
-  children,
-}) => {
+export const MessageScrollProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const scrollRef = useRef<IOScrollViewController>(null);
   const [isAtBottom, setIsAtBottom] = useState(false);
 
@@ -28,17 +26,16 @@ export const MessageScrollProvider: React.FC<PropsWithChildren<{}>> = ({
     }
 
     if (isAtBottom) {
-      scrollRef.current?.scrollToEnd({animated: false});
+      scrollRef.current?.scrollToEnd({ animated: false });
     }
   }, [scrollRef, isAtBottom]);
 
   const scrollToBottom = useCallback(() => {
-    scrollRef.current?.scrollToEnd({animated: true});
+    scrollRef.current?.scrollToEnd({ animated: true });
   }, [scrollRef]);
 
   return (
-    <MessageScrollContext.Provider
-      value={{scrollRef, checkAutoScroll, scrollToBottom, setIsAtBottom}}>
+    <MessageScrollContext.Provider value={{ scrollRef, checkAutoScroll, scrollToBottom, setIsAtBottom }}>
       {children}
     </MessageScrollContext.Provider>
   );
@@ -47,9 +44,7 @@ export const MessageScrollProvider: React.FC<PropsWithChildren<{}>> = ({
 export const useMessageScroll = () => {
   const context = useContext(MessageScrollContext);
   if (context === undefined) {
-    throw new Error(
-      'useMessageScroll must be used within a MessageScrollProvider',
-    );
+    throw new Error('useMessageScroll must be used within a MessageScrollProvider');
   }
   return context;
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import {NativeRouter} from 'react-router-native';
-import {Provider} from 'react-redux';
+import { NativeRouter } from 'react-router-native';
+import { Provider } from 'react-redux';
 import store from './src/state/store';
 import SocketProvider from './src/Socket';
 import AlertServiceProvider from './src/alert';

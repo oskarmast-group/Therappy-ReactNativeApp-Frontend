@@ -1,27 +1,26 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import styles, {DateContainer, HourContainer} from './styles';
-import {ButtonText} from '../../../../../../components/Button';
-import {Link} from 'react-router-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import styles, { DateContainer, HourContainer } from './styles';
+import { ButtonText } from '../../../../../../components/Button';
+import { Link } from 'react-router-native';
 import useAppointments from '../../../../../../state/appointments';
 import TimeAvailability from '../../../../../../interfaces/TimeAvailability';
-import {PublicAppointment} from '../../../../../../interfaces/Appointment';
-import {addDays, set} from 'date-fns';
-import {checkDay, getHours, isAvailable} from './utils';
-import {BaseText} from '../../../../../../components/Text';
-import {DARKER_TEXT} from '../../../../../../resources/constants/colors';
-import {dayOfTheWeekTranslatedAbr} from '../../../../../../utils/text';
-import {getDisplayTime} from '../../../../../../utils/time';
+import { PublicAppointment } from '../../../../../../interfaces/Appointment';
+import { addDays, set } from 'date-fns';
+import { checkDay, getHours, isAvailable } from './utils';
+import { BaseText } from '../../../../../../components/Text';
+import { DARKER_TEXT } from '../../../../../../resources/constants/colors';
+import { dayOfTheWeekTranslatedAbr } from '../../../../../../utils/text';
+import { getDisplayTime } from '../../../../../../utils/time';
 
 const DateSelection: React.FC<{
   therapistId: number;
   timeAvailability: TimeAvailability;
   appointments: PublicAppointment[];
-}> = ({therapistId, timeAvailability, appointments}) => {
+}> = ({ therapistId, timeAvailability, appointments }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedHour, setSelectedHour] = useState<Date | null>(null);
-  const {data: appointmentsState, dispatcher: appointmentsDispatcher} =
-    useAppointments();
+  const { data: appointmentsState, dispatcher: appointmentsDispatcher } = useAppointments();
 
   useEffect(() => {
     appointmentsDispatcher.getServerTimeStart();
@@ -67,46 +66,38 @@ const DateSelection: React.FC<{
 
   return (
     <>
-      <ScrollView
-        style={styles.datesContainerScroll}
-        contentContainerStyle={styles.datesContainer}
-        horizontal={true}>
-        {dates.map(d => (
+      <ScrollView style={styles.datesContainerScroll} contentContainerStyle={styles.datesContainer} horizontal={true}>
+        {dates.map((d) => (
           <DateContainer
             key={d.getTime()}
             inactive={!checkDay(timeAvailability, d)}
             selected={selectedDate === d}
-            onPress={() => setSelectedDate(d)}>
+            onPress={() => setSelectedDate(d)}
+          >
             <BaseText color={selectedDate === d ? 'white' : DARKER_TEXT}>
               {dayOfTheWeekTranslatedAbr[d.getDay()]}
             </BaseText>
-            <BaseText
-              color={selectedDate === d ? 'white' : DARKER_TEXT}
-              fontSize={28}
-              weight={700}>
+            <BaseText color={selectedDate === d ? 'white' : DARKER_TEXT} fontSize={28} weight={700}>
               {d.getDate()}
             </BaseText>
           </DateContainer>
         ))}
       </ScrollView>
-      <ScrollView
-        style={styles.hoursContainerScroll}
-        contentContainerStyle={styles.hoursContainer}
-        horizontal={true}>
-        {hours.map(h => (
+      <ScrollView style={styles.hoursContainerScroll} contentContainerStyle={styles.hoursContainer} horizontal={true}>
+        {hours.map((h) => (
           <HourContainer
             key={h.getTime()}
             inactive={!isAvailable(h, appointments)}
             selected={selectedHour === h}
-            onPress={() => setSelectedHour(h)}>
+            onPress={() => setSelectedHour(h)}
+          >
             <BaseText
               color={selectedHour === h ? 'white' : DARKER_TEXT}
-              opacity={isAvailable(h, appointments) ? 1 : 0.3}>
+              opacity={isAvailable(h, appointments) ? 1 : 0.3}
+            >
               {getDisplayTime(h)}
             </BaseText>
-            {!isAvailable(h, appointments) && (
-              <Text style={styles.banner}>Ocupado</Text>
-            )}
+            {!isAvailable(h, appointments) && <Text style={styles.banner}>Ocupado</Text>}
           </HourContainer>
         ))}
       </ScrollView>
@@ -117,13 +108,9 @@ const DateSelection: React.FC<{
           time: selectedHour,
           therapistId,
         }}
-        disabled={selectedHour === null}>
-        <View
-          style={
-            selectedHour === null
-              ? StyleSheet.compose(styles.button, styles.buttonDisabled)
-              : styles.button
-          }>
+        disabled={selectedHour === null}
+      >
+        <View style={selectedHour === null ? StyleSheet.compose(styles.button, styles.buttonDisabled) : styles.button}>
           <ButtonText>Agendar</ButtonText>
         </View>
       </Link>
