@@ -84,20 +84,20 @@ function* updateTherapistStart() {
 //   yield takeLatest(Types.UPDATE_SUCCESS, fetchStartAsync);
 // }
 
-// function* setupIntentStartAsync() {
-//   try {
-//     const res = yield stripeClientsAPI.setupIntent();
-//     yield put({type: Types.SETUP_INTENT_SUCCESS, payload: res});
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.SETUP_INTENT_ERROR, payload: message});
-//   }
-// }
+function* setupIntentStartAsync() {
+  try {
+    const res = yield stripeClientsAPI.setupIntent();
+    yield put({ type: Types.SETUP_INTENT_SUCCESS, payload: res });
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put({ type: Types.SETUP_INTENT_ERROR, payload: message });
+  }
+}
 
-// function* setupIntentStart() {
-//   yield takeLatest(Types.SETUP_INTENT_START, setupIntentStartAsync);
-// }
+function* setupIntentStart() {
+  yield takeLatest(Types.SETUP_INTENT_START, setupIntentStartAsync);
+}
 
 function* fetchPaymentMethodsStartAsync() {
   try {
@@ -176,7 +176,7 @@ export default function* sagas() {
     call(updateStart),
     call(updateTherapistStart),
     // call(updateSuccess),
-    // call(setupIntentStart),
+    call(setupIntentStart),
     call(fetchPaymentMethodsStart),
     call(deletePaymentMethodStart),
     call(acceptInvitationStart),

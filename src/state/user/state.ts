@@ -52,36 +52,40 @@ export interface IPaymentMethod {
   type: string;
 }
 
-interface UserState {
-  current: User | null;
-  setupIntentToken: string | null;
-  paymentMethods: Array<IPaymentMethod>;
-  accountInformation: {
-    id: number;
-    details_submitted: boolean;
-    requirements: object;
-    settings: {
-      payouts: {
-        schedule: {
-          interval: string;
-          weekly_anchor: string | number;
-          monthly_anchor: string | number;
-          delay_days: number;
-        };
+export interface AccountInformation {
+  id: number;
+  details_submitted: boolean;
+  requirements: object;
+  settings: {
+    payouts: {
+      schedule: {
+        interval: string;
+        weekly_anchor: string | number;
+        monthly_anchor: string | number;
+        delay_days: number;
       };
     };
-    balance: {
-      available: [
-        {
-          amount: number;
-          currency: string;
-          source_types: {
-            card: number;
-          };
-        },
-      ];
-    };
   };
+  balance: {
+    available: [
+      {
+        amount: number;
+        currency: string;
+        source_types: {
+          card: number;
+        };
+      },
+    ];
+  };
+}
+export interface SetupIntentToken {
+  secret: string;
+}
+interface UserState {
+  current: User | null;
+  setupIntentToken: SetupIntentToken;
+  paymentMethods: Array<IPaymentMethod>;
+  accountInformation: AccountInformation;
   fetching: {
     fetch: FetchingState<null>;
     update: FetchingState<null | { key: string }>;

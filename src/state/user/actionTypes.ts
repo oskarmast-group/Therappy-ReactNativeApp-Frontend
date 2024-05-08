@@ -5,6 +5,7 @@ import UpdateTherapistFields from '../../interfaces/User/UpdateTherapistFields';
 import UpdateUserFields from '../../interfaces/User/UpdateUserFields';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
+import { AccountInformation, IPaymentMethod, SetupIntentToken } from './state';
 
 export type FetchPaymentMethodsStart = {
   type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_START;
@@ -13,7 +14,7 @@ export type FetchPaymentMethodsStart = {
 
 export type FetchPaymentMethodsSuccess = {
   type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_SUCCESS;
-  payload: {};
+  payload: Array<IPaymentMethod>;
 };
 
 export type FetchPaymentMethodsError = {
@@ -43,7 +44,7 @@ export type FetchAccountInformationStart = {
 
 export type FetchAccountInformationSuccess = {
   type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_SUCCESS;
-  payload: {};
+  payload: AccountInformation;
 };
 
 export type FetchAccountInformationError = {
@@ -141,6 +142,16 @@ export type SetupIntentStart = {
   payload: {};
 };
 
+export type SetupIntentSuccess = {
+  type: ACTION_STRINGS.SETUP_INTENT_SUCCESS;
+  payload: SetupIntentToken;
+};
+
+export type SetupIntentError = {
+  type: ACTION_STRINGS.SETUP_INTENT_ERROR;
+  payload: any;
+};
+
 export type UserActions =
   | FetchPaymentMethodsStart
   | FetchPaymentMethodsSuccess
@@ -165,4 +176,6 @@ export type UserActions =
   | AcceptInvitationSuccess
   | AcceptInvitationError
   | SetupIntentStart
+  | SetupIntentSuccess
+  | SetupIntentError
   | ResetError<ACTION_STRINGS.RESET_ERROR>;

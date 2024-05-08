@@ -1,4 +1,5 @@
 interface FetchingState<T> {
+  state: any;
   isFetching: boolean;
   config: T;
 }

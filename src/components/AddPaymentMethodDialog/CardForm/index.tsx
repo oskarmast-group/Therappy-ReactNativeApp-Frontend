@@ -1,127 +1,75 @@
-import React, { useEffect, useState } from 'react';
-import CARD_BRANDS from 'resources/constants/cardBrands';
-import styled from 'styled-components';
-import { useElements, useStripe } from '@stripe/react-stripe-js';
-import CardNumber from './CardNumber';
-import Expiration from './Expiration';
-import CVC from './CVC';
-import CardIcon from './CardIcon';
-import validateAndSubmit from './validate';
-import Button from 'components/Button';
-import Input from 'components/Input';
-import { Body } from 'components/Text';
-import { BasicInput } from 'components/Input/styles';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { CardField, useStripe } from '@stripe/stripe-react-native'; // Import CardField and useStripe
+import User from '../../../interfaces/User';
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    align-items: center;
-    width: 100%;
-    background-color: transparent;
-`;
+const CardForm = ({ user, secret, onSubmit }: { user: User | null; secret: string; onSubmit: () => void }) => {
+  const [cardDetails, setCardDetails] = useState({});
+  const [loading, setLoading] = useState(false);
 
-const CardBackground = styled.div`
-    width: 100%;
-`;
+  const stripe = useStripe();
 
-const Grid = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 100%;
-    grid-gap: 5px;
-`;
+  const handleCardDetailsChange = (cardDetails: any) => {
+    setCardDetails(cardDetails);
+  };
 
-const ErrorText = styled.p`
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #d50000;
-`;
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const result = await stripe.confirmSetupIntent(secret, {
+        paymentMethodType: 'Card',
+        paymentMethodData: {
+          billingDetails: cardDetails,
+        },
+      });
+      if (result.error) {
+        console.log('Stripe Error:', result.error.message);
+      } else {
+        onSubmit();
+      }
+    } catch (error: any) {
+      console.log('Error:', error.message);
+    }
+    setLoading(false);
+  };
 
-const CardForm = ({ user, secret, confirmPayment }) => {
-    const [brand, setBrand] = useState(CARD_BRANDS.UNKNOWN);
-    const [formData, setFormData] = useState({
-        name: `${user.name ?? ''}${user.lastName ? ' ' : ''}${user.lastName ?? ''}`,
-        zip: '',
-    });
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
-    const stripe = useStripe();
-    const elements = useElements();
-
-    const onChangeCard = (e) => {
-        setBrand(e.brand);
-    };
-
-    useEffect(() => {
-        console.log('formData', formData.name, formData.zip);
-    }, [formData]);
-
-    const onChange = (key, value) => {
-        const obj = { ...formData };
-        obj[key] = value;
-        setFormData(obj);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-
-        try {
-            await validateAndSubmit(formData, secret, stripe, elements);
-            confirmPayment();
-        } catch (e) {
-            if (e.message !== '') {
-                setError(e.message);
-                return;
-            }
-            setError('Error desconocido');
-            setLoading(false);
-        }
-    };
-
-    return (
-        <form onSubmit={loading ? () => {} : handleSubmit}>
-            <Container>
-                <CardBackground>
-                    <CardIcon brand={brand} />
-                    <Body style={{ fontWeight: 700 }}>Número</Body>
-                    <CardNumber onChange={onChangeCard} />
-                    <div style={{ height: '15px' }}></div>
-                    <Body style={{ fontWeight: 700 }}>Nombre en la tarjeta</Body>
-                    <BasicInput
-                        value={formData.name}
-                        onChange={(e) => onChange('name', e.target.value)}
-                        placeholder={'Alonso Pérez'}
-                        required={true}
-                    />
-                    <div style={{ height: '15px' }}></div>
-                    <Grid>
-                        <Expiration />
-                        <CVC />
-                        <div>
-                            <Body style={{ fontWeight: 700 }}>Código Postal</Body>
-                            <BasicInput
-                                id={'postal-code'}
-                                name={'postal_code'}
-                                value={formData.zip}
-                                type={'number'}
-                                onChange={(e) => onChange('zip', e.target.value)}
-                                placeholder={'90000'}
-                                required={true}
-                            />
-                        </div>
-                    </Grid>
-                </CardBackground>
-                <div style={{ height: '15px' }}></div>
-                {error && <ErrorText>{error}</ErrorText>}
-                <Button type={'submit'} style={{ width: '80%' }}>
-                    {loading ? '...' : 'Confirmar'}
-                </Button>
-            </Container>
-        </form>
-    );
+  return (
+    <View style={styles.container}>
+      <CardField
+        postalCodeEnabled={true}
+        placeholders={{ number: 'Card Number', cvc: 'CVC' }}
+        cardStyle={styles.cardField}
+        onCardChange={handleCardDetailsChange}
+        onFocus={(focusedField) => {
+          console.log('focus', focusedField);
+        }}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>{loading ? '...' : 'Confirmar'}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardField: {},
+  button: {
+    marginTop: 20,
+    backgroundColor: '#007bff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
 
 export default CardForm;

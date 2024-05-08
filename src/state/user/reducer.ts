@@ -6,7 +6,9 @@ import UserType from '../../interfaces/User/UserType';
 
 const INITIAL_STATE: UserState = {
   current: null,
-  setupIntentToken: null,
+  setupIntentToken: {
+    secret: '',
+  },
   paymentMethods: [
     {
       id: '',
@@ -133,6 +135,7 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
           update: {
             config: { key: action.payload.key },
             isFetching: true,
+            state: true,
           },
         },
       };
@@ -163,34 +166,34 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         error: { timestamp: Date.now(), message: action.payload },
       };
 
-    // // SETUP INTENT
-    // case Types.SETUP_INTENT_START:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       setup: {...DEFAULT_FETCHING_STATE, state: true},
-    //     },
-    //   };
-    // case Types.SETUP_INTENT_SUCCESS:
-    //   return {
-    //     ...state,
-    //     setupIntentToken: action.payload,
-    //     fetching: {
-    //       ...state.fetching,
-    //       setup: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.SETUP_INTENT_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       setup: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
+    // SETUP INTENT
+    case ACTION_STRINGS.SETUP_INTENT_START:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          setup: { ...DEFAULT_FETCHING_STATE, isFetching: true },
+        },
+      };
+    case ACTION_STRINGS.SETUP_INTENT_SUCCESS:
+      return {
+        ...state,
+        setupIntentToken: action.payload,
+        fetching: {
+          ...state.fetching,
+          setup: { ...DEFAULT_FETCHING_STATE },
+        },
+        error: { ...DEFAULT_NO_ERROR },
+      };
+    case ACTION_STRINGS.SETUP_INTENT_ERROR:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          setup: { ...DEFAULT_FETCHING_STATE },
+        },
+        error: { timestamp: Date.now(), message: action.payload },
+      };
 
     // DELETE PAYMENT METHOD
     case ACTION_STRINGS.DELETE_PAYMENT_METHOD_START:

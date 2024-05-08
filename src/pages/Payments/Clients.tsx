@@ -6,7 +6,7 @@ import useUser from '../../state/user';
 import styled from 'styled-components/native';
 import PaymentMethod from './components/PaymentMethods';
 import { BaseText, Body } from '../../components/Text';
-// import AddPaymentMethodDialog from '../../components/AddPaymentMethodDialog';
+import AddPaymentMethodDialog from '../../components/AddPaymentMethodDialog';
 import Button from '../../components/Button';
 import ALERT_TYPES from '../../alert/interfaces/AlertTypes';
 import { useAlert } from '../../alert';
@@ -23,9 +23,9 @@ const MethodsContainer = styled.View`
 `;
 const ScrollableChild = styled.View`
   display: flex;
-  flexdirection: column;
+  flex-direction: column;
   gap: 10px;
-  aligncontent: center;
+  align-content: center;
 `;
 const Clients = () => {
   const { data: user, dispatcher: userDispatcher } = useUser();
@@ -38,20 +38,20 @@ const Clients = () => {
 
   const addPaymentMethod = () => {
     if (!user.current?.id) return;
-    // alert({
-    //   type: ALERT_TYPES.CUSTOM,
-    //   config: {
-    //     body: AddPaymentMethodDialog,
-    //     props: {
-    //       userId: user.current.id,
-    //     },
-    //   },
-    // })
-    //   .then(() => {
-    //     userDispatcher.fetchPaymentMethodsStart();
-    //     //uploadImage(croppedImage);
-    //   })
-    //   .catch(() => {});
+    alert({
+      type: ALERT_TYPES.CUSTOM,
+      config: {
+        body: AddPaymentMethodDialog,
+        props: {
+          userId: user.current.id,
+        },
+      },
+    })
+      .then(() => {
+        userDispatcher.fetchPaymentMethodsStart();
+        //uploadImage(croppedImage);
+      })
+      .catch(() => {});
   };
 
   return (

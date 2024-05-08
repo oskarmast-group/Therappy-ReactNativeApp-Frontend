@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import Base from '../../alert/dialog/components/Base';
 import useUser from '../../state/user';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import { StripeProvider } from '@stripe/stripe-react-native';
 import CardForm from './CardForm';
 import { STRIPE_PUBLIC_KEY } from '../../resources/constants/config';
 import Loading from '../../components/Loading';
+import { View } from 'react-native';
 
-const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
-
-const AddPaymentMethodDialog = ({ open, onSubmit, onClose }) => {
-  const [user, userDispatcher] = useUser();
+const AddPaymentMethodDialog: React.FC<{ open: () => void; onSubmit: () => void; onClose: () => void }> = ({
+  open,
+  onSubmit,
+  onClose,
+}) => {
+  const { data: user, dispatcher: userDispatcher } = useUser();
 
   useEffect(() => {
     userDispatcher.setupIntentStart();
@@ -22,15 +24,15 @@ const AddPaymentMethodDialog = ({ open, onSubmit, onClose }) => {
   };
 
   return (
-    <Base open={open} onClose={onClose} isResponsive={false}>
+    <Base open={open} onClose={onClose} isResponsive={false} className="payment-card" showCloseButton={true}>
       <View style={{ display: 'flex', justifyContent: 'center' }}>
         {user.fetching.setup.state ? (
           <Loading />
         ) : (
           user.setupIntentToken && (
-            <Elements stripe={stripePromise}>
-              <CardForm user={user.current} secret={user.setupIntentToken.secret} confirmPayment={onConfirm} />
-            </Elements>
+            <StripeProvider publishableKey={STRIPE_PUBLIC_KEY as string}>
+              <CardForm user={user.current} secret={user.setupIntentToken.secret} onSubmit={onConfirm} />
+            </StripeProvider>
           )
         )}
       </View>
