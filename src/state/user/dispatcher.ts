@@ -15,6 +15,7 @@ import {
   updateTherapistStartAction,
   deletePaymentMethodStartAction,
   fetchAccountInformationStartAction,
+  setupIntentStartAction,
 } from './actions';
 export default class Dispatcher {
   _dispatch: Dispatch<UserActions>;
@@ -32,9 +33,7 @@ export default class Dispatcher {
 
   updateTherapistStart = (payload: UpdateTherapistStartPayload) => this._dispatch(updateTherapistStartAction(payload));
 
-  //   setupIntentStart = () =>
-  //     this.dispatch({type: Types.SETUP_INTENT_START, payload: {}});
-
+  setupIntentStart = () => this._dispatch(setupIntentStartAction());
   deletePaymentMethodStart = (payload: string) => this._dispatch(deletePaymentMethodStartAction(payload));
 
   fetchPaymentMethodsStart = () => this._dispatch(fetchPaymentMethodsStartAction());

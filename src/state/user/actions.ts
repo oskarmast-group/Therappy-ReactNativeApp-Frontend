@@ -15,6 +15,7 @@ import {
   FetchPaymentMethodsStart,
   FetchAccountInformationStart,
   FetchSuccess,
+  SetupIntentStart,
   UpdateDocumentation,
   UpdateDocumentationPayload,
   UpdateError,
@@ -88,6 +89,11 @@ export const updateErrorAction = (payload: any): UpdateError => ({
 export const updateTherapistStartAction = (payload: UpdateTherapistStartPayload): UpdateTherapistStart => ({
   type: ACTION_STRINGS.UPDATE_THERAPIST_START,
   payload,
+});
+
+export const setupIntentStartAction = (): SetupIntentStart => ({
+  type: ACTION_STRINGS.SETUP_INTENT_START,
+  payload: {},
 });
 
 export const acceptInvitationStartAction = (payload: AcceptInvitationStartPayload): AcceptInvitationStart => ({

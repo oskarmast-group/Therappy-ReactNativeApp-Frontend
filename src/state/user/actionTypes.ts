@@ -136,6 +136,11 @@ export type AcceptInvitationError = {
   payload: any;
 };
 
+export type SetupIntentStart = {
+  type: ACTION_STRINGS.SETUP_INTENT_START;
+  payload: {};
+};
+
 export type UserActions =
   | FetchPaymentMethodsStart
   | FetchPaymentMethodsSuccess
@@ -159,4 +164,5 @@ export type UserActions =
   | AcceptInvitationStart
   | AcceptInvitationSuccess
   | AcceptInvitationError
+  | SetupIntentStart
   | ResetError<ACTION_STRINGS.RESET_ERROR>;
