@@ -24,6 +24,7 @@ export interface IPaymentMethod {
     checks: {
       address_line1_check: null | string;
       address_postal_code_check: string;
+      cvc_check: string;
     };
     country: string;
     display_brand: string;
