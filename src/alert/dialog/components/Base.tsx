@@ -1,94 +1,66 @@
-import React from 'react';
-import { Button, Modal, View } from 'react-native';
-import styled from 'styled-components';
-import CloseSVG from '../../resources/img/icons/close-icon.svg';
+import React, { PropsWithChildren, useState, useEffect } from 'react';
+import { Modal, TouchableOpacity, View } from 'react-native';
+import styled from 'styled-components/native'; // Update import for styled-components
+import CloseSVG from '../../../resources/img/icons/close-icon.svg';
 
 const CustomModal = styled(Modal)`
-    position: fixed;
-    inset: 0px;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 99999;
-    transition: opacity 1s ease-in 0s;
-    pointer-events: auto;
-    overflow-y: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: inherit;
-
-    .inner {
-        width: 90%;
-        position: relative;
-        margin: 0;
-        padding: 0;
-        background: #fbfbfd;
-        overflow: visible;
-        border-radius: 24px;
-        max-width: 486px;
-        max-height: 75%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .innerResponsive {
-        width: auto;
-        position: relative;
-        margin: 0;
-        padding: 0;
-        background: #fbfbfd;
-        overflow: visible;
-        border-radius: 24px;
-        height: auto;
-        max-width: 95%;
-        max-height: 95%;
-        display: flex;
-        flex-direction: column;
-    }
-`;
-const Content = styled(View)`
-    padding: 30px 25px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
-const MainContent = styled(View)`
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin: 0;
+const ModalBackground = styled(View)`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Opacity 0.8 */
+  justify-content: center;
+  align-items: center;
 `;
 
-const CloseIcon = styled(Button)`
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 30px;
-    height: 30px;
-    background-color: transparent;
-    z-index: 5;
-    padding: 0;
-    margin: 0;
-    outline: none;
-    border: none;
-    img {
-        width: 100%;
-        height: 100%;
-    }
+const ModalInner = styled(View)`
+  width: 90%;
+  max-width: 486px;
+  max-height: 75%;
+  background: #fbfbfd;
+  border-radius: 24px;
+  overflow: visible;
+  opacity: 1; /* Opacity 1 */
+  padding: 20px; /* Adjust padding as needed */
+  flex-direction: column;
 `;
 
-const Base: React.FC<{ className: string, open: () => void, onClose: () => void , children: , isResponsive: , showCloseButton: boolean}> = ({ className, open, onClose, children, isResponsive, showCloseButton }) => {
-    return (
-        <CustomModal onShow={open} className={`${className ?? ''}`} containerClassName={isResponsive ? 'innerResponsive' : 'inner'}>
-            {onClose && showCloseButton && (
-                <CloseIcon type='button' onClick={onClose}>
-                    <img src={CloseSVG} alt="close" />
-                </CloseIcon>
-            )}
-            <Content>
-                <MainContent>{children}</MainContent>
-            </Content>
-        </CustomModal>
-    );
+const Base: React.FC<PropsWithChildren<{ open: boolean; showCloseButton: boolean; onClose: () => void }>> = ({
+  open,
+  onClose,
+  showCloseButton,
+  children,
+}) => {
+  const [modalVisible, setModalVisible] = useState(open);
+
+  useEffect(() => {
+    setModalVisible(open);
+  }, [open]);
+
+  // Function to handle modal visibility
+  const handleModalClose = () => {
+    setModalVisible(false);
+    onClose(); // Call the onClose function
   };
+
+  return (
+    <CustomModal visible={modalVisible} transparent animationType="fade">
+      <ModalBackground>
+        <ModalInner>
+          {showCloseButton && (
+            <TouchableOpacity onPress={handleModalClose} style={{ position: 'absolute', top: 10, right: 10 }}>
+              <CloseSVG width={30} height={30} />
+            </TouchableOpacity>
+          )}
+          {children}
+        </ModalInner>
+      </ModalBackground>
+    </CustomModal>
+  );
+};
+
 export default Base;
