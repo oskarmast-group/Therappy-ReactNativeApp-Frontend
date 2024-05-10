@@ -68,6 +68,17 @@ You've successfully run and modified your React Native App. :partying_face:
 
 If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
+I resolved stripe integration issue like this.
+
+1. npm install @stripe/stripe-react-native
+2. npm install @react-native/gralde-plugin
+3. nvm list
+4. nvm use 20.1.1
+5. Go to android/gradle/wrapper and change gradle version
+6. Go to android and ./gradlew clean
+7. react-native doctor
+8. npm run android
+
 # Learn More
 
 To learn more about React Native, take a look at the following resources:

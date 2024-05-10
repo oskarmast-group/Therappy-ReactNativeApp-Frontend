@@ -26,7 +26,7 @@ const AddPaymentMethodDialog: React.FC<{ open: boolean; onSubmit: (value?: any) 
 
   return (
     <Base open={open} onClose={onClose} showCloseButton={true}>
-      {/* <View style={{ display: 'flex', justifyContent: 'center' }}>
+      <View style={{ display: 'flex', justifyContent: 'center' }}>
         {user.fetching.setup.state ? (
           <Loading />
         ) : (
@@ -36,7 +36,7 @@ const AddPaymentMethodDialog: React.FC<{ open: boolean; onSubmit: (value?: any) 
             </StripeProvider>
           )
         )}
-      </View> */}
+      </View>
     </Base>
   );
 };
