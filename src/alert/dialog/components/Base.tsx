@@ -27,6 +27,7 @@ const ModalInner = styled(View)`
   opacity: 1; /* Opacity 1 */
   padding: 20px; /* Adjust padding as needed */
   flex-direction: column;
+  padding: 30px 25px;
 `;
 
 const Base: React.FC<PropsWithChildren<{ open: boolean; showCloseButton: boolean; onClose: () => void }>> = ({
