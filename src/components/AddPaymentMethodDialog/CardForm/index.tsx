@@ -7,46 +7,59 @@ const CardForm = ({ user, secret, onSubmit }: { user: User | null; secret: strin
   const [cardDetails, setCardDetails] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const stripe = useStripe();
+  // const stripe = useStripe();
+  // const { confirmPayment } = useStripe();
 
   const handleCardDetailsChange = (cardDetails: any) => {
     setCardDetails(cardDetails);
   };
 
-  const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      const result = await stripe.confirmSetupIntent(secret, {
-        paymentMethodType: 'Card',
-        paymentMethodData: {
-          billingDetails: cardDetails,
-        },
-      });
-      if (result.error) {
-        console.log('Stripe Error:', result.error.message);
-      } else {
-        onSubmit();
-      }
-    } catch (error: any) {
-      console.log('Error:', error.message);
-    }
-    setLoading(false);
-  };
+  // const handleSubmit = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const result = await stripe.confirmSetupIntent(secret, {
+  //       paymentMethodType: 'Card',
+  //       paymentMethodData: {
+  //         billingDetails: cardDetails,
+  //       },
+  //     });
+  //     if (result.error) {
+  //       console.log('Stripe Error:', result.error.message);
+  //     } else {
+  //       onSubmit();
+  //     }
+  //   } catch (error: any) {
+  //     console.log('Error:', error.message);
+  //   }
+  //   setLoading(false);
+  // };
 
   return (
     <View style={styles.container}>
       <CardField
         postalCodeEnabled={true}
-        placeholders={{ number: 'Card Number', cvc: 'CVC' }}
-        cardStyle={styles.cardField}
-        onCardChange={handleCardDetailsChange}
+        placeholders={{
+          number: '4242 4242 4242 4242',
+        }}
+        cardStyle={{
+          backgroundColor: '#FFFFFF',
+          textColor: '#000000',
+        }}
+        style={{
+          width: '100%',
+          height: 50,
+          marginVertical: 30,
+        }}
+        onCardChange={(cardDetails) => {
+          console.log('cardDetails', cardDetails);
+        }}
         onFocus={(focusedField) => {
-          console.log('focus', focusedField);
+          console.log('focusField', focusedField);
         }}
       />
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+      {/* <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>{loading ? '...' : 'Confirmar'}</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
