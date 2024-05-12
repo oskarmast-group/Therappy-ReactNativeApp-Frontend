@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
-import {CustomDialogProps} from '../../../alert/interfaces/CustomDialogProps';
+import React, { useState } from 'react';
+import { CustomDialogProps } from '../../../alert/interfaces/CustomDialogProps';
 import Base from '../../../alert/dialog/common/Base';
 import ActionsContainer from '../../../alert/dialog/common/ActionsContainer';
-import Button, {ButtonText, CancelButton} from '../../Button';
-import {PRIMARY_GREEN} from '../../../resources/constants/colors';
-import DateTimePicker, {DateType} from 'react-native-ui-datepicker';
+import Button, { ButtonText, CancelButton } from '../../Button';
+import { PRIMARY_GREEN } from '../../../resources/constants/colors';
+import DateTimePicker, { DateType } from 'react-native-ui-datepicker';
 
-const CalendarDialog: React.FC<
-  CustomDialogProps<Date, {date: string | number | Date | undefined}>
-> = ({open, onSubmit, onClose, props}) => {
-  const [selectedDate, setDate] = useState(
-    props.date ? new Date(props.date) : new Date(),
-  );
+const CalendarDialog: React.FC<CustomDialogProps<Date, { date: string | number | Date | undefined }>> = ({
+  open,
+  onSubmit,
+  onClose,
+  props,
+}) => {
+  const [selectedDate, setDate] = useState(props.date ? new Date(props.date) : new Date());
 
   const onConfirm = () => {
     onSubmit(selectedDate);
@@ -28,7 +29,7 @@ const CalendarDialog: React.FC<
       <DateTimePicker
         mode="single"
         date={selectedDate}
-        onChange={params => handleDateChange(params.date)}
+        onChange={(params) => handleDateChange(params.date)}
         selectedItemColor={PRIMARY_GREEN}
       />
       <ActionsContainer>

@@ -8,7 +8,7 @@ interface MessagesState {
   extraMessagesToFetch: number;
   fetching: {
     fetch: FetchingState<null>;
-    sendMessage: FetchingState<null | {uuid: string}>;
+    sendMessage: FetchingState<null | { uuid: string }>;
     markRead: FetchingState<null>;
   };
   error: ErrorState;

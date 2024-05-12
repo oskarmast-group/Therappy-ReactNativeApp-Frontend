@@ -1,4 +1,4 @@
-import Message, {MessagePayload} from '../../interfaces/Conversation/Message';
+import Message, { MessagePayload } from '../../interfaces/Conversation/Message';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 import {
@@ -32,16 +32,12 @@ export const fetchErrorAction = (payload: any): FetchError => ({
   payload,
 });
 
-export const sendMessageStartAction = (
-  payload: MessagePayload,
-): SendMessageStart => ({
+export const sendMessageStartAction = (payload: MessagePayload): SendMessageStart => ({
   type: ACTION_STRINGS.SEND_MESSAGE_START,
   payload,
 });
 
-export const sendMessageSuccessAction = (
-  payload: Message,
-): SendMessageSuccess => ({
+export const sendMessageSuccessAction = (payload: Message): SendMessageSuccess => ({
   type: ACTION_STRINGS.SEND_MESSAGE_SUCCESS,
   payload,
 });
@@ -56,9 +52,7 @@ export const markAsReadStartAction = (): MarkAsReadStart => ({
   payload: null,
 });
 
-export const markAsReadSuccessAction = (
-  payload: string[],
-): MarkAsReadSuccess => ({
+export const markAsReadSuccessAction = (payload: string[]): MarkAsReadSuccess => ({
   type: ACTION_STRINGS.MARK_AS_READ_SUCCESS,
   payload,
 });
@@ -78,9 +72,7 @@ export const clearChatAction = (): ClearChat => ({
   payload: null,
 });
 
-export const setExtraMessagesToFetchAction = (
-  payload: number,
-): SetExtraMessagesToFetch => ({
+export const setExtraMessagesToFetchAction = (payload: number): SetExtraMessagesToFetch => ({
   type: ACTION_STRINGS.SET_EXTRA_MESSAGES_TO_FETCH,
   payload,
 });

@@ -1,7 +1,7 @@
-import React, {ReactNode} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, { ReactNode } from 'react';
+import { StyleSheet, View } from 'react-native';
 import styles from './styles';
-import {Link} from 'react-router-native';
+import { Link } from 'react-router-native';
 
 interface ItemProps {
   icon: ReactNode;
@@ -16,24 +16,13 @@ const isCurrent = (path: string, current: string, index: number) => {
   return pathList[pathList.length - 1] === currentList[index];
 };
 
-const Item: React.FC<ItemProps> = ({
-  icon,
-  path,
-  current,
-  withNotification = false,
-}) => {
+const Item: React.FC<ItemProps> = ({ icon, path, current, withNotification = false }) => {
   const active = isCurrent(path, current, 2);
   return (
     <Link to={path}>
       <View style={styles.itemContainer}>
         <View style={styles.iconContainer}>{icon}</View>
-        <View
-          style={
-            active
-              ? StyleSheet.compose(styles.indicator, styles.indicatorActive)
-              : styles.indicator
-          }
-        />
+        <View style={active ? StyleSheet.compose(styles.indicator, styles.indicatorActive) : styles.indicator} />
         {withNotification && <View style={styles.notifications} />}
       </View>
     </Link>

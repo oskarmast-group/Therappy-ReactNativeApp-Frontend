@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '../Container';
-import {BaseText} from '../../../../../../components/Text';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import { BaseText } from '../../../../../../components/Text';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
   listContainer: {
@@ -25,9 +25,7 @@ const NewsSection: React.FC = () => {
       </BaseText>
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.listContainer}>
-          {newsList.length === 0 ? (
-            <BaseText>Si hay avisos recientes, apareceran aquí.</BaseText>
-          ) : null}
+          {newsList.length === 0 ? <BaseText>Si hay avisos recientes, apareceran aquí.</BaseText> : null}
         </ScrollView>
       </View>
     </Container>

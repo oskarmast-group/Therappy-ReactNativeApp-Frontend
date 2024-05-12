@@ -1,14 +1,11 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Loading from '../../../../../../../components/Loading';
 import useRequiredDocumentation from '../../../../../../../state/requiredDocumentation';
-import {BaseText} from '../../../../../../../components/Text';
+import { BaseText } from '../../../../../../../components/Text';
 import DocumentationSection from './DocumentationSection';
 
 const RequiredDocumentation: React.FC = () => {
-  const {
-    data: requiredDocumentation,
-    dispatcher: requiredDocumentationDispatcher,
-  } = useRequiredDocumentation();
+  const { data: requiredDocumentation, dispatcher: requiredDocumentationDispatcher } = useRequiredDocumentation();
 
   useEffect(() => {
     requiredDocumentationDispatcher.fetchStart();
@@ -21,15 +18,9 @@ const RequiredDocumentation: React.FC = () => {
       <BaseText fontSize={18} weight={800} marginTop={4} marginBottom={4}>
         Completa tu registro
       </BaseText>
-      <BaseText>
-        Envía la documentación que se solicita para comenzar a utilizar Terappy.
-      </BaseText>
+      <BaseText>Envía la documentación que se solicita para comenzar a utilizar Terappy.</BaseText>
       {requiredDocumentation.list.map((doc, i) => (
-        <DocumentationSection
-          key={doc.documentType}
-          requiredDocument={doc}
-          isInitiallyExpanded={i === 0}
-        />
+        <DocumentationSection key={doc.documentType} requiredDocument={doc} isInitiallyExpanded={i === 0} />
       ))}
     </>
   );

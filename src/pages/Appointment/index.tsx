@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-native';
+import { Route, Routes } from 'react-router-native';
 import ViewAppointment from './pages/View';
 import NewAppointment from './pages/NewAppointment';
 

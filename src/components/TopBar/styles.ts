@@ -1,6 +1,6 @@
 import StyleSheet from 'react-native-media-query';
 
-const {styles} = StyleSheet.create({
+const { styles } = StyleSheet.create({
   container: {
     width: '100%',
     minHeight: 56,

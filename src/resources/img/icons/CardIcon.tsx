@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, {Path, G} from 'react-native-svg';
+import Svg, { Path, G } from 'react-native-svg';
 const CardIcon = () => (
   <Svg viewBox="0 0 200.2 200" preserveAspectRatio="xMidYMid slice">
     <Path fill="none" d="M0 0h200v200H0z" />

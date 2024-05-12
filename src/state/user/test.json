@@ -1,0 +1,44 @@
+{
+  "id": "acct_1O1v7MR6yRzT6cZx",
+  "details_submitted": true,
+  "requirements": {
+    "alternatives": [],
+    "current_deadline": null,
+    "currently_due": [],
+    "disabled_reason": null,
+    "errors": [],
+    "eventually_due": [],
+    "past_due": [],
+    "pending_verification": []
+  },
+  "settings": {
+    "bacs_debit_payments": { "display_name": null, "service_user_number": null },
+    "branding": { "icon": null, "logo": null, "primary_color": null, "secondary_color": null },
+    "card_issuing": { "tos_acceptance": { "date": null, "ip": null } },
+    "card_payments": {
+      "decline_on": { "avs_failure": false, "cvc_failure": false },
+      "statement_descriptor_prefix": null,
+      "statement_descriptor_prefix_kana": null,
+      "statement_descriptor_prefix_kanji": null
+    },
+    "dashboard": { "display_name": "test.terappy.mx", "timezone": "Etc/UTC" },
+    "invoices": { "default_account_tax_ids": null },
+    "payments": {
+      "statement_descriptor": "TEST.TERAPPY.MX",
+      "statement_descriptor_kana": null,
+      "statement_descriptor_kanji": null
+    },
+    "payouts": {
+      "debit_negative_balances": true,
+      "schedule": { "delay_days": 7, "interval": "weekly", "weekly_anchor": "monday" },
+      "statement_descriptor": null
+    },
+    "sepa_debit_payments": {}
+  },
+  "balance": {
+    "object": "balance",
+    "available": [{ "amount": 0, "currency": "mxn", "source_types": { "card": 0 } }],
+    "livemode": false,
+    "pending": [{ "amount": 0, "currency": "mxn", "source_types": { "card": 0 } }]
+  }
+}

@@ -1,11 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import {
-  DARKER_TEXT,
-  GOLDEN,
-  GOLDEN_HIGHLIGHT,
-  PRIMARY_GREEN,
-} from '../../../../../../resources/constants/colors';
+import { DARKER_TEXT, GOLDEN, GOLDEN_HIGHLIGHT, PRIMARY_GREEN } from '../../../../../../resources/constants/colors';
 
 export const DateContainer = styled.TouchableOpacity<{
   inactive: boolean;
@@ -21,9 +16,8 @@ export const DateContainer = styled.TouchableOpacity<{
   justify-content: center;
   align-items: center;
   gap: 1px;
-  opacity: ${({inactive}) => (inactive ? 0.3 : 1)};
-  background-color: ${({selected}) =>
-    selected ? PRIMARY_GREEN : 'transparent'};
+  opacity: ${({ inactive }) => (inactive ? 0.3 : 1)};
+  background-color: ${({ selected }) => (selected ? PRIMARY_GREEN : 'transparent')};
   flex-shrink: 1;
 `;
 
@@ -39,8 +33,8 @@ export const HourContainer = styled.TouchableOpacity<{
   border-style: solid;
   border-width: 1px;
   border-radius: 10px;
-  border-color: ${({inactive}) => (inactive ? GOLDEN_HIGHLIGHT : GOLDEN)};
-  background-color: ${({selected}) => (selected ? GOLDEN : 'transparent')};
+  border-color: ${({ inactive }) => (inactive ? GOLDEN_HIGHLIGHT : GOLDEN)};
+  background-color: ${({ selected }) => (selected ? GOLDEN : 'transparent')};
   flex-shrink: 1;
   position: relative;
 `;
@@ -72,7 +66,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans',
     fontSize: 14,
     color: DARKER_TEXT,
-    transform: [{rotate: '-15deg'}],
+    transform: [{ rotate: '-15deg' }],
     fontWeight: '700',
     position: 'absolute',
   },

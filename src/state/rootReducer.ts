@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import user from './user/reducer';
 import therapists from './therapists/reducer';
 import categories from './categories/reducer';

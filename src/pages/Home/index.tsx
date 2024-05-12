@@ -1,28 +1,27 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import MainContainer from '../../containers/MainContainer';
 import Menu from './components/Menu';
 import useUser from '../../state/user';
-import {Navigate, Route, Routes} from 'react-router-native';
+import { Navigate, Route, Routes } from 'react-router-native';
 import Summary from './pages/Summary';
 import InfoButton from '../../components/InfoButton';
-import {useAlert} from '../../alert';
+import { useAlert } from '../../alert';
 import ALERT_TYPES from '../../alert/interfaces/AlertTypes';
 import BottomNavBar from './components/BottomNavBar';
 import useConversations from '../../state/conversations';
-import {useSocket} from '../../Socket';
-import {SocketMessage} from '../../interfaces/Conversation/Message';
+import { useSocket } from '../../Socket';
+import { SocketMessage } from '../../interfaces/Conversation/Message';
 import Messages from './pages/Messages';
 import Calendar from './pages/Calendar';
-import {BaseText} from '../../components/Text';
-import {authAPI} from '../../resources/api';
-import {ActivityIndicator, View} from 'react-native';
+import { BaseText } from '../../components/Text';
+import { authAPI } from '../../resources/api';
+import { ActivityIndicator, View } from 'react-native';
 
 const Home: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [confirmationEmailLoading, setConfirmationEmailLoading] =
-    useState(false);
-  const {data: user, dispatcher: userDispatcher} = useUser();
-  const {dispatcher: conversationsDispatcher} = useConversations();
+  const [confirmationEmailLoading, setConfirmationEmailLoading] = useState(false);
+  const { data: user, dispatcher: userDispatcher } = useUser();
+  const { dispatcher: conversationsDispatcher } = useConversations();
   const alert = useAlert();
   const socket = useSocket();
 
@@ -59,13 +58,9 @@ const Home: React.FC = () => {
         title: 'Verificación de correo pendiente',
         body: (
           <View>
+            <BaseText>Para poder usar la app necesitas verificar tu dirección de correo electrónico.</BaseText>
             <BaseText>
-              Para poder usar la app necesitas verificar tu dirección de correo
-              electrónico.
-            </BaseText>
-            <BaseText>
-              Revisa tu bandeja de entrada por un correo de Terappy. Si no te
-              llegó te lo podemos volver a enviar.
+              Revisa tu bandeja de entrada por un correo de Terappy. Si no te llegó te lo podemos volver a enviar.
             </BaseText>
           </View>
         ),
@@ -91,13 +86,9 @@ const Home: React.FC = () => {
             onPress: showEmailConfirmationAlert,
           }}
           content={
-            confirmationEmailLoading ? (
-              <ActivityIndicator color={'white'} />
-            ) : (
-              'Verificación de correo pendiente'
-            )
+            confirmationEmailLoading ? <ActivityIndicator color={'white'} /> : 'Verificación de correo pendiente'
           }
-          textProps={{fontSize: 16, weight: 700}}
+          textProps={{ fontSize: 16, weight: 700 }}
         />
       )}
       <Routes>

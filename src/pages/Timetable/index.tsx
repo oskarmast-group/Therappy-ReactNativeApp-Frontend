@@ -1,29 +1,23 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import MainContainer from '../../containers/MainContainer';
 import TopBar from '../../components/TopBar';
 import Scrollable from '../../containers/Scrollable';
-import {BaseText} from '../../components/Text';
-import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
-import {GREEN} from '../../resources/constants/colors';
+import { BaseText } from '../../components/Text';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { GREEN } from '../../resources/constants/colors';
 import Loading from '../../components/Loading';
 import styles from './styles';
 import useUser from '../../state/user';
 import useAppointments from '../../state/appointments';
-import {add, isAfter, set} from 'date-fns';
+import { add, isAfter, set } from 'date-fns';
 import UserType from '../../interfaces/User/UserType';
-import {useNavigate} from 'react-router-native';
+import { useNavigate } from 'react-router-native';
 import TimeAvailability from '../../interfaces/TimeAvailability';
 import HoursPicker from './components/HoursPicker';
 
-const getRelevantAvailability = (
-  serverTime: number = 0,
-  timeAvailability: TimeAvailability = {},
-): TimeAvailability => {
+const getRelevantAvailability = (serverTime: number = 0, timeAvailability: TimeAvailability = {}): TimeAvailability => {
   const now = new Date(serverTime);
-  const tomorrow = add(
-    set(now, {hours: 0, minutes: 0, seconds: 0, milliseconds: 0}),
-    {days: 0},
-  );
+  const tomorrow = add(set(now, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 }), { days: 0 });
 
   const relevantAvailability: TimeAvailability = {};
 
@@ -45,12 +39,9 @@ const getRelevantAvailability = (
 };
 
 const Timetable: React.FC = () => {
-  const [timeAvailability, setTimeAvailability] = useState<TimeAvailability>(
-    {},
-  );
-  const {data: user, dispatcher: userDispatcher} = useUser();
-  const {data: appointments, dispatcher: appointmentsDispatcher} =
-    useAppointments();
+  const [timeAvailability, setTimeAvailability] = useState<TimeAvailability>({});
+  const { data: user, dispatcher: userDispatcher } = useUser();
+  const { data: appointments, dispatcher: appointmentsDispatcher } = useAppointments();
 
   const [nextWeekDates, setNextWeekDates] = useState<Date[]>([]);
   const [withError, setWithError] = useState(false);
@@ -71,7 +62,7 @@ const Timetable: React.FC = () => {
     const dates: Date[] = [];
 
     for (let i = 1; i <= 7; i++) {
-      const next = set(add(now, {days: i}), {
+      const next = set(add(now, { days: i }), {
         hours: 0,
         minutes: 0,
         seconds: 0,
@@ -162,9 +153,7 @@ const Timetable: React.FC = () => {
             </BaseText>
           </TouchableOpacity>
         )}
-        {user.fetching.update?.config?.key === 'timeAvailability' && (
-          <ActivityIndicator color={GREEN} />
-        )}
+        {user.fetching.update?.config?.key === 'timeAvailability' && <ActivityIndicator color={GREEN} />}
       </View>
       <Scrollable>
         {(user.fetching.fetch.isFetching &&

@@ -6,9 +6,9 @@ interface RequiredDocumentationState {
   list: RequiredDocumentation[];
   fetching: {
     fetch: FetchingState<null>;
-    upload: FetchingState<null | {key: string}>;
-    delete: FetchingState<null | {key: string}>;
-    update: FetchingState<null | {key: string}>;
+    upload: FetchingState<null | { key: string }>;
+    delete: FetchingState<null | { key: string }>;
+    update: FetchingState<null | { key: string }>;
   };
   error: ErrorState;
 }

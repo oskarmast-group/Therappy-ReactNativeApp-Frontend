@@ -1,4 +1,4 @@
-import {storage} from '../../localStorage';
+import { storage } from '../../localStorage';
 
 let token: string | null = null;
 
@@ -17,6 +17,6 @@ export function getToken(): string | null {
   return parsedAuth.token;
 }
 
-const Authorization = () => ({Authorization: getToken()});
+const Authorization = () => ({ Authorization: getToken() });
 
 export default Authorization;

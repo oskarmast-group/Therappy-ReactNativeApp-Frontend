@@ -1,5 +1,5 @@
-import Conversation, {BaseConversation} from '../../interfaces/Conversation';
-import {SocketMessage} from '../../interfaces/Conversation/Message';
+import Conversation, { BaseConversation } from '../../interfaces/Conversation';
+import { SocketMessage } from '../../interfaces/Conversation/Message';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 import {
@@ -33,9 +33,7 @@ export const fetchOneStartAction = (payload: string): FetchOneStart => ({
   payload,
 });
 
-export const fetchOneSuccessAction = (
-  payload: BaseConversation,
-): FetchOneSuccess => ({
+export const fetchOneSuccessAction = (payload: BaseConversation): FetchOneSuccess => ({
   type: ACTION_STRINGS.FETCH_ONE_SUCCESS,
   payload,
 });
@@ -50,9 +48,7 @@ export const clearConversationAction = (): ClearConversation => ({
   payload: null,
 });
 
-export const addLastMessageAction = (
-  payload: SocketMessage,
-): AddLastMessage => ({
+export const addLastMessageAction = (payload: SocketMessage): AddLastMessage => ({
   type: ACTION_STRINGS.ADD_LAST_MESSAGE,
   payload,
 });

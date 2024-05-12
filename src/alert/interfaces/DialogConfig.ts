@@ -1,4 +1,4 @@
-import {CustomDialogProps} from './CustomDialogProps';
+import { CustomDialogProps } from './CustomDialogProps';
 
 export interface InfoDialogConfig {
   showCloseButton?: boolean;

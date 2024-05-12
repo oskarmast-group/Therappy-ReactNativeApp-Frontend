@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 const StarEmptyIcon = () => (
   <Svg viewBox="0 0 18.02 17.119" preserveAspectRatio="xMidYMid slice">
     <Path

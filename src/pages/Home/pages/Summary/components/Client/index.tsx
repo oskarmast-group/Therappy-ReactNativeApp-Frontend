@@ -1,21 +1,20 @@
-import React, {useEffect, useMemo} from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Container from '../Container';
 import useAppointments from '../../../../../../state/appointments';
-import {BaseText} from '../../../../../../components/Text';
+import { BaseText } from '../../../../../../components/Text';
 import NextAppointmentSection from './NextAppointmentSection';
 import TherapistCard from '../../../../../../components/TherapistCard';
-import {Client as ClientInterface} from '../../../../../../interfaces/User';
+import { Client as ClientInterface } from '../../../../../../interfaces/User';
 import AppointmentStatus from '../../../../../../interfaces/Appointment/AppointmentStatus';
 import InfoButton from '../../../../../../components/InfoButton';
-import {useAlert} from '../../../../../../alert';
+import { useAlert } from '../../../../../../alert';
 import ALERT_TYPES from '../../../../../../alert/interfaces/AlertTypes';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import ClientTherapistStatus from '../../../../../../interfaces/User/ClientTherapistStatus';
 import TherapistSelectionSection from './TherapistSelectionSection';
 
-const Client: React.FC<{user: ClientInterface}> = ({user}) => {
-  const {data: appointments, dispatcher: appointmentsDispatcher} =
-    useAppointments();
+const Client: React.FC<{ user: ClientInterface }> = ({ user }) => {
+  const { data: appointments, dispatcher: appointmentsDispatcher } = useAppointments();
   const alert = useAlert();
 
   useEffect(() => {
@@ -25,9 +24,7 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
   const shouldBeClickable = useMemo(
     () =>
       appointments.upcomingList.filter(
-        ({status}) =>
-          status !== AppointmentStatus.REJECTED &&
-          status !== AppointmentStatus.CANCELLED,
+        ({ status }) => status !== AppointmentStatus.REJECTED && status !== AppointmentStatus.CANCELLED,
       ).length === 0,
     [appointments.upcomingList],
   );
@@ -40,12 +37,11 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
         body: (
           <View>
             <BaseText>
-              Después de la sesión exploratoria con el terapeuta podrán decidir
-              continuar con futuras sesiones.
+              Después de la sesión exploratoria con el terapeuta podrán decidir continuar con futuras sesiones.
             </BaseText>
             <BaseText>
-              Si deciden no continuar tendrás la oportunidad de agendar otra
-              sesión exploratoria gratuita con otro terapeuta
+              Si deciden no continuar tendrás la oportunidad de agendar otra sesión exploratoria gratuita con otro
+              terapeuta
             </BaseText>
           </View>
         ),
@@ -62,15 +58,9 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
       <BaseText fontSize={18} weight={800} marginTop={4} marginBottom={4}>
         Terapeuta:
       </BaseText>
-      <TherapistCard
-        therapist={user.extraData.therapist}
-        clickable={shouldBeClickable}
-      />
+      <TherapistCard therapist={user.extraData.therapist} clickable={shouldBeClickable} />
       {user.extraData.therapist.status === ClientTherapistStatus.PENDING && (
-        <InfoButton
-          content="¿Por qué no puedo agendar más sesiones?"
-          buttonProps={{onPress: onClick}}
-        />
+        <InfoButton content="¿Por qué no puedo agendar más sesiones?" buttonProps={{ onPress: onClick }} />
       )}
     </Container>
   ) : (

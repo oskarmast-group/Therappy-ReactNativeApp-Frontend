@@ -1,22 +1,20 @@
-import {add, addDays, isAfter, isBefore, set} from 'date-fns';
+import { add, addDays, isAfter, isBefore, set } from 'date-fns';
 import React from 'react';
-import {useMemo} from 'react';
-import {BaseText} from '../../../../components/Text';
-import {Switch, View} from 'react-native';
+import { useMemo } from 'react';
+import { BaseText } from '../../../../components/Text';
+import { Switch, View } from 'react-native';
 import styles from './styles';
 import TimeAvailability from '../../../../interfaces/TimeAvailability';
-import {getDisplayDate} from '../../../../utils/date';
+import { getDisplayDate } from '../../../../utils/date';
 import TimeInterval from '../TimeInterval';
-import {PRIMARY_GREEN} from '../../../../resources/constants/colors';
+import { PRIMARY_GREEN } from '../../../../resources/constants/colors';
 import uuid from 'react-native-uuid';
 
 const Day: React.FC<{
   date: number;
   timeAvailability: TimeAvailability;
-  updateTimeAvailability: React.Dispatch<
-    React.SetStateAction<TimeAvailability>
-  >;
-}> = ({date, timeAvailability = {}, updateTimeAvailability}) => {
+  updateTimeAvailability: React.Dispatch<React.SetStateAction<TimeAvailability>>;
+}> = ({ date, timeAvailability = {}, updateTimeAvailability }) => {
   const startingHours = useMemo(() => {
     const currentDate = new Date(date);
     const nextDate = addDays(currentDate, 1);
@@ -38,7 +36,7 @@ const Day: React.FC<{
       for (const [key] of startingHours) {
         delete timeAvailability[key];
       }
-      updateTimeAvailability({...timeAvailability});
+      updateTimeAvailability({ ...timeAvailability });
     } else {
       const currentDate = new Date(date);
       updateTimeAvailability({
@@ -58,25 +56,25 @@ const Day: React.FC<{
 
     updateTimeAvailability({
       ...timeAvailability,
-      [`${uuid.v4()}`]: add(lastTime, {hours: 1}).getTime(),
+      [`${uuid.v4()}`]: add(lastTime, { hours: 1 }).getTime(),
     });
   };
 
   const removeInterval = (key: string) => () => {
     delete timeAvailability[key];
-    updateTimeAvailability({...timeAvailability});
+    updateTimeAvailability({ ...timeAvailability });
   };
 
   const setInterval = (key: string) => (value: number) => {
     timeAvailability[key] = value;
-    updateTimeAvailability({...timeAvailability});
+    updateTimeAvailability({ ...timeAvailability });
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.labelContainer}>
         <Switch
-          trackColor={{false: '#ccc', true: PRIMARY_GREEN}}
+          trackColor={{ false: '#ccc', true: PRIMARY_GREEN }}
           thumbColor={'white'}
           ios_backgroundColor="#ccc"
           onValueChange={toggleActive}

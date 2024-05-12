@@ -1,13 +1,13 @@
 import React from 'react';
 import useRequiredDocumentation from '../../../../../../../../../state/requiredDocumentation';
-import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import FileIcon from '../../../../../../../../../resources/img/icons/FileIcon';
 import FileUploadIcon from '../../../../../../../../../resources/img/icons/FileUploadIcon';
-import {FunctionModes, useDocumentUpload} from '../useDocumentUpload';
+import { FunctionModes, useDocumentUpload } from '../useDocumentUpload';
 
-const DocumentUpload: React.FC<{documentType: string}> = ({documentType}) => {
-  const {data: requiredDocumentation} = useRequiredDocumentation();
+const DocumentUpload: React.FC<{ documentType: string }> = ({ documentType }) => {
+  const { data: requiredDocumentation } = useRequiredDocumentation();
 
   const onUpload = useDocumentUpload({
     type: FunctionModes.NEW,

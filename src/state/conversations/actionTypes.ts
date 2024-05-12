@@ -1,5 +1,5 @@
-import Conversation, {BaseConversation} from '../../interfaces/Conversation';
-import {SocketMessage} from '../../interfaces/Conversation/Message';
+import Conversation, { BaseConversation } from '../../interfaces/Conversation';
+import { SocketMessage } from '../../interfaces/Conversation/Message';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 

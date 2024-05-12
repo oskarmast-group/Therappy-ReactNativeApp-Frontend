@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useRef} from 'react';
-import {Animated, TextInputProps} from 'react-native';
-import {DARK_TEXT} from '../../../resources/constants/colors';
+import React, { useEffect, useRef } from 'react';
+import { Animated, TextInputProps } from 'react-native';
+import { DARK_TEXT } from '../../../resources/constants/colors';
 
 interface LabelComponentProps extends TextInputProps {
   isActive: boolean;
@@ -18,18 +18,9 @@ const TOP_VALUE = {
   MIN: 0,
 };
 
-const LabelComponent: React.FC<LabelComponentProps> = ({
-  isActive,
-  withIcon,
-  children,
-  ...rest
-}) => {
-  const topValue = useRef(
-    new Animated.Value(isActive ? TOP_VALUE.MIN : TOP_VALUE.MAX),
-  ).current;
-  const fontSizeValue = useRef(
-    new Animated.Value(isActive ? FONT_SIZE.MAX : FONT_SIZE.MIN),
-  ).current;
+const LabelComponent: React.FC<LabelComponentProps> = ({ isActive, withIcon, children, ...rest }) => {
+  const topValue = useRef(new Animated.Value(isActive ? TOP_VALUE.MIN : TOP_VALUE.MAX)).current;
+  const fontSizeValue = useRef(new Animated.Value(isActive ? FONT_SIZE.MAX : FONT_SIZE.MIN)).current;
 
   useEffect(() => {
     Animated.timing(topValue, {
@@ -55,7 +46,8 @@ const LabelComponent: React.FC<LabelComponentProps> = ({
         fontWeight: '500',
         color: DARK_TEXT,
       }}
-      {...rest}>
+      {...rest}
+    >
       {children}
     </Animated.Text>
   );

@@ -1,9 +1,9 @@
-import {takeLatest, put, all, call} from 'redux-saga/effects';
-import {processError} from '../utils';
-import {fetchErrorAction, fetchSuccessAction} from './actions';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { processError } from '../utils';
+import { fetchErrorAction, fetchSuccessAction } from './actions';
 import ACTION_STRINGS from './actionStrings';
 import Category from '../../interfaces/Category';
-import {categoriesAPI} from '../../resources/api';
+import { categoriesAPI } from '../../resources/api';
 
 function* fetchStartAsync(): Generator<unknown, void, Category[]> {
   try {

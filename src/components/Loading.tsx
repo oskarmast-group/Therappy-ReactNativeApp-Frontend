@@ -1,16 +1,8 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  ActivityIndicatorProps,
-  StyleSheet,
-  View,
-} from 'react-native';
-import {PRIMARY_GREEN} from '../resources/constants/colors';
+import { ActivityIndicator, ActivityIndicatorProps, StyleSheet, View } from 'react-native';
+import { PRIMARY_GREEN } from '../resources/constants/colors';
 
-const Loading: React.FC<ActivityIndicatorProps> = ({
-  color = PRIMARY_GREEN,
-  ...props
-}) => {
+const Loading: React.FC<ActivityIndicatorProps> = ({ color = PRIMARY_GREEN, ...props }) => {
   return (
     <View style={styles.container}>
       <ActivityIndicator color={color} {...props} />

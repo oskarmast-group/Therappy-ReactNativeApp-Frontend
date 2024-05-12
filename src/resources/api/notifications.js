@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import Authorization from './auth';
-import {executeCall} from './utils';
+import { executeCall } from './utils';
 
 const crudder = (domain, resource, withAuth = true) => {
   const url = `${domain}/${resource}`;
@@ -12,11 +12,9 @@ const crudder = (domain, resource, withAuth = true) => {
       headers,
       url,
     },
-    list: () => executeCall(() => Axios.get(url, {headers})),
-    register: data =>
-      executeCall(() => Axios.post(url + `/register`, data, {headers})),
-    unregister: data =>
-      executeCall(() => Axios.post(url + `/unregister`, data)),
+    list: () => executeCall(() => Axios.get(url, { headers })),
+    register: (data) => executeCall(() => Axios.post(url + `/register`, data, { headers })),
+    unregister: (data) => executeCall(() => Axios.post(url + `/unregister`, data)),
   };
 };
 

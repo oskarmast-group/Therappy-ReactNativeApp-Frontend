@@ -1,5 +1,5 @@
-import {Dispatch} from 'react';
-import {MessagesActions} from './actionTypes';
+import { Dispatch } from 'react';
+import { MessagesActions } from './actionTypes';
 import {
   addMessageAction,
   clearChatAction,
@@ -10,7 +10,7 @@ import {
   sendMessageStartAction,
   setExtraMessagesToFetchAction,
 } from './actions';
-import Message, {MessagePayload} from '../../interfaces/Conversation/Message';
+import Message, { MessagePayload } from '../../interfaces/Conversation/Message';
 
 export default class Dispatcher {
   _dispatch: Dispatch<MessagesActions>;
@@ -21,8 +21,7 @@ export default class Dispatcher {
 
   fetchStart = () => this._dispatch(fetchStartAction());
 
-  sendMessageStart = (payload: MessagePayload) =>
-    this._dispatch(sendMessageStartAction(payload));
+  sendMessageStart = (payload: MessagePayload) => this._dispatch(sendMessageStartAction(payload));
 
   markAsReadStart = () => this._dispatch(markAsReadStartAction());
 
@@ -30,8 +29,7 @@ export default class Dispatcher {
 
   clearChat = () => this._dispatch(clearChatAction());
 
-  setExtraMessagesToFetch = (payload: number) =>
-    this._dispatch(setExtraMessagesToFetchAction(payload));
+  setExtraMessagesToFetch = (payload: number) => this._dispatch(setExtraMessagesToFetchAction(payload));
 
   clearReadList = () => this._dispatch(clearReadListAction());
 

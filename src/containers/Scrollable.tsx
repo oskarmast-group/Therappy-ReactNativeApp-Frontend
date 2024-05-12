@@ -1,5 +1,5 @@
-import React, {PropsWithChildren} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import React, { PropsWithChildren } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -11,11 +11,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Scrollable: React.FC<PropsWithChildren> = ({children}) => {
+const Scrollable: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <ScrollView
-      style={styles.scrollView}
-      contentContainerStyle={styles.content}>
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
       {children}
     </ScrollView>
   );

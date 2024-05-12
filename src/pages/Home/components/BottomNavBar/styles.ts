@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {GREEN_HIGHLIGHT} from '../../../../resources/constants/colors';
+import { StyleSheet } from 'react-native';
+import { GREEN_HIGHLIGHT } from '../../../../resources/constants/colors';
 const styles = StyleSheet.create({
   container: {
     display: 'flex',

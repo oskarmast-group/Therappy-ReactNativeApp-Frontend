@@ -1,9 +1,9 @@
-import {BaseAppointment} from './Appointment';
+import { BaseAppointment } from './Appointment';
 
 interface Reservation {
   appointment: BaseAppointment;
   pricing: {
-    parts: {name: string; amount: number}[];
+    parts: { name: string; amount: number }[];
     total: number;
   };
 }

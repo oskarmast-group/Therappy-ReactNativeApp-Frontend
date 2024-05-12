@@ -1,7 +1,7 @@
 import StyleSheet from 'react-native-media-query';
-import {GREEN} from '../../../../resources/constants/colors';
+import { GREEN } from '../../../../resources/constants/colors';
 
-const {styles} = StyleSheet.create({
+const { styles } = StyleSheet.create({
   container: {
     width: '100%',
     height: 56,

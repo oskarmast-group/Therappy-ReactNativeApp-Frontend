@@ -6,4 +6,4 @@ export const DEFAULT_FETCHING_STATE: FetchingState<null> = {
   config: null,
 };
 
-export const DEFAULT_NO_ERROR: ErrorState = {timestamp: 0, message: ''};
+export const DEFAULT_NO_ERROR: ErrorState = { timestamp: 0, message: '' };

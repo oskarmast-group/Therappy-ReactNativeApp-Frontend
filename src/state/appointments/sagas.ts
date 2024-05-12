@@ -1,6 +1,6 @@
-import {takeLatest, put, all, call} from 'redux-saga/effects';
-import Appointment, {BaseAppointment} from '../../interfaces/Appointment';
-import {processError} from '../utils';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
+import Appointment, { BaseAppointment } from '../../interfaces/Appointment';
+import { processError } from '../utils';
 import {
   acceptErrorAction,
   acceptSuccessAction,
@@ -22,19 +22,10 @@ import {
   rejectSuccessAction,
 } from './actions';
 import ACTION_STRINGS from './actionStrings';
-import {appointmentsAPI} from '../../resources/api';
-import {
-  AcceptStart,
-  CancelStart,
-  FetchOneStart,
-  RejectStart,
-} from './actionTypes';
+import { appointmentsAPI } from '../../resources/api';
+import { AcceptStart, CancelStart, FetchOneStart, RejectStart } from './actionTypes';
 
-function* fetchUpcomingStartAsync(): Generator<
-  unknown,
-  void,
-  BaseAppointment[]
-> {
+function* fetchUpcomingStartAsync(): Generator<unknown, void, BaseAppointment[]> {
   try {
     const res = yield appointmentsAPI.getUpcoming();
     yield put(fetchUpcomingSuccessAction(res));
@@ -46,10 +37,7 @@ function* fetchUpcomingStartAsync(): Generator<
 }
 
 function* fetchUpcomingStart() {
-  yield takeLatest(
-    ACTION_STRINGS.FETCH_UPCOMING_START,
-    fetchUpcomingStartAsync,
-  );
+  yield takeLatest(ACTION_STRINGS.FETCH_UPCOMING_START, fetchUpcomingStartAsync);
 }
 
 function* fetchStartAsync(): Generator<unknown, void, BaseAppointment[]> {
@@ -97,11 +85,7 @@ function* fetchStart() {
 //   yield takeLatest(Types.CONFIRM_START, confirmStartAsync);
 // }
 
-function* fetchPendingStartAsync(): Generator<
-  unknown,
-  void,
-  BaseAppointment[]
-> {
+function* fetchPendingStartAsync(): Generator<unknown, void, BaseAppointment[]> {
   try {
     const res = yield appointmentsAPI.getPending();
     yield put(fetchPendingSuccessAction(res));
@@ -116,12 +100,10 @@ function* fetchPendingStart() {
   yield takeLatest(ACTION_STRINGS.FETCH_PENDING_START, fetchPendingStartAsync);
 }
 
-function* acceptStartAsync({
-  payload,
-}: AcceptStart): Generator<unknown, void, Appointment> {
+function* acceptStartAsync({ payload }: AcceptStart): Generator<unknown, void, Appointment> {
   try {
-    const {appointmentId, roomId} = payload;
-    const res = yield appointmentsAPI.accept({appointmentId});
+    const { appointmentId, roomId } = payload;
+    const res = yield appointmentsAPI.accept({ appointmentId });
     yield put(acceptSuccessAction(res));
 
     if (roomId) {
@@ -140,9 +122,7 @@ function* acceptStart() {
   yield takeLatest(ACTION_STRINGS.ACCEPT_START, acceptStartAsync);
 }
 
-function* fetchOneStartAsync({
-  payload,
-}: FetchOneStart): Generator<unknown, void, Appointment> {
+function* fetchOneStartAsync({ payload }: FetchOneStart): Generator<unknown, void, Appointment> {
   try {
     const res = yield appointmentsAPI.view(payload.roomId);
     yield put(fetchOneSuccessAction(res));
@@ -157,7 +137,7 @@ function* fetchOneStart() {
   yield takeLatest(ACTION_STRINGS.FETCH_ONE_START, fetchOneStartAsync);
 }
 
-function* getServerTimeStartAsync(): Generator<unknown, void, {now: number}> {
+function* getServerTimeStartAsync(): Generator<unknown, void, { now: number }> {
   try {
     const res = yield appointmentsAPI.serverTime();
     yield put(getServerTimeSuccessAction(res.now));
@@ -169,15 +149,10 @@ function* getServerTimeStartAsync(): Generator<unknown, void, {now: number}> {
 }
 
 function* getServerTimeStart() {
-  yield takeLatest(
-    ACTION_STRINGS.GET_SERVER_TIME_START,
-    getServerTimeStartAsync,
-  );
+  yield takeLatest(ACTION_STRINGS.GET_SERVER_TIME_START, getServerTimeStartAsync);
 }
 
-function* cancelStartAsync({
-  payload,
-}: CancelStart): Generator<unknown, void, Appointment> {
+function* cancelStartAsync({ payload }: CancelStart): Generator<unknown, void, Appointment> {
   try {
     const res = yield appointmentsAPI.cancel(payload);
     yield put(cancelSuccessAction(res));
@@ -193,12 +168,10 @@ function* cancelStart() {
   yield takeLatest(ACTION_STRINGS.CANCEL_START, cancelStartAsync);
 }
 
-function* rejectStartAsync({
-  payload,
-}: RejectStart): Generator<unknown, void, Appointment> {
+function* rejectStartAsync({ payload }: RejectStart): Generator<unknown, void, Appointment> {
   try {
-    const {appointmentId, roomId} = payload;
-    const res = yield appointmentsAPI.reject({appointmentId});
+    const { appointmentId, roomId } = payload;
+    const res = yield appointmentsAPI.reject({ appointmentId });
     yield put(rejectSuccessAction(res));
 
     if (roomId) {

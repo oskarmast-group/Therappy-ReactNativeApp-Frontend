@@ -17,8 +17,4 @@ export type FetchError = {
   payload: any;
 };
 
-export type CategoryActions =
-  | FetchError
-  | FetchStart
-  | FetchSuccess
-  | ResetError<ACTION_STRINGS.RESET_ERROR>;
+export type CategoryActions = FetchError | FetchStart | FetchSuccess | ResetError<ACTION_STRINGS.RESET_ERROR>;

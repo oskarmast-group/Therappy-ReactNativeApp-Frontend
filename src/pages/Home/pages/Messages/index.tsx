@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react';
-import {BaseText} from '../../../../components/Text';
+import React, { useEffect } from 'react';
+import { BaseText } from '../../../../components/Text';
 import useUser from '../../../../state/user';
 import useConversations from '../../../../state/conversations';
-import {PRIMARY_GREEN} from '../../../../resources/constants/colors';
+import { PRIMARY_GREEN } from '../../../../resources/constants/colors';
 import Loading from '../../../../components/Loading';
 import UserType from '../../../../interfaces/User/UserType';
 import Scrollable from '../../../../containers/Scrollable';
 import ConversationsList from './components/ConversationList';
 
 const Messages: React.FC = () => {
-  const {data: user} = useUser();
-  const {data: conversations, dispatcher: conversationsDispatcher} =
-    useConversations();
+  const { data: user } = useUser();
+  const { data: conversations, dispatcher: conversationsDispatcher } = useConversations();
 
   useEffect(() => {
     conversationsDispatcher.fetchStart();
@@ -19,12 +18,7 @@ const Messages: React.FC = () => {
 
   return (
     <Scrollable>
-      <BaseText
-        fontSize={30}
-        weight={600}
-        color={PRIMARY_GREEN}
-        textAlign={'center'}
-        marginBottom={10}>
+      <BaseText fontSize={30} weight={600} color={PRIMARY_GREEN} textAlign={'center'} marginBottom={10}>
         Mensajes
       </BaseText>
       {conversations.fetching.fetch.isFetching ? (

@@ -1,36 +1,35 @@
-import React, {useCallback, useEffect, useMemo} from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import MainContainer from '../../../../containers/MainContainer';
 import TopBar from '../../../../components/TopBar';
 import useAppointments from '../../../../state/appointments';
 import useUser from '../../../../state/user';
-import {useNavigate, useParams} from 'react-router-native';
+import { useNavigate, useParams } from 'react-router-native';
 import Loading from '../../../../components/Loading';
 import AppointmentStatus from '../../../../interfaces/Appointment/AppointmentStatus';
-import {useAlert} from '../../../../alert';
+import { useAlert } from '../../../../alert';
 import ALERT_TYPES from '../../../../alert/interfaces/AlertTypes';
-import {add, isAfter, isBefore, sub} from 'date-fns';
-import {MAX_APPOINTMENT_CANCELLATION_TIME} from '../../../../resources/constants/config';
+import { add, isAfter, isBefore, sub } from 'date-fns';
+import { MAX_APPOINTMENT_CANCELLATION_TIME } from '../../../../resources/constants/config';
 import UserType from '../../../../interfaces/User/UserType';
-import {BaseText} from '../../../../components/Text';
+import { BaseText } from '../../../../components/Text';
 import ProfileCard from './components/ProfileCard';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import styles from './styles';
-import Button, {ButtonText} from '../../../../components/Button';
-import {PRIMARY_GREEN, RED} from '../../../../resources/constants/colors';
+import Button, { ButtonText } from '../../../../components/Button';
+import { PRIMARY_GREEN, RED } from '../../../../resources/constants/colors';
 import MessageIcon from '../../../../resources/img/icons/MessageIcon';
 import VideocallIcon from '../../../../resources/img/icons/VideocallIcon';
 import AppointmentTime from '../../../../components/AppointmentTime';
-import {useRouter} from '../../../../providers/RouterProvider';
+import { useRouter } from '../../../../providers/RouterProvider';
 
 const ViewAppointment: React.FC = () => {
-  const {data: user, dispatcher: userDispatcher} = useUser();
-  const {data: appointments, dispatcher: appointmentsDispatcher} =
-    useAppointments();
+  const { data: user, dispatcher: userDispatcher } = useUser();
+  const { data: appointments, dispatcher: appointmentsDispatcher } = useAppointments();
   const navigate = useNavigate();
-  const {goBack} = useRouter();
+  const { goBack } = useRouter();
   const alert = useAlert();
 
-  const {roomId} = useParams();
+  const { roomId } = useParams();
 
   useEffect(() => {
     if (roomId) {
@@ -45,10 +44,7 @@ const ViewAppointment: React.FC = () => {
 
   const appointment = useMemo(() => appointments.appointment, [appointments]);
 
-  if (
-    appointment?.status === AppointmentStatus.CANCELLED ||
-    appointment?.status === AppointmentStatus.REJECTED
-  ) {
+  if (appointment?.status === AppointmentStatus.CANCELLED || appointment?.status === AppointmentStatus.REJECTED) {
     goBack('../..');
   }
 
@@ -67,13 +63,11 @@ const ViewAppointment: React.FC = () => {
       )
     ) {
       if (user.current.userType === UserType.CLIENT) {
-        body =
-          'Puedes cancelar la cita, y se reembolsará el costo completo en un periodo no mayor a 14 días hábiles.';
+        body = 'Puedes cancelar la cita, y se reembolsará el costo completo en un periodo no mayor a 14 días hábiles.';
       }
     } else {
       if (user.current.userType === UserType.THERAPIST) {
-        body =
-          'Puedes cancelar la cita, pero de preferencia cancelar al menos 24 horas antes.';
+        body = 'Puedes cancelar la cita, pero de preferencia cancelar al menos 24 horas antes.';
       }
       if (user.current.userType === UserType.CLIENT) {
         body =
@@ -125,11 +119,10 @@ const ViewAppointment: React.FC = () => {
     }
 
     const validTime =
-      isAfter(new Date(), sub(new Date(appointment.date), {minutes: 10})) &&
-      isBefore(new Date(), add(new Date(appointment.date), {minutes: 50}));
+      isAfter(new Date(), sub(new Date(appointment.date), { minutes: 10 })) &&
+      isBefore(new Date(), add(new Date(appointment.date), { minutes: 50 }));
     const validStatus =
-      appointment.status !== AppointmentStatus.CANCELLED &&
-      appointment.status !== AppointmentStatus.REJECTED;
+      appointment.status !== AppointmentStatus.CANCELLED && appointment.status !== AppointmentStatus.REJECTED;
     return appointment.roomId && validTime && validStatus;
   }, [appointment]);
 
@@ -138,10 +131,7 @@ const ViewAppointment: React.FC = () => {
       return false;
     }
 
-    const validTime = isBefore(
-      new Date(),
-      add(new Date(appointment.date), {minutes: 10}),
-    );
+    const validTime = isBefore(new Date(), add(new Date(appointment.date), { minutes: 10 }));
     if (!validTime) {
       return false;
     }
@@ -150,10 +140,7 @@ const ViewAppointment: React.FC = () => {
     }
 
     if (user.current.userType === UserType.CLIENT) {
-      return (
-        appointment.status === AppointmentStatus.CONFIRMED ||
-        appointment.status === AppointmentStatus.ACCEPTED
-      );
+      return appointment.status === AppointmentStatus.CONFIRMED || appointment.status === AppointmentStatus.ACCEPTED;
     }
     return false;
   }, [appointment, user]);
@@ -186,10 +173,9 @@ const ViewAppointment: React.FC = () => {
             <Button
               backgroundColor={PRIMARY_GREEN}
               flex={1}
-              onPress={() =>
-                navigate(`/conversacion/${appointment?.conversationId}`)
-              }
-              disabled={!appointment?.conversationId}>
+              onPress={() => navigate(`/conversacion/${appointment?.conversationId}`)}
+              disabled={!appointment?.conversationId}
+            >
               <View style={styles.messageIconContainer}>
                 <MessageIcon color={'#fff'} />
               </View>
@@ -199,42 +185,28 @@ const ViewAppointment: React.FC = () => {
               backgroundColor={PRIMARY_GREEN}
               flex={1}
               onPress={() => navigate(`/videollamada/${appointment?.roomId}`)}
-              disabled={!callButtonEnabled}>
+              disabled={!callButtonEnabled}
+            >
               <View style={styles.videocallIconContainer}>
                 <VideocallIcon />
               </View>
               <ButtonText>Llamada</ButtonText>
             </Button>
           </View>
-          {appointment && (
-            <AppointmentTime
-              loading={appointments.fetching.isFetching}
-              date={appointment.date}
-            />
-          )}
+          {appointment && <AppointmentTime loading={appointments.fetching.isFetching} date={appointment.date} />}
           {cancelButtonVisible && (
-            <Button
-              marginTop={40}
-              onPress={onCancel}
-              disabled={appointments.fetching.isFetching}>
+            <Button marginTop={40} onPress={onCancel} disabled={appointments.fetching.isFetching}>
               <ButtonText>Cancelar</ButtonText>
             </Button>
           )}
 
           {therapistButtonsVisble && (
-            <Button
-              marginTop={40}
-              onPress={onAccept}
-              disabled={appointments.fetching.isFetching}>
+            <Button marginTop={40} onPress={onAccept} disabled={appointments.fetching.isFetching}>
               <ButtonText>Aceptar</ButtonText>
             </Button>
           )}
           {therapistButtonsVisble && (
-            <Button
-              marginTop={20}
-              backgroundColor={RED}
-              onPress={onReject}
-              disabled={appointments.fetching.isFetching}>
+            <Button marginTop={20} backgroundColor={RED} onPress={onReject} disabled={appointments.fetching.isFetching}>
               <ButtonText>Rechazar</ButtonText>
             </Button>
           )}

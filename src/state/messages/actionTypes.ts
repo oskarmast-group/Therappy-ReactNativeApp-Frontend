@@ -1,4 +1,4 @@
-import Message, {MessagePayload} from '../../interfaces/Conversation/Message';
+import Message, { MessagePayload } from '../../interfaces/Conversation/Message';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 

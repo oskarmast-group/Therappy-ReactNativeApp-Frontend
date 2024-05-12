@@ -1,13 +1,12 @@
 import Axios from 'axios';
 import Authorization from './auth';
-import {executeCall} from './utils';
+import { executeCall } from './utils';
 import Message from '../../interfaces/Conversation/Message';
 
 const crudder = (domain: string, resource: string, withAuth = true) => {
   const url = `${domain}/${resource}`;
 
-  const headers = (extraHeaders = {}) =>
-    withAuth ? {...extraHeaders, ...Authorization()} : {...extraHeaders};
+  const headers = (extraHeaders = {}) => (withAuth ? { ...extraHeaders, ...Authorization() } : { ...extraHeaders });
 
   return {
     options: {
@@ -16,12 +15,9 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
     },
     view: (uuid: string, extraMessages?: number) =>
       executeCall<Message[]>(() =>
-        Axios.get<Message[]>(
-          url + `/${uuid}?extraMessages=${extraMessages ?? 4}`,
-          {
-            headers: headers(),
-          },
-        ),
+        Axios.get<Message[]>(url + `/${uuid}?extraMessages=${extraMessages ?? 4}`, {
+          headers: headers(),
+        }),
       ),
     send: (data: Message, conversationUUID: string) =>
       executeCall<Message>(() =>
@@ -30,10 +26,10 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
         }),
       ),
     markAsRead: (data: string[]) =>
-      executeCall<{message: string}>(() =>
-        Axios.post<{message: string}>(
+      executeCall<{ message: string }>(() =>
+        Axios.post<{ message: string }>(
           url + '/markRead',
-          {messages: data},
+          { messages: data },
           {
             headers: headers(),
           },

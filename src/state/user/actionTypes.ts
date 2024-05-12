@@ -5,6 +5,52 @@ import UpdateTherapistFields from '../../interfaces/User/UpdateTherapistFields';
 import UpdateUserFields from '../../interfaces/User/UpdateUserFields';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
+import { AccountInformation, IPaymentMethod, SetupIntentToken } from './state';
+
+export type FetchPaymentMethodsStart = {
+  type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_START;
+  payload: {};
+};
+
+export type FetchPaymentMethodsSuccess = {
+  type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_SUCCESS;
+  payload: Array<IPaymentMethod>;
+};
+
+export type FetchPaymentMethodsError = {
+  type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_ERROR;
+  payload: {};
+};
+
+export type DeletePaymentMethodStart = {
+  type: ACTION_STRINGS.DELETE_PAYMENT_METHOD_START;
+  payload: {};
+};
+
+export type DeletePaymentMethodSuccess = {
+  type: ACTION_STRINGS.DELETE_PAYMENT_METHOD_SUCCESS;
+  payload: {};
+};
+
+export type DeletePaymentMethodError = {
+  type: ACTION_STRINGS.DELETE_PAYMENT_METHOD_ERROR;
+  payload: {};
+};
+
+export type FetchAccountInformationStart = {
+  type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_START;
+  payload: {};
+};
+
+export type FetchAccountInformationSuccess = {
+  type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_SUCCESS;
+  payload: AccountInformation;
+};
+
+export type FetchAccountInformationError = {
+  type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_ERROR;
+  payload: any;
+};
 
 export type FetchStart = {
   type: ACTION_STRINGS.FETCH_START;
@@ -91,7 +137,31 @@ export type AcceptInvitationError = {
   payload: any;
 };
 
+export type SetupIntentStart = {
+  type: ACTION_STRINGS.SETUP_INTENT_START;
+  payload: {};
+};
+
+export type SetupIntentSuccess = {
+  type: ACTION_STRINGS.SETUP_INTENT_SUCCESS;
+  payload: SetupIntentToken;
+};
+
+export type SetupIntentError = {
+  type: ACTION_STRINGS.SETUP_INTENT_ERROR;
+  payload: any;
+};
+
 export type UserActions =
+  | FetchPaymentMethodsStart
+  | FetchPaymentMethodsSuccess
+  | FetchPaymentMethodsError
+  | DeletePaymentMethodStart
+  | DeletePaymentMethodSuccess
+  | DeletePaymentMethodError
+  | FetchAccountInformationStart
+  | FetchAccountInformationSuccess
+  | FetchAccountInformationError
   | FetchError
   | FetchStart
   | FetchSuccess
@@ -105,4 +175,7 @@ export type UserActions =
   | AcceptInvitationStart
   | AcceptInvitationSuccess
   | AcceptInvitationError
+  | SetupIntentStart
+  | SetupIntentSuccess
+  | SetupIntentError
   | ResetError<ACTION_STRINGS.RESET_ERROR>;

@@ -1,15 +1,10 @@
-import {takeLatest, put, all, call} from 'redux-saga/effects';
-import Conversation, {BaseConversation} from '../../interfaces/Conversation';
-import {
-  fetchErrorAction,
-  fetchOneErrorAction,
-  fetchOneSuccessAction,
-  fetchSuccessAction,
-} from './actions';
-import {processError} from '../utils';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
+import Conversation, { BaseConversation } from '../../interfaces/Conversation';
+import { fetchErrorAction, fetchOneErrorAction, fetchOneSuccessAction, fetchSuccessAction } from './actions';
+import { processError } from '../utils';
 import ACTION_STRINGS from './actionStrings';
-import {FetchOneStart} from './actionTypes';
-import {conversationsAPI} from '../../resources/api';
+import { FetchOneStart } from './actionTypes';
+import { conversationsAPI } from '../../resources/api';
 
 function* fetchStartAsync(): Generator<unknown, void, Conversation[]> {
   try {
@@ -26,9 +21,7 @@ function* fetchStart() {
   yield takeLatest(ACTION_STRINGS.FETCH_START, fetchStartAsync);
 }
 
-function* fetchOneStartAsync({
-  payload,
-}: FetchOneStart): Generator<unknown, void, BaseConversation> {
+function* fetchOneStartAsync({ payload }: FetchOneStart): Generator<unknown, void, BaseConversation> {
   try {
     const res = yield conversationsAPI.view(payload);
     yield put(fetchOneSuccessAction(res));

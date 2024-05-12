@@ -9,9 +9,13 @@ import {
   AcceptInvitationSuccess,
   AddDocumentation,
   DeleteDocumentation,
+  DeletePaymentMethodStart,
   FetchError,
   FetchStart,
+  FetchPaymentMethodsStart,
+  FetchAccountInformationStart,
   FetchSuccess,
+  SetupIntentStart,
   UpdateDocumentation,
   UpdateDocumentationPayload,
   UpdateError,
@@ -21,6 +25,21 @@ import {
   UpdateTherapistStart,
   UpdateTherapistStartPayload,
 } from './actionTypes';
+
+export const fetchPaymentMethodsStartAction = (): FetchPaymentMethodsStart => ({
+  type: ACTION_STRINGS.FETCH_PAYMENT_METHODS_START,
+  payload: {},
+});
+
+export const deletePaymentMethodStartAction = (payload: string): DeletePaymentMethodStart => ({
+  type: ACTION_STRINGS.DELETE_PAYMENT_METHOD_START,
+  payload,
+});
+
+export const fetchAccountInformationStartAction = (): FetchAccountInformationStart => ({
+  type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_START,
+  payload: {},
+});
 
 export const fetchStartAction = (): FetchStart => ({
   type: ACTION_STRINGS.FETCH_START,
@@ -37,30 +56,22 @@ export const fetchErrorAction = (payload: any): FetchError => ({
   payload,
 });
 
-export const addDocumentationAction = (
-  payload: Documentation,
-): AddDocumentation => ({
+export const addDocumentationAction = (payload: Documentation): AddDocumentation => ({
   type: ACTION_STRINGS.ADD_DOCUMENTATION,
   payload,
 });
 
-export const updateDocumentationAction = (
-  payload: UpdateDocumentationPayload,
-): UpdateDocumentation => ({
+export const updateDocumentationAction = (payload: UpdateDocumentationPayload): UpdateDocumentation => ({
   type: ACTION_STRINGS.UPDATE_DOCUMENTATION,
   payload,
 });
 
-export const deleteDocumentationAction = (
-  payload: string,
-): DeleteDocumentation => ({
+export const deleteDocumentationAction = (payload: string): DeleteDocumentation => ({
   type: ACTION_STRINGS.DELETE_DOCUMENTATION,
   payload,
 });
 
-export const updateStartAction = (
-  payload: UpdateStartPayload,
-): UpdateStart => ({
+export const updateStartAction = (payload: UpdateStartPayload): UpdateStart => ({
   type: ACTION_STRINGS.UPDATE_START,
   payload,
 });
@@ -75,16 +86,17 @@ export const updateErrorAction = (payload: any): UpdateError => ({
   payload,
 });
 
-export const updateTherapistStartAction = (
-  payload: UpdateTherapistStartPayload,
-): UpdateTherapistStart => ({
+export const updateTherapistStartAction = (payload: UpdateTherapistStartPayload): UpdateTherapistStart => ({
   type: ACTION_STRINGS.UPDATE_THERAPIST_START,
   payload,
 });
 
-export const acceptInvitationStartAction = (
-  payload: AcceptInvitationStartPayload,
-): AcceptInvitationStart => ({
+export const setupIntentStartAction = (): SetupIntentStart => ({
+  type: ACTION_STRINGS.SETUP_INTENT_START,
+  payload: {},
+});
+
+export const acceptInvitationStartAction = (payload: AcceptInvitationStartPayload): AcceptInvitationStart => ({
   type: ACTION_STRINGS.ACCEPT_INVITATION_START,
   payload,
 });
@@ -94,9 +106,7 @@ export const acceptInvitationSuccessAction = (): AcceptInvitationSuccess => ({
   payload: null,
 });
 
-export const acceptInvitationErrorAction = (
-  payload: any,
-): AcceptInvitationError => ({
+export const acceptInvitationErrorAction = (payload: any): AcceptInvitationError => ({
   type: ACTION_STRINGS.ACCEPT_INVITATION_ERROR,
   payload,
 });

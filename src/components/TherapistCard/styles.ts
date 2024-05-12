@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {DARKER_TEXT, GREEN} from '../../resources/constants/colors';
+import { StyleSheet } from 'react-native';
+import { DARKER_TEXT, GREEN } from '../../resources/constants/colors';
 import styled from 'styled-components/native';
 
 export interface ImageContainerProps {
@@ -9,10 +9,10 @@ export interface ImageContainerProps {
 }
 
 export const ImageContainer = styled.View<ImageContainerProps>`
-  width: ${({width}) => width ?? 66}px;
-  height: ${({height}) => height ?? 66}px;
+  width: ${({ width }) => width ?? 66}px;
+  height: ${({ height }) => height ?? 66}px;
   overflow: hidden;
-  border-radius: ${({borderRadius}) => borderRadius ?? 12}px;
+  border-radius: ${({ borderRadius }) => borderRadius ?? 12}px;
 `;
 
 export interface ImageProps {
@@ -21,8 +21,8 @@ export interface ImageProps {
 }
 
 export const ImageComponent = styled.Image<ImageProps>`
-  width: ${({width}) => width ?? 66}px;
-  height: ${({height}) => height ?? 66}px;
+  width: ${({ width }) => width ?? 66}px;
+  height: ${({ height }) => height ?? 66}px;
 `;
 
 const styles = StyleSheet.create({

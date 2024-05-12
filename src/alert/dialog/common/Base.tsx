@@ -1,5 +1,5 @@
-import React, {PropsWithChildren} from 'react';
-import {Modal, Pressable, View} from 'react-native';
+import React, { PropsWithChildren } from 'react';
+import { Modal, Pressable, View } from 'react-native';
 import styles from './styles';
 
 const Base: React.FC<
@@ -8,14 +8,11 @@ const Base: React.FC<
     onClose: () => void;
     showCloseButton?: boolean;
   }>
-> = ({open, onClose, children}) => {
+> = ({ open, onClose, children }) => {
   return (
     <Modal visible={open} animationType="fade" transparent={true}>
       <Pressable style={styles.container} onPress={onClose}>
-        <View
-          style={styles.content}
-          onStartShouldSetResponder={() => true}
-          onResponderTerminationRequest={() => false}>
+        <View style={styles.content} onStartShouldSetResponder={() => true} onResponderTerminationRequest={() => false}>
           {children}
         </View>
       </Pressable>

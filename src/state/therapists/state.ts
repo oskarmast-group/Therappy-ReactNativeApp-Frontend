@@ -1,4 +1,4 @@
-import Therapist, {BaseTherapist} from '../../interfaces/Therapist';
+import Therapist, { BaseTherapist } from '../../interfaces/Therapist';
 import ErrorState from '../interfaces/ErrorState';
 import FetchingState from '../interfaces/FetchingState';
 

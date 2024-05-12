@@ -1,12 +1,8 @@
-import {notificationsAPI} from 'resources/api';
-import {PUBLIC_VAPID_KEY} from 'resources/constants/config';
+import { notificationsAPI } from 'resources/api';
+import { PUBLIC_VAPID_KEY } from 'resources/constants/config';
 
 const isPushNotificationSupported = () => {
-  return (
-    'serviceWorker' in navigator &&
-    'PushManager' in window &&
-    'Notification' in window
-  );
+  return 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
 };
 
 const getNotificationsSubscription = async () => {
@@ -22,15 +18,13 @@ const checkSubscriptionStatus = async () => {
   try {
     const subscription = await getNotificationsSubscription();
 
-    console.log({subscription});
+    console.log({ subscription });
 
     if (!!subscription) {
       const userSubscriptions = await notificationsAPI.list();
-      const check = userSubscriptions.find(
-        ({endpoint}) => subscription.endpoint === endpoint,
-      );
+      const check = userSubscriptions.find(({ endpoint }) => subscription.endpoint === endpoint);
       if (!!check) {
-        console.log({check});
+        console.log({ check });
         return true;
       }
       console.log('Subscrition not on server, unsubscribe');
@@ -68,7 +62,7 @@ const subscribeUser = async () => {
 };
 
 // Helper function to convert the VAPID key
-const urlBase64ToUint8Array = base64String => {
+const urlBase64ToUint8Array = (base64String) => {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
 
@@ -100,7 +94,7 @@ export const unsubscribeNotifications = async () => {
       const successful = await subscription.unsubscribe();
       if (successful) {
         console.log('successful', successful);
-        await notificationsAPI.unregister({endpoint: subscription.endpoint});
+        await notificationsAPI.unregister({ endpoint: subscription.endpoint });
         console.log('Unsubscribed from push notifications.');
       } else {
         console.error('Failed to unsubscribe from push notifications.');

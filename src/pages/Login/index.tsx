@@ -1,18 +1,18 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import MainContainer from '../../containers/MainContainer';
 import Scrollable from '../../containers/Scrollable';
 import styled from 'styled-components/native';
 import TerappyLogo from '../../resources/img/TerappyLogo';
 import StyleSheet from 'react-native-media-query';
-import {BaseText, ErrorText} from '../../components/Text';
+import { BaseText, ErrorText } from '../../components/Text';
 import Input from '../../components/Input';
 import PersonIcon from '../../resources/img/icons/PersonIcon';
-import {Link, useNavigate} from 'react-router-native';
-import {PRIMARY_GREEN} from '../../resources/constants/colors';
-import Button, {ButtonText} from '../../components/Button';
-import {authAPI} from '../../resources/api';
-import {storage} from '../../localStorage';
-import {TextInput} from 'react-native';
+import { Link, useNavigate } from 'react-router-native';
+import { PRIMARY_GREEN } from '../../resources/constants/colors';
+import Button, { ButtonText } from '../../components/Button';
+import { authAPI } from '../../resources/api';
+import { storage } from '../../localStorage';
+import { TextInput } from 'react-native';
 
 const LogoContainer = styled.View`
   width: 100%;
@@ -37,7 +37,7 @@ const Title = styled(BaseText)`
   margin-bottom: 11px;
 `;
 
-const {styles: responsive} = StyleSheet.create({
+const { styles: responsive } = StyleSheet.create({
   Catchphrase: {
     '@media (max-height: 670px)': {
       fontSize: 12,
@@ -89,13 +89,10 @@ const Login: React.FC = () => {
 
   const login = async () => {
     try {
-      const res = await authAPI.login({email: user, password});
+      const res = await authAPI.login({ email: user, password });
       storage.set('auth', JSON.stringify(res));
       const previousUser = storage.getString('userIdentity');
-      if (
-        previousUser !== res.identity &&
-        process.env.NODE_ENV !== 'development'
-      ) {
+      if (previousUser !== res.identity && process.env.NODE_ENV !== 'development') {
         // await unsubscribeNotifications();
       }
       storage.set('userIdentity', res.identity);
@@ -107,42 +104,37 @@ const Login: React.FC = () => {
   };
 
   return (
-    <MainContainer
-      withBottomDecoration={true}
-      withBottomNavigation={false}
-      withSideMenu={false}>
+    <MainContainer withBottomDecoration={true} withBottomNavigation={false} withSideMenu={false}>
       <Scrollable>
         <LogoContainer>
           <TerappyLogo width={150} />
         </LogoContainer>
-        <Catchphrase style={responsive.Catchphrase}>
-          Ayuda psicológica profesional por videollamada
-        </Catchphrase>
+        <Catchphrase style={responsive.Catchphrase}>Ayuda psicológica profesional por videollamada</Catchphrase>
         <Title>Iniciar Sesión</Title>
         <FormContainer>
           <Input
-            iconProps={{icon: <PersonIcon />}}
+            iconProps={{ icon: <PersonIcon /> }}
             inputProps={{
               value: user,
-              onChangeText: value => setUser(value),
+              onChangeText: (value) => setUser(value),
               keyboardType: 'email-address',
               autoCapitalize: 'none',
               onSubmitEditing: handleEmailSubmit,
               blurOnSubmit: false,
             }}
-            labelProps={{label: 'Usuario'}}
+            labelProps={{ label: 'Usuario' }}
           />
           <Input
-            iconProps={{icon: <PersonIcon />}}
+            iconProps={{ icon: <PersonIcon /> }}
             inputProps={{
               value: password,
-              onChangeText: value => setPassword(value),
+              onChangeText: (value) => setPassword(value),
               autoCapitalize: 'none',
               secureTextEntry: true,
               ref: passwordInputRef,
               onSubmitEditing: submit,
             }}
-            labelProps={{label: 'Contraseña'}}
+            labelProps={{ label: 'Contraseña' }}
           />
           <ForgotPasswordContainer>
             <BaseText>¿Olvidaste tu contraseña?</BaseText>
@@ -152,11 +144,7 @@ const Login: React.FC = () => {
               </BaseText>
             </Link>
           </ForgotPasswordContainer>
-          {error && (
-            <ErrorText>
-              "Error al iniciar sesión, verifique sus datos"
-            </ErrorText>
-          )}
+          {error && <ErrorText>"Error al iniciar sesión, verifique sus datos"</ErrorText>}
           <Button onPress={submit}>
             <ButtonText>Continuar</ButtonText>
           </Button>

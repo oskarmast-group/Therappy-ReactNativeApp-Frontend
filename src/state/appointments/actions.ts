@@ -1,4 +1,4 @@
-import Appointment, {BaseAppointment} from '../../interfaces/Appointment';
+import Appointment, { BaseAppointment } from '../../interfaces/Appointment';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
 import {
@@ -34,9 +34,7 @@ export const fetchStartAction = (): FetchStart => ({
   payload: null,
 });
 
-export const fetchSuccessAction = (
-  payload: BaseAppointment[],
-): FetchSuccess => ({
+export const fetchSuccessAction = (payload: BaseAppointment[]): FetchSuccess => ({
   type: ACTION_STRINGS.FETCH_SUCCESS,
   payload,
 });
@@ -51,9 +49,7 @@ export const fetchUpcomingStartAction = (): FetchUpcomingStart => ({
   payload: null,
 });
 
-export const fetchUpcomingSuccessAction = (
-  payload: BaseAppointment[],
-): FetchUpcomingSuccess => ({
+export const fetchUpcomingSuccessAction = (payload: BaseAppointment[]): FetchUpcomingSuccess => ({
   type: ACTION_STRINGS.FETCH_UPCOMING_SUCCESS,
   payload,
 });
@@ -68,9 +64,7 @@ export const fetchPendingStartAction = (): FetchPendingStart => ({
   payload: null,
 });
 
-export const fetchPendingSuccessAction = (
-  payload: BaseAppointment[],
-): FetchPendingSuccess => ({
+export const fetchPendingSuccessAction = (payload: BaseAppointment[]): FetchPendingSuccess => ({
   type: ACTION_STRINGS.FETCH_PENDING_SUCCESS,
   payload,
 });
@@ -80,12 +74,9 @@ export const fetchPendingErrorAction = (payload: any): FetchPendingError => ({
   payload,
 });
 
-export const acceptStartAction = (
-  appointmentId: number,
-  roomId?: string | null,
-): AcceptStart => ({
+export const acceptStartAction = (appointmentId: number, roomId?: string | null): AcceptStart => ({
   type: ACTION_STRINGS.ACCEPT_START,
-  payload: {appointmentId, roomId},
+  payload: { appointmentId, roomId },
 });
 
 export const acceptSuccessAction = (payload: Appointment): AcceptSuccess => ({
@@ -100,12 +91,10 @@ export const acceptErrorAction = (payload: any): AcceptError => ({
 
 export const fetchOneStartAction = (roomId: string): FetchOneStart => ({
   type: ACTION_STRINGS.FETCH_ONE_START,
-  payload: {roomId},
+  payload: { roomId },
 });
 
-export const fetchOneSuccessAction = (
-  payload: Appointment,
-): FetchOneSuccess => ({
+export const fetchOneSuccessAction = (payload: Appointment): FetchOneSuccess => ({
   type: ACTION_STRINGS.FETCH_ONE_SUCCESS,
   payload,
 });
@@ -120,9 +109,7 @@ export const getServerTimeStartAction = (): GetServerTimeStart => ({
   payload: null,
 });
 
-export const getServerTimeSuccessAction = (
-  payload: number,
-): GetServerTimeSuccess => ({
+export const getServerTimeSuccessAction = (payload: number): GetServerTimeSuccess => ({
   type: ACTION_STRINGS.GET_SERVER_TIME_SUCCESS,
   payload,
 });
@@ -139,7 +126,7 @@ export const clearCurrentAction = (): ClearCurrent => ({
 
 export const cancelStartAction = (roomId: string): CancelStart => ({
   type: ACTION_STRINGS.CANCEL_START,
-  payload: {roomId},
+  payload: { roomId },
 });
 
 export const cancelSuccessAction = (payload: Appointment): CancelSuccess => ({
@@ -152,12 +139,9 @@ export const cancelErrorAction = (payload: any): CancelError => ({
   payload,
 });
 
-export const rejectStartAction = (
-  appointmentId: number,
-  roomId?: string | null,
-): RejectStart => ({
+export const rejectStartAction = (appointmentId: number, roomId?: string | null): RejectStart => ({
   type: ACTION_STRINGS.REJECT_START,
-  payload: {appointmentId, roomId},
+  payload: { appointmentId, roomId },
 });
 
 export const rejectSuccessAction = (payload: Appointment): RejectSuccess => ({
