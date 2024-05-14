@@ -13,6 +13,7 @@ import Timetable from './src/pages/Timetable';
 import Appointment from './src/pages/Appointment';
 import Register from './src/pages/Register';
 import Payments from './src/pages/Payments';
+import RegisterTherapist from './src/pages/RegisterTherapist';
 
 function App(): JSX.Element {
   const { height } = useWindowDimensions();
@@ -38,6 +39,7 @@ function App(): JSX.Element {
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/registro" element={<Register />} />
+      <Route path="/registro-terapeutas" element={<RegisterTherapist />} />
       <Route path="/" element={<Navigate to={'/home'} />} />
       <Route path="/home/*" element={<PrivateRoute component={Home} />} />
       <Route path="/pagos" element={<PrivateRoute component={Payments} />} />

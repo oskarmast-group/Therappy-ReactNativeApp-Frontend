@@ -22,5 +22,6 @@
     "editor.formatOnSave": true
   },
   "editor.tabSize": 2,
-  "cSpell.words": []
+  "cSpell.words": [],
+  "java.compile.nullAnalysis.mode": "automatic"
 }
