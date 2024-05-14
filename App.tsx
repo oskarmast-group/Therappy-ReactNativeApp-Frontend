@@ -14,6 +14,7 @@ import Appointment from './src/pages/Appointment';
 import Register from './src/pages/Register';
 import Payments from './src/pages/Payments';
 import RegisterTherapist from './src/pages/RegisterTherapist';
+import PasswordRecovery from './src/pages/PasswordRecovery';
 
 function App(): JSX.Element {
   const { height } = useWindowDimensions();
@@ -39,6 +40,7 @@ function App(): JSX.Element {
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/registro" element={<Register />} />
+      <Route path="/recuperar" element={<PasswordRecovery />} />
       <Route path="/registro-terapeutas" element={<RegisterTherapist />} />
       <Route path="/" element={<Navigate to={'/home'} />} />
       <Route path="/home/*" element={<PrivateRoute component={Home} />} />
