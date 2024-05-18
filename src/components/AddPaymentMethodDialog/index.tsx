@@ -1,4 +1,4 @@
-import React, { Children, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Base from '../../alert/dialog/components/Base';
 import useUser from '../../state/user';
 import { StripeProvider } from '@stripe/stripe-react-native';
@@ -17,35 +17,35 @@ const AddPaymentMethodDialog: React.FC<{ open: boolean; onSubmit: (value?: any) 
   const { data: user, dispatcher: userDispatcher } = useUser();
 
   useEffect(() => {
-    userDispatcher.setupIntentStart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    initStripe({
-      publishableKey: STRIPE_PUBLIC_KEY || '',
-    });
-  }, []);
+    const setupStripe = async () => {
+      try {
+        await initStripe({
+          publishableKey: STRIPE_PUBLIC_KEY || '',
+        });
+        userDispatcher.setupIntentStart();
+      } catch (error) {
+        console.error('Error initializing Stripe', error); // Improved error handling
+      }
+    };
+    setupStripe();
+  }, [userDispatcher]);
 
   const onConfirm = () => {
     onSubmit();
   };
 
   return (
-    <StripeProvider
-      publishableKey={STRIPE_PUBLIC_KEY || ''}
-      // merchantIdentifier="merchant.identifier" // required for Apple Pay
-      // urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
-    >
-      <Base open={open} onClose={onClose} showCloseButton={true}>
-        <View style={{ display: 'flex', justifyContent: 'center' }}>
-          {user.fetching.setup.state ? (
-            <Loading />
-          ) : (
-            user.setupIntentToken && (
-              <CardForm user={user.current} secret={user.setupIntentToken.secret} onSubmit={onConfirm} />
-            )
-          )}
-        </View>
-      </Base>
-    </StripeProvider>
+    <Base open={open} onClose={onClose} showCloseButton={true}>
+      <View style={{ display: 'flex', justifyContent: 'center' }}>
+        {user.fetching.setup.state ? (
+          <Loading />
+        ) : (
+          user.setupIntentToken && (
+            <CardForm user={user.current} secret={user.setupIntentToken.secret} onSubmit={onConfirm} />
+          )
+        )}
+      </View>
+    </Base>
   );
 };
 

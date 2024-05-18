@@ -24,7 +24,7 @@ const Dialog: React.FC<{
     case ALERT_TYPES.CUSTOM:
       const CustomBody: React.FC<CustomDialogProps> = config.body;
       const props = config.props;
-      return <CustomBody open={open} onSubmit={onSubmit} onClose={onClose} props={props} />;
+      return <CustomBody open={open} onSubmit={onSubmit} onClose={onClose} {...props} />;
     default:
       return null;
   }

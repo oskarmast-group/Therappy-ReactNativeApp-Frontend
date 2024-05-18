@@ -1,38 +1,53 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { CardField, useStripe } from '@stripe/stripe-react-native'; // Import CardField and useStripe
+import { View, Text, StyleSheet, Modal } from 'react-native';
+import { CardField, useStripe } from '@stripe/stripe-react-native';
 import User from '../../../interfaces/User';
+import { BaseText } from '../../Text';
+import Button from '../../Button';
 
-const CardForm = ({ user, secret, onSubmit }: { user: User | null; secret: string; onSubmit: () => void }) => {
-  const [cardDetails, setCardDetails] = useState({});
+interface CardFormProps {
+  user: User | null;
+  secret: string;
+  onSubmit: () => void;
+}
+
+const CardForm: React.FC<CardFormProps> = ({ user, secret, onSubmit }) => {
+  const [cardDetails, setCardDetails] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { confirmSetupIntent } = useStripe();
 
-  // const stripe = useStripe();
-  // const { confirmPayment } = useStripe();
-
-  const handleCardDetailsChange = (cardDetails: any) => {
-    setCardDetails(cardDetails);
+  const handleCardDetailsChange = (details: any) => {
+    setCardDetails(details);
   };
 
-  // const handleSubmit = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const result = await stripe.confirmSetupIntent(secret, {
-  //       paymentMethodType: 'Card',
-  //       paymentMethodData: {
-  //         billingDetails: cardDetails,
-  //       },
-  //     });
-  //     if (result.error) {
-  //       console.log('Stripe Error:', result.error.message);
-  //     } else {
-  //       onSubmit();
-  //     }
-  //   } catch (error: any) {
-  //     console.log('Error:', error.message);
-  //   }
-  //   setLoading(false);
-  // };
+  const handleSubmit = async () => {
+    if (!cardDetails?.complete) {
+      setError('Please complete the card details');
+      return;
+    }
+    setLoading(true);
+    try {
+      const { setupIntent, error } = await confirmSetupIntent(secret, {
+        paymentMethodType: 'Card',
+        paymentMethodData: {
+          billingDetails: {
+            name: `${user?.name ?? ''} ${user?.lastName ?? ''}`,
+          },
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        onSubmit();
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -57,9 +72,10 @@ const CardForm = ({ user, secret, onSubmit }: { user: User | null; secret: strin
           console.log('focusField', focusedField);
         }}
       />
-      {/* <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>{loading ? '...' : 'Confirmar'}</Text>
-      </TouchableOpacity> */}
+      {error && <Text style={styles.errorText}>{error}</Text>}
+      <Button onPress={handleSubmit} disabled={loading}>
+        <BaseText style={{ color: '#fff' }}>{loading ? 'Loading...' : 'Confirm'}</BaseText>
+      </Button>
     </View>
   );
 };
@@ -67,22 +83,62 @@ const CardForm = ({ user, secret, onSubmit }: { user: User | null; secret: strin
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    padding: 15,
     alignItems: 'center',
+    backgroundColor: 'transparent',
   },
-  cardField: {},
+  cardField: {
+    width: '100%',
+    height: 50,
+    marginVertical: 30,
+  },
+  errorText: {
+    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#d50000',
+  },
   button: {
-    marginTop: 20,
-    backgroundColor: '#007bff',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    backgroundColor: '#007BFF',
+    padding: 10,
     borderRadius: 5,
+    width: '80%',
+    alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 });
 
 export default CardForm;
+
+export const CardFieldModal: React.FC<{ open: boolean }> = ({ open }) => {
+  return (
+    <Modal visible={open} animationType="slide">
+      <View>
+        <CardField
+          postalCodeEnabled={true}
+          placeholders={{
+            number: '4242 4242 4242 4242',
+          }}
+          cardStyle={{
+            backgroundColor: '#FFFFFF',
+            textColor: '#000000',
+          }}
+          style={{
+            width: '100%',
+            height: 50,
+            marginVertical: 30,
+          }}
+          onCardChange={(cardDetails) => {
+            console.log('cardDetails', cardDetails);
+          }}
+          onFocus={(focusedField) => {
+            console.log('focusField', focusedField);
+          }}
+        />
+      </View>
+    </Modal>
+  );
+};

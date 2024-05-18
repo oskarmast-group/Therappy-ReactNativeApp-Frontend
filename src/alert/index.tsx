@@ -18,6 +18,7 @@ const AlertServiceProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => 
   } | null>(null);
 
   function setStateOpen<T = any>(options: AlertOptions): Promise<T> {
+    console.log('Alert options:', options);
     setAlertState(options);
     return new Promise<T>((resolve, reject) => {
       promise.current = { resolve, reject };

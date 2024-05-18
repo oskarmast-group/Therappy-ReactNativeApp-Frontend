@@ -1,15 +1,18 @@
+import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
 import TopBar from '../../components/TopBar';
 import Scrollable from '../../containers/Scrollable';
-import React, { useEffect } from 'react';
 import useUser from '../../state/user';
 import styled from 'styled-components/native';
 import PaymentMethod from './components/PaymentMethods';
 import { BaseText, Body } from '../../components/Text';
-import AddPaymentMethodDialog from '../../components/AddPaymentMethodDialog';
+import AddPaymentMethodDialog from '../../components/AddPaymentMethodDialog'; // Adjusted path
 import Button from '../../components/Button';
-import ALERT_TYPES from '../../alert/interfaces/AlertTypes';
-import { useAlert } from '../../alert';
+import { CardField, useConfirmPayment, usePaymentSheet } from '@stripe/stripe-react-native';
+import { Alert, View } from 'react-native';
+import { API } from '../../resources/constants/urls';
+import Authorization from '../../resources/api/auth';
+import axios from 'axios';
 
 const MethodsContainer = styled.View`
   display: flex;
@@ -21,38 +24,87 @@ const MethodsContainer = styled.View`
   min-height: 0;
   margin-bottom: 0;
 `;
+
 const ScrollableChild = styled.View`
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-content: center;
 `;
+
 const Clients = () => {
   const { data: user, dispatcher: userDispatcher } = useUser();
-  const alert = useAlert();
+  const [ready, setReady] = useState(false);
+  const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
 
   useEffect(() => {
-    userDispatcher.fetchPaymentMethodsStart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    initialisePaymentSheet();
   }, []);
 
-  const addPaymentMethod = () => {
-    if (!user.current?.id) return;
-    alert({
-      type: ALERT_TYPES.CUSTOM,
-      config: {
-        body: AddPaymentMethodDialog,
-        props: {
-          userId: user.current.id,
-        },
+  const initialisePaymentSheet = async () => {
+    console.log('initialisePaymentSheet');
+    const { setupIntentSecret, ephemeralKey, customerId } = await fetchPaymentSheetParams();
+    console.log(setupIntentSecret);
+    const { error } = await initPaymentSheet({
+      customerId: customerId,
+      customerEphemeralKeySecret: ephemeralKey.secret,
+      setupIntentClientSecret: setupIntentSecret,
+      merchantDisplayName: 'Example Inc.',
+      applePay: {
+        merchantCountryCode: 'US',
       },
-    })
-      .then(() => {
-        userDispatcher.fetchPaymentMethodsStart();
-        //uploadImage(croppedImage);
-      })
-      .catch(() => {});
+      googlePay: {
+        merchantCountryCode: 'US',
+        testEnv: true,
+        currencyCode: 'usd',
+      },
+      allowsDelayedPaymentMethods: true,
+      // returnURL: 'stripe-example://stripe-redirect',
+    });
+    if (error) {
+      console.error('An error occurred while initializing payment sheet:', error.message);
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      setReady(true);
+    }
   };
+
+  const fetchPaymentSheetParams = async () => {
+    try {
+      const url = `${API}/stripe-clients/payment-sheet`;
+      const headers = Authorization();
+
+      const response = await axios.post(url, {}, { headers });
+
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const { setupIntentSecret, ephemeralKey, customerId } = response.data;
+      console.log(ephemeralKey.id, 'ephemeralKey');
+      return {
+        setupIntentSecret,
+        ephemeralKey,
+        customerId,
+      };
+    } catch (error) {
+      console.error('An error occurred while fetching payment sheet parameters:', error);
+      // You can also handle the error here or re-throw it to be handled by the calling code
+      throw error;
+    }
+  };
+
+  async function buy() {
+    const { error } = await presentPaymentSheet();
+
+    if (error) {
+      console.error('An error occurred while initializing payment sheet:', error.message);
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      Alert.alert('Success', 'The payment method was setup successfully');
+      setReady(false);
+    }
+  }
 
   return (
     <>
@@ -75,7 +127,7 @@ const Clients = () => {
                 )}
               </MethodsContainer>
               <Button
-                onPress={addPaymentMethod}
+                onPress={buy}
                 style={{
                   marginTop: 30,
                   maxWidth: 200,

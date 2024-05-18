@@ -1,6 +1,7 @@
-export const STRIPE_PUBLIC_KEY = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
+export const STRIPE_PUBLIC_KEY =
+  'pk_test_51Lin4dJREH8MbuesItfrJuFs5JeoOYCOObRNR69IdDtnLLeG31zLPZ71cmjF1P1rYz8793SeSjApeOI6JrSC3m0J00ltzlUsug';
 
-export const MAX_APPOINTMENT_CANCELLATION_TIME = +process.env.REACT_APP_MAX_APPOINTMENT_CANCELLATION_TIME;
+export const MAX_APPOINTMENT_CANCELLATION_TIME = +24;
 
 export const ClientTherapistStatus = {
   ACTIVE: 'active',
