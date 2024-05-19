@@ -84,6 +84,7 @@ const PaymentMethod = ({ method }: { method: IPaymentMethod }) => {
   const { data: user, dispatcher: userDispatcher } = useUser();
 
   const onDelete = () => {
+    console.log('id', methodgi);
     alert({
       type: ALERT_TYPES.CONFIRM,
       config: {

@@ -15,8 +15,10 @@ const crudder = (domain: string, resource: string, withAuth = true) => {
     },
     setupIntent: () => executeCall(() => Axios.get(url + '/stripe-clients/payment-sheet', { headers: headers() })),
     paymentMethods: () => executeCall(() => Axios.get(url + '/payment-methods', { headers: headers() })),
-    deletePaymentMethod: (data: any) =>
-      executeCall(() => Axios.post(url + '/delete-payment-method', data, { headers: headers() })),
+    deletePaymentMethod: (data: any) => {
+      console.log('data', data);
+      executeCall(() => Axios.post(url + '/delete-payment-method', data, { headers: headers() }));
+    },
   };
 };
 

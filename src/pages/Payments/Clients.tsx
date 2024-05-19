@@ -42,9 +42,9 @@ const Clients = () => {
   }, []);
 
   const initialisePaymentSheet = async () => {
-    console.log('initialisePaymentSheet');
+    // console.log('initialisePaymentSheet');
     const { setupIntentSecret, ephemeralKey, customerId } = await fetchPaymentSheetParams();
-    console.log(setupIntentSecret);
+    // console.log(setupIntentSecret);
     const { error } = await initPaymentSheet({
       customerId: customerId,
       customerEphemeralKeySecret: ephemeralKey.secret,
@@ -62,8 +62,7 @@ const Clients = () => {
       // returnURL: 'stripe-example://stripe-redirect',
     });
     if (error) {
-      console.error('An error occurred while initializing payment sheet:', error.message);
-      Alert.alert(`Error code: ${error.code}`, error.message);
+      // console.error('An error occurred while initializing payment sheet:', error.message);
     } else {
       setReady(true);
     }
@@ -81,7 +80,7 @@ const Clients = () => {
       }
 
       const { setupIntentSecret, ephemeralKey, customerId } = response.data;
-      console.log(ephemeralKey.id, 'ephemeralKey');
+      // console.log(ephemeralKey.id, 'ephemeralKey');
       return {
         setupIntentSecret,
         ephemeralKey,
@@ -99,9 +98,8 @@ const Clients = () => {
 
     if (error) {
       console.error('An error occurred while initializing payment sheet:', error.message);
-      Alert.alert(`Error code: ${error.code}`, error.message);
     } else {
-      Alert.alert('Success', 'The payment method was setup successfully');
+      // Alert.alert('Success', 'The payment method was setup successfully');
       setReady(false);
     }
   }
