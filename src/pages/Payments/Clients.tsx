@@ -113,7 +113,7 @@ const Clients = () => {
             <Loading />
           ) : (
             <>
-              <MethodsContainer>
+              {/*<MethodsContainer>
                 {user.paymentMethods.length > 0 ? (
                   user.paymentMethods.map((method, index) => (
                     <PaymentMethod method={method} key={`payment-method-${index}`} />
@@ -123,7 +123,7 @@ const Clients = () => {
                     <BaseText>No tienes métodos de pago registrados aún</BaseText>
                   </Body>
                 )}
-              </MethodsContainer>
+              </MethodsContainer> */}
               <Button
                 onPress={buy}
                 style={{
