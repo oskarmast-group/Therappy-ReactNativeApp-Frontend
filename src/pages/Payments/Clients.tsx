@@ -97,7 +97,7 @@ const Clients = () => {
     const { error } = await presentPaymentSheet();
 
     if (error) {
-      console.error('An error occurred while initializing payment sheet:', error.message);
+      // console.error('An error occurred while initializing payment sheet:', error.message);
     } else {
       // Alert.alert('Success', 'The payment method was setup successfully');
       setReady(false);
@@ -113,7 +113,7 @@ const Clients = () => {
             <Loading />
           ) : (
             <>
-              {/*<MethodsContainer>
+              <MethodsContainer>
                 {user.paymentMethods.length > 0 ? (
                   user.paymentMethods.map((method, index) => (
                     <PaymentMethod method={method} key={`payment-method-${index}`} />
@@ -123,7 +123,7 @@ const Clients = () => {
                     <BaseText>No tienes métodos de pago registrados aún</BaseText>
                   </Body>
                 )}
-              </MethodsContainer> */}
+              </MethodsContainer>
               <Button
                 onPress={buy}
                 style={{

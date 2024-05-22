@@ -115,14 +115,6 @@ const PaymentMethod = ({ method }: { method: IPaymentMethod }) => {
           </BaseText>
         </View>
       </Information>
-      <CustomButton>
-        <TouchableOpacity
-          onPress={onDelete}
-          style={{ width: 35, height: 39, padding: 5, display: 'flex', alignItems: 'center' }}
-        >
-          <DeleteSVG />
-        </TouchableOpacity>
-      </CustomButton>
     </Container>
   );
 };
