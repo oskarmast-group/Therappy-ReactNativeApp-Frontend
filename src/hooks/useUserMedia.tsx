@@ -70,7 +70,7 @@ export function useUserMedia() {
 
       return { audioInputs, audioOutputs, videoInputs };
     } catch (e) {
-      console.error(e);
+      console.error('Error detecting devices: ', e);
       return null;
     }
   }
@@ -99,7 +99,7 @@ export function useUserMedia() {
         const stream = await mediaDevices.getUserMedia(options);
         setMediaStream(stream);
       } catch (e) {
-        console.error(e);
+        console.error('Error enabling stream: ', e);
       }
     }
 
@@ -117,8 +117,8 @@ export function useUserMedia() {
     const videoId = selectedDevices[DEVICES_TYPES.VIDEO_INPUT];
     const audioId = selectedDevices[DEVICES_TYPES.AUDIO_INPUT];
     setOptions({
-      video: videoId ? { deviceId: { exact: videoId } } : undefined,
-      audio: audioId ? { deviceId: { exact: audioId } } : undefined,
+      video: videoId ? { deviceId: { exact: videoId } } : false,
+      audio: audioId ? { deviceId: { exact: audioId } } : false,
     });
   }, [selectedDevices]);
 
@@ -152,5 +152,5 @@ export function useUserMedia() {
   };
 }
 
-const filterByType = (devices: MediaDeviceInfo[], type: string): DeviceInfo[] =>
+const filterByType = (devices: DeviceInfo[], type: string): DeviceInfo[] =>
   devices.filter(({ kind }) => kind === type) as DeviceInfo[];

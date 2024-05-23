@@ -3,13 +3,13 @@ import { View, Image, StyleSheet, TouchableOpacity, Text, ActivityIndicator } fr
 import { MediaStream, RTCView } from 'react-native-webrtc';
 // import { Ring } from '@uiball/loaders';
 import { useStreamingSocket } from '../useStreamingSocket';
-import MicOnSVG from 'resources/img/mic-on.svg';
-import MicOffSVG from 'resources/img/mic-off.svg';
-import CamOnSVG from 'resources/img/cam-on.svg';
-import CamOffSVG from 'resources/img/cam-off.svg';
-import SoundOnSVG from 'resources/img/sound-on.svg';
-import SoundOffSVG from 'resources/img/sound-off.svg';
-import HangupCall from 'resources/img/icons/videocall-hangup-icon.svg';
+import MicOnSVG from '../../../../../resources/img/mic-on.svg';
+import MicOffSVG from '../../../../../resources/img/mic-off.svg';
+import CamOnSVG from '../../../../../resources/img/cam-on.svg';
+import CamOffSVG from '../../../../../resources/img/cam-off.svg';
+import SoundOnSVG from '../../../../../resources/img/sound-on.svg';
+import SoundOffSVG from '../../../../../resources/img/sound-off.svg';
+import HangupCall from '../../../../../resources/img/icons/videocall-hangup-icon.svg';
 
 interface Props {
   appointments: {

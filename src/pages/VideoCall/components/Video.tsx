@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 // import Video from 'react-native-video';
 
 // Define a styled component using styled-components/native
-export const StyledVideo = styled.Video`
+export const Video = styled.View`
   width: 100%;
   max-width: 100%;
   max-height: 100%;

@@ -62,7 +62,7 @@ const SideMenu: React.FC<{ menuOpen: boolean; toggleMenu: () => void }> = ({ men
               </View>
             </Link>
           )}
-          <Link to={'/videollamada'}>
+          <Link to={'/videollamada/'}>
             <View style={styles.linkContent}>
               <View style={styles.iconContainer}>
                 <VideoIcon />

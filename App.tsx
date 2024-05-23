@@ -15,6 +15,7 @@ import Register from './src/pages/Register';
 import Payments from './src/pages/Payments';
 import RegisterTherapist from './src/pages/RegisterTherapist';
 import PasswordRecovery from './src/pages/PasswordRecovery';
+import Videocall from './src/pages/VideoCall';
 
 function App(): JSX.Element {
   const { height } = useWindowDimensions();
@@ -46,6 +47,7 @@ function App(): JSX.Element {
       <Route path="/home/*" element={<PrivateRoute component={Home} />} />
       <Route path="/pagos" element={<PrivateRoute component={Payments} />} />
       <Route path="/terapeutas/*" element={<PrivateRoute component={Therapist} />} />
+      <Route path="/videollamada/*" element={<PrivateRoute component={Videocall} />} />
       <Route path="/perfil/*" element={<PrivateRoute component={Profile} />} />
       <Route path="/conversacion/:conversationId" element={<PrivateRoute component={Conversation} />} />
       <Route path="/horario" element={<PrivateRoute component={Timetable} />} />

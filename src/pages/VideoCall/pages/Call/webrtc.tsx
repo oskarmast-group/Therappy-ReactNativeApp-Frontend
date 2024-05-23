@@ -1,5 +1,5 @@
 import { EventTarget } from 'event-target-shim';
-import { MediaStream, RTCIceCandidate, RTCPeerConnection, RTCSessionDescription } from 'wrtc';
+import { MediaStream, RTCIceCandidate, RTCPeerConnection, RTCSessionDescription } from 'react-native-webrtc';
 import { Socket } from 'socket.io-client';
 import RTCTrackEvent from 'react-native-webrtc/lib/typescript/RTCTrackEvent';
 import { RTCSessionDescriptionInit } from 'react-native-webrtc/lib/typescript/RTCSessionDescription';
