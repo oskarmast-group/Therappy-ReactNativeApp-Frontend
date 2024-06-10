@@ -106,7 +106,7 @@ const Clients = () => {
                 onPress={buy}
                 style={{
                   marginTop: 30,
-                  maxWidth: 200,
+                  width: '100%',
                   alignSelf: 'center',
                 }}
               >
