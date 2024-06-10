@@ -9,25 +9,29 @@ import { TherapistProvider } from "./src/context/Therapist";
 import SocketProvider from "./src/Socket";
 import { NativeRouter, RouterProvider } from "react-router-native";
 import { AccountProvider } from "./src/context/Account";
+import { StripeProvider } from "@stripe/stripe-react-native";
+import { STRIPE_PUBLIC_KEY } from "./src/resources/constants/config";
 
 const Providers: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <AuthProvider>
-      <AppointmentProvider>
-        <CategoryProvider>
-          <ConversationProvider>
-            <RequiredDocumentationProvider>
-              <TherapistProvider>
-                <SocketProvider>
-                  <AccountProvider>
-                    <NativeRouter>{children}</NativeRouter>
-                  </AccountProvider>
-                </SocketProvider>
-              </TherapistProvider>
-            </RequiredDocumentationProvider>
-          </ConversationProvider>
-        </CategoryProvider>
-      </AppointmentProvider>
+      <StripeProvider publishableKey={STRIPE_PUBLIC_KEY || ''}>
+        <AppointmentProvider>
+          <CategoryProvider>
+            <ConversationProvider>
+              <RequiredDocumentationProvider>
+                <TherapistProvider>
+                  <SocketProvider>
+                    <AccountProvider>
+                      <NativeRouter>{children}</NativeRouter>
+                    </AccountProvider>
+                  </SocketProvider>
+                </TherapistProvider>
+              </RequiredDocumentationProvider>
+            </ConversationProvider>
+          </CategoryProvider>
+        </AppointmentProvider>
+      </StripeProvider>
     </AuthProvider>
   );
 };
