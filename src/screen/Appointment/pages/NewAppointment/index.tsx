@@ -24,13 +24,15 @@ import Info from "./components/Info";
 import { set } from "date-fns";
 import Appointment from "../../../../interfaces/Appointment";
 import CircleCheckIcon from "../../../../resources/img/icons/CircleCheckIcon";
+import AppointmentCost from "../../../../components/AppointmentCost";
 
 const NewAppointment: React.FC = () => {
   let { state } = useLocation();
   const { date, time, therapistId } = state;
-  const { reserveAppointment, confirmAppointment, loadingStates } =
+  const { reserveAppointment, confirmAppointment, getReservationDetails, loadingStates } =
     useAppointment();
   const [reserved, setReserved] = useState<Appointment | null>(null);
+  const [appointment, setAppointment] = useState<Appointment | null>(null);
   const { getTherapist, loadingOne } = useTherapist();
   const [therapist, setTherapist] = useState<Therapist | null>(null);
   const [showInfo, setShowInfo] = useState(false);
@@ -56,7 +58,13 @@ const NewAppointment: React.FC = () => {
           therapistId: therapist.id,
           dateISO: time,
         });
-        if (res) setReserved(res);
+        console.log("res reserved", res)
+        if (res) {
+          setReserved(res);
+          const resView = await getReservationDetails(res.id);
+          setAppointment(resView);
+          console.log("resView", resView);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -73,6 +81,7 @@ const NewAppointment: React.FC = () => {
         appointmentId: reserved.id,
         paymentMethodId: null,
       });
+      console.log("res confirm", res);
       setLoadingSubmit(false);
       setSuccess(true);
     } catch (error) {
@@ -112,19 +121,13 @@ const NewAppointment: React.FC = () => {
           loading={loadingStates.reserveAppointment || !reserved}
         />
         <View>
-          <BaseText fontSize={18} weight={800} marginTop={20} marginBottom={4}>
-            Costo
-          </BaseText>
           {loadingStates.reserveAppointment || !reserved ? (
             <Loading />
           ) : (
-            <>
-              <BaseText>Costo de la sesión: $600.00</BaseText>
-              <BaseText>Descuento sesión entrevista: -$600.00</BaseText>
-              <BaseText fontSize={15} weight={800} marginTop={4}>
-                Total: $0.00
-              </BaseText>
-            </>
+            <AppointmentCost
+              loading={loadingStates.reserveAppointment}
+              pricing={reserved?.pricing}
+            />
           )}
         </View>
         <TouchableOpacity onPress={() => setShowInfo(true)} style={styles.info}>

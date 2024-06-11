@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const renderCardLogo = (brand: string) => {
+export const renderCardLogo = (brand: string) => {
   switch (brand) {
     case "visa":
       return <Visa />;

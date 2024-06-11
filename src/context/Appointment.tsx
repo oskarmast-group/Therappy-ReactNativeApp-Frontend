@@ -13,6 +13,7 @@ import {
   AcceptStartPayload,
   RejectStartPayload,
   CancelStartPayload,
+  getReservationDetails
 } from "../services/appointment";
 import Appointment, { BaseAppointment } from "../types/Appointment";
 
@@ -37,6 +38,7 @@ interface AppointmentContextProps {
   rejectAppointment: (data: RejectStartPayload) => Promise<void>;
   cancelAppointment: (data: CancelStartPayload) => Promise<void>;
   viewAppointment: (id: string) => Promise<Appointment | null>;
+  getReservationDetails: (id: string) => Promise<Appointment | null>;
   getServerTime: () => Promise<{ now: number }>;
   loadingStates: {
     getAllAppointments: boolean;
@@ -49,6 +51,7 @@ interface AppointmentContextProps {
     cancelAppointment: boolean;
     viewAppointment: boolean;
     getServerTime: boolean;
+    getReservationDetails: boolean;
   };
 }
 
@@ -80,6 +83,7 @@ export const AppointmentProvider: React.FC<{ children: any }> = ({
     cancelAppointment: false,
     viewAppointment: false,
     getServerTime: false,
+    getReservationDetails: false,
   });
 
   const handleGetAllAppointments = async () => {
@@ -214,6 +218,21 @@ export const AppointmentProvider: React.FC<{ children: any }> = ({
     }
   };
 
+  const handleGetReservationDetails = async (
+    appointmentId: number
+  ): Promise<Appointment | null> => {
+    setLoadingStates((prev) => ({ ...prev, getReservationDetails: true }));
+    try {
+      const data = await getReservationDetails(appointmentId);
+      return data;
+    } catch (error) {
+      console.error("Failed to get reservation details:", error);
+      return null;
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, getReservationDetails: false }));
+    }
+  };
+
   return (
     <AppointmentContext.Provider
       value={{
@@ -228,6 +247,7 @@ export const AppointmentProvider: React.FC<{ children: any }> = ({
         cancelAppointment: handleCancelAppointment,
         viewAppointment: handleViewAppointment,
         getServerTime: handleGetServerTime,
+        getReservationDetails: handleGetReservationDetails,
         loadingStates,
       }}
     >

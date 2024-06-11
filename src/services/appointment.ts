@@ -79,3 +79,12 @@ export const getServerTime = async (): Promise<{ now: number }> => {
   const response = await api.get<{ now: number }>("/appointments/time-now");
   return response.data;
 };
+
+export const getReservationDetails = async (
+  appointmentId: number
+): Promise<Appointment> => {
+  const response = await api.post<Appointment>(
+    `/appointments/reservations`
+  );
+  return response.data;
+}
