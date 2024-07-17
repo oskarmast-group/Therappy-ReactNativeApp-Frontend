@@ -1,0 +1,8 @@
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/cedricborreguin/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 4C:10:A2:72:B8:D7:76:56:74:4B:AD:99:CE:33:5D:E3
+SHA1: 7D:E9:F3:25:4E:9B:9A:B0:81:BE:B2:86:8D:41:A5:C8:96:FB:BA:EF
+SHA-256: BE:EF:5E:7D:4C:AA:45:96:92:76:78:ED:48:9C:A6:90:8C:8A:1E:16:A8:E0:6B:B1:79:DF:7F:6C:19:F4:B3:27
+Valid until: Sunday, February 5, 2051

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Circle, G, Path, Svg } from 'react-native-svg';
+import {Circle, G, Path, Svg} from 'react-native-svg';
 const ProfileIcon = () => (
   <Svg viewBox="0 0 201 201" preserveAspectRatio="xMidYMid slice">
     <Path fill="none" d="M0 0h200v200H0z" data-name="RectanGle 75" />

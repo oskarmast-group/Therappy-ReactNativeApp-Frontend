@@ -1,4 +1,4 @@
-import { BaseUser } from '../User';
+import {BaseUser} from '../User';
 import UserType from '../User/UserType';
 
 interface MessageClient extends BaseUser {

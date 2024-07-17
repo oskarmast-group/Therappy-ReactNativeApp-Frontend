@@ -1,10 +1,10 @@
-import { StyleSheet } from "react-native";
-import { GOLDEN } from "../../constant/colors";
+import {StyleSheet} from 'react-native';
+import {GOLDEN} from '../../resources/constants/colors';
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     gap: 10,
     flexShrink: 1,
   },
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 10,
     borderWidth: 2,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderColor: GOLDEN,
     borderRadius: 7,
   },

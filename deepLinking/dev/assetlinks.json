@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "mx.terappy.app",
+      "sha256_cert_fingerprints": [
+        "BE:EF:5E:7D:4C:AA:45:96:92:76:78:ED:48:9C:A6:90:8C:8A:1E:16:A8:E0:6B:B1:79:DF:7F:6C:19:F4:B3:27"
+      ]
+    }
+  }
+]

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { G, Path, Svg } from 'react-native-svg';
+import {G, Path, Svg} from 'react-native-svg';
 const GoBackIcon = () => (
   <Svg viewBox="0 0 27 30" preserveAspectRatio="xMidYMid slice">
     <G data-name="Group 31">

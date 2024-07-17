@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useRef,
   useState,
-} from "react";
+} from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -13,27 +13,30 @@ import {
   TextProps,
   TouchableOpacity,
   View,
-} from "react-native";
-import { DARKER_TEXT, PRIMARY_GREEN } from "../../constant/colors";
-import EditIcon from "../../../assets/images/icons/EditIcon";
-import CircleCheckIcon from "../../../assets/images/icons/CircleCheckIcon";
-import InputComponent from "./InputComponent";
-import LabelComponent from "./LabelComponent";
+} from 'react-native';
+import InputComponent from './components/InputComponent';
+import LabelComponent from './components/LabelComponent';
+import styles from './components/styles';
+import EditIcon from '../../resources/img/icons/EditIcon';
+import CircleCheckIcon from '../../resources/img/icons/CircleCheckIcon';
+import {PRIMARY_GREEN} from '../../resources/constants/colors';
+
 interface LabelProps extends TextProps {
   label?: string;
 }
 
-enum IconPositions {
-  LEADING = "leading",
-  TRAILING = "trailing",
-  NONE = "none",
+export enum IconPositions {
+  LEADING = 'leading',
+  TRAILING = 'trailing',
+  NONE = 'none',
 }
 
 const Input: React.FC<{
   labelProps?: LabelProps;
   inputProps?: TextInputProps & RefAttributes<TextInput>;
-  iconProps?: { icon?: ReactNode; position?: IconPositions };
+  iconProps?: {icon?: ReactNode; position?: IconPositions};
   editable?: boolean;
+  disabled?: boolean;
   loading?: boolean;
   onSubmit?: () => void;
 }> = ({
@@ -41,6 +44,7 @@ const Input: React.FC<{
   inputProps = {},
   labelProps = {},
   editable = false,
+  disabled = false,
   loading = false,
   onSubmit,
 }) => {
@@ -48,13 +52,13 @@ const Input: React.FC<{
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef<TextInput>(null);
 
-  const { value, ...restInputProps } = inputProps;
+  const {value, ...restInputProps} = inputProps;
 
-  const { icon, position: iconPosition = IconPositions.LEADING } = iconProps;
+  const {icon, position: iconPosition = IconPositions.LEADING} = iconProps;
 
-  const { label = "", ...restLabelProps } = labelProps;
+  const {label = '', ...restLabelProps} = labelProps;
 
-  const validValue = (!!value || value === "0") && !!label;
+  const validValue = (!!value || value === '0') && !!label;
 
   const withIcon = !!icon && iconPosition !== IconPositions.NONE;
 
@@ -70,25 +74,34 @@ const Input: React.FC<{
   };
 
   useEffect(() => {
-    // if (inputRef.current) {
-    //   if (isEditing) {
-    //     inputRef.current.focus();
-    //   } else {
-    //     inputRef.current.blur();
-    // }
-    // }
+    if (inputRef.current) {
+      if (isEditing) {
+        inputRef.current.focus();
+      } else {
+        inputRef.current.blur();
+      }
+    }
   }, [isEditing]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={
+        disabled
+          ? StyleSheet.compose(styles.container, styles.containerDisabled)
+          : styles.container
+      }>
       {withLeadingIcon && (
         <View style={styles.imageContainer}>{!!icon && icon}</View>
       )}
-      <View style={styles.inputContainer}>
+      <TouchableOpacity
+        style={styles.inputContainer}
+        onPress={() => inputRef.current?.focus()}>
         <InputComponent
-          editable={(!editable || (editable && isEditing)) && !loading}
+          editable={
+            (!editable || (editable && isEditing)) && !loading && !disabled
+          }
           value={value}
-          placeholderTextColor={"#484848"}
+          placeholderTextColor={'#484848'}
           onFocus={() => {
             setIsActive(true);
             setIsEditing(true);
@@ -103,14 +116,13 @@ const Input: React.FC<{
           ref={inputRef}
           {...restInputProps}
         />
-      </View>
+      </TouchableOpacity>
       {!!label && (
         <View style={styles.labelContainer}>
           <LabelComponent
             withIcon={withLeadingIcon}
             isActive={validValue || isActive}
-            {...restLabelProps}
-          >
+            {...restLabelProps}>
             {label}
           </LabelComponent>
         </View>
@@ -124,64 +136,12 @@ const Input: React.FC<{
         ) : (
           <TouchableOpacity
             style={styles.imageContainer}
-            onPress={isEditing ? handleSubmit : handleEdit}
-          >
+            onPress={isEditing ? handleSubmit : handleEdit}>
             {isEditing ? <CircleCheckIcon /> : <EditIcon />}
           </TouchableOpacity>
         ))}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    gap: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingStart: 10,
-    paddingEnd: 10,
-    borderColor: "#687711",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderRadius: 30,
-    position: "relative",
-  },
-  containerWithLabel: {
-    marginTop: 20,
-  },
-  inputContainer: {
-    flex: 1,
-    position: "relative",
-    zIndex: 20,
-  },
-  imageContainer: {
-    width: 25,
-    minHeight: 25,
-    height: 25,
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  labelContainer: {
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    position: "absolute",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-  },
-  registerButton: {
-    marginTop: 30,
-    maxWidth: 200,
-    color: "#ffffff",
-  },
-  inputWithMarginTop: {
-    marginTop: 20,
-  },
-});
 
 export default Input;

@@ -1,23 +1,22 @@
-import React, { ReactNode } from "react";
-import Button, { ButtonProps } from "./Button";
-import { StyleSheet, View, TextStyle } from "react-native";
-import { BaseText } from "./Text";
-import InfoIcon from "../../assets/images/icons/InfoIcon";
-import { WHITE } from "../constant/colors";
+import React, {ReactNode} from 'react';
+import Button, {ButtonProps} from './Button';
+import {StyleSheet, View} from 'react-native';
+import {BaseText, TextProps} from './Text';
+import InfoIcon from '../resources/img/icons/InfoIcon';
 
 interface InfoButtonProps {
   buttonProps?: ButtonProps;
-  textProps?: TextStyle;
+  textProps?: TextProps;
   content: string | ReactNode;
   icon?: ReactNode;
 }
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     gap: 10,
-    alignItems: "center",
+    alignItems: 'center',
     flexShrink: 1,
   },
   iconContainer: {
@@ -36,8 +35,8 @@ const InfoButton: React.FC<InfoButtonProps> = ({
     <Button {...buttonProps}>
       <View style={styles.container}>
         <View style={styles.iconContainer}>{icon ? icon : <InfoIcon />}</View>
-        {typeof content === "string" ? (
-          <BaseText fontSize={14} color={WHITE} {...textProps}>
+        {typeof content === 'string' ? (
+          <BaseText fontSize={14} color="white" {...textProps}>
             {content}
           </BaseText>
         ) : (

@@ -1,11 +1,12 @@
-import { BaseAppointment } from './Appointment';
+import {BaseAppointment} from './Appointment';
 
+export interface Pricing {
+  parts: {name: string; amount: number}[];
+  total: number;
+}
 interface Reservation {
   appointment: BaseAppointment;
-  pricing: {
-    parts: { name: string; amount: number }[];
-    total: number;
-  };
+  pricing: Pricing;
 }
 
 export default Reservation;

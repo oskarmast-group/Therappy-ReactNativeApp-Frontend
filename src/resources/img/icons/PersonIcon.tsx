@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Path, Svg } from 'react-native-svg';
+import {Path, Svg} from 'react-native-svg';
 const PersonIcon = () => (
   <Svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
     <Path

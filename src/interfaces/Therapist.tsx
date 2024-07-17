@@ -1,4 +1,4 @@
-import { PublicAppointment } from './Appointment';
+import {PublicAppointment} from './Appointment';
 import TimeAvailability from './TimeAvailability';
 
 export interface BaseTherapist {

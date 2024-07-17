@@ -1,13 +1,7 @@
-import React from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from "react-native";
-import { TouchableOpacityProps } from "react-native";
-import { PRIMARY_GREEN } from "../constant/colors";
-import { BaseText } from "./Text";
+import styled from 'styled-components/native';
+import {PRIMARY_GREEN} from '../resources/constants/colors';
+import {BaseText} from './Text';
+import {TouchableOpacityProps} from 'react-native';
 
 export interface ButtonProps extends TouchableOpacityProps {
   backgroundColor?: string;
@@ -25,134 +19,43 @@ export interface ButtonProps extends TouchableOpacityProps {
   marginLeft?: number;
 }
 
-const Button: React.FC<ButtonProps> = ({
-  children,
-  backgroundColor = PRIMARY_GREEN,
-  paddingTop = 10,
-  paddingRight = 10,
-  paddingBottom = 10,
-  paddingLeft = 10,
-  // width = "100%",
-  flexGrow,
-  flexShrink,
-  flex,
-  marginTop = 0,
-  marginRight = 0,
-  marginBottom = 0,
-  marginLeft = 0,
-  disabled,
-  style,
-  ...props
-}) => {
-  return (
-    <TouchableOpacity
-      style={[
-        styles.button,
-        {
-          backgroundColor: disabled ? "#cccccc" : backgroundColor,
-          paddingTop,
-          paddingRight,
-          paddingBottom,
-          paddingLeft,
-          // width,
-          marginTop,
-          marginRight,
-          marginBottom,
-          marginLeft,
-          opacity: disabled ? 0.6 : 1,
-          flexGrow,
-          flexShrink,
-          flex,
-        },
-        style,
-      ]}
-      disabled={disabled}
-      {...props}
-    >
-      {children}
-    </TouchableOpacity>
-  );
-};
+const Button = styled.TouchableOpacity<ButtonProps>`
+  width: ${({width}) => width ?? '100%'};
+  padding-top: ${({paddingTop}) => paddingTop ?? 10}px;
+  padding-right: ${({paddingRight}) => paddingRight ?? 10}px;
+  padding-bottom: ${({paddingBottom}) => paddingBottom ?? 10}px;
+  padding-left: ${({paddingLeft}) => paddingLeft ?? 10}px;
+  margin: ${({marginTop}) => marginTop ?? 0}px;
+  margin-right: ${({marginRight}) => marginRight ?? 0}px;
+  margin-bottom: ${({marginBottom}) => marginBottom ?? 0}px;
+  margin-left: ${({marginLeft}) => marginLeft ?? 0}px;
+  border-radius: 50px;
+  ${({flexShrink}) => (flexShrink ? `flex-shrink:${flexShrink};` : '')}
+  ${({flexGrow}) => (flexGrow ? `flex-grow:${flexGrow};` : '')}
+  ${({flex}) => (flex ? `flex:${flex};` : '')}
+  background-color: ${({disabled, backgroundColor}) =>
+    disabled ? '#cccccc' : backgroundColor ?? PRIMARY_GREEN};
+  opacity: ${({disabled}) => (disabled ? 0.6 : 1)};
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+`;
 
-export const ButtonText: React.FC<{
+export const ButtonText = styled(BaseText)<{
+  width?: string;
   disabled?: boolean;
   color?: string;
-  style?: TextStyle;
-  children: string;
-}> = ({ children, disabled, color = "#fbfbfd", style }) => {
-  return (
-    <BaseText
-      style={[
-        styles.buttonText,
-        { color: disabled ? "#666666" : color },
-        style,
-      ]}
-    >
-      {children}
-    </BaseText>
-  );
-};
+}>`
+  text-align: center;
+  width: ${({width}) => width ?? ''};
+  color: ${({disabled, color}) => (disabled ? '#666666' : color ?? '#fbfbfd')};
+`;
 
-export const CancelButton: React.FC<ButtonProps> = ({
-  children,
-  style,
-  ...props
-}) => {
-  return (
-    <Button
-      style={[styles.cancelButton, style]}
-      backgroundColor="#fbfbfd"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
-
-export const IconButton: React.FC<ButtonProps> = ({
-  children,
-  style,
-  ...props
-}) => {
-  return (
-    <Button
-      style={[styles.iconButton, style]}
-      paddingTop={5}
-      paddingRight={5}
-      paddingBottom={5}
-      paddingLeft={5}
-      backgroundColor={PRIMARY_GREEN}
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 50,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-  } as ViewStyle,
-  buttonText: {
-    textAlign: "center",
-  } as TextStyle,
-  cancelButton: {
-    backgroundColor: "#fbfbfd",
-    borderColor: PRIMARY_GREEN,
-    borderWidth: 2,
-  } as ViewStyle,
-  iconButton: {
-    borderRadius: 12,
-    margin: 0,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20,
-  } as ViewStyle,
-});
+export const CancelButton = styled(Button)`
+  background-color: '#fbfbfd';
+  color: ${PRIMARY_GREEN};
+  border: 2px solid ${PRIMARY_GREEN};
+`;
 
 export default Button;

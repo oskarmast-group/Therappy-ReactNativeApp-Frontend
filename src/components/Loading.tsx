@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   ActivityIndicator,
   ActivityIndicatorProps,
   StyleSheet,
   View,
-} from "react-native";
-import { PRIMARY_GREEN } from "../constant/colors";
+} from 'react-native';
+import {PRIMARY_GREEN} from '../resources/constants/colors';
 
 const Loading: React.FC<ActivityIndicatorProps> = ({
   color = PRIMARY_GREEN,
@@ -22,8 +22,8 @@ export default Loading;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });

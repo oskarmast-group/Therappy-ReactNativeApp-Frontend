@@ -1,11 +1,18 @@
-import React, { ReactNode } from 'react';
-import { ActivityIndicator, StyleSheet, Text, TextProps, TouchableOpacity, View } from 'react-native';
+import React, {ReactNode} from 'react';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextProps,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import styles from './components/styles';
-import { PRIMARY_GREEN } from '../../resources/constants/colors';
-import { BaseText } from '../Text';
-import { getDisplayDate } from '../../utils/date';
+import {PRIMARY_GREEN} from '../../resources/constants/colors';
+import {BaseText} from '../Text';
+import {getDisplayDate} from '../../utils/date';
 import CalendarIcon from '../../resources/img/icons/CalendarIcon';
-import { useAlert } from '../../alert';
+import {useAlert} from '../../alert';
 import ALERT_TYPES from '../../alert/interfaces/AlertTypes';
 import CalendarDialog from './components/CalendarDialog';
 
@@ -25,19 +32,25 @@ enum IconPositions {
 const InputCalendar: React.FC<{
   labelProps?: LabelProps;
   inputProps?: InputProps;
-  iconProps?: { icon?: ReactNode; position?: IconPositions };
+  iconProps?: {icon?: ReactNode; position?: IconPositions};
   loading?: boolean;
   onSubmit: (date: Date) => void;
-}> = ({ iconProps = {}, inputProps = {}, labelProps = {}, loading = false, onSubmit }) => {
-  const { value } = inputProps;
-  const { icon, position: iconPosition = IconPositions.LEADING } = iconProps;
-  const { label = '', ...restLabelProps } = labelProps;
+}> = ({
+  iconProps = {},
+  inputProps = {},
+  labelProps = {},
+  loading = false,
+  onSubmit,
+}) => {
+  const {value} = inputProps;
+  const {icon, position: iconPosition = IconPositions.LEADING} = iconProps;
+  const {label = '', ...restLabelProps} = labelProps;
 
   const withIcon = !!icon && iconPosition !== IconPositions.NONE;
   const withLeadingIcon = withIcon && iconPosition === IconPositions.LEADING;
   const formattedValue = value ? getDisplayDate(value) : 'Selecciona una fecha';
 
-  const alert = useAlert<Date, { date: string | number | Date | undefined }>();
+  const alert = useAlert<Date, {date: string | number | Date | undefined}>();
 
   const handleEdit = () => {
     alert({
@@ -49,7 +62,7 @@ const InputCalendar: React.FC<{
         },
       },
     })
-      .then((date) => {
+      .then(date => {
         onSubmit(date);
       })
       .catch(() => {});
@@ -57,16 +70,21 @@ const InputCalendar: React.FC<{
 
   return (
     <View style={styles.container}>
-      {withLeadingIcon && <View style={styles.imageContainer}>{!!icon && icon}</View>}
+      {withLeadingIcon && (
+        <View style={styles.imageContainer}>{!!icon && icon}</View>
+      )}
       <View style={styles.inputContainer}>
         <BaseText fontSize={16}>{formattedValue}</BaseText>
       </View>
       {!!label && (
         <View style={styles.labelContainer}>
           <Text
-            style={withLeadingIcon ? StyleSheet.compose(styles.label, styles.labelWithIcon) : styles.label}
-            {...restLabelProps}
-          >
+            style={
+              withLeadingIcon
+                ? StyleSheet.compose(styles.label, styles.labelWithIcon)
+                : styles.label
+            }
+            {...restLabelProps}>
             {label}
           </Text>
         </View>

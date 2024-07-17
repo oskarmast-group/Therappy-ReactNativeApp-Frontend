@@ -19,6 +19,8 @@ export interface BaseAppointment extends PublicAppointment {
 interface Appointment extends BaseAppointment {
   userId: number;
   conversationId: string | null;
+  meetingURL?: string;
+  meetingToken?: string;
 }
 
 export default Appointment;

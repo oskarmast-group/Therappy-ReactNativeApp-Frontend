@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Path, Svg } from 'react-native-svg';
+import {Path, Svg} from 'react-native-svg';
 
 const TopWave = () => (
   <Svg viewBox="0 0 1440 320" preserveAspectRatio="xMidYMid slice">

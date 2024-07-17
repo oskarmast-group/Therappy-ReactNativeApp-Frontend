@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, { Path, G } from 'react-native-svg';
+import Svg, {Path, G} from 'react-native-svg';
 
 const LogoutIcon = () => (
   <Svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">

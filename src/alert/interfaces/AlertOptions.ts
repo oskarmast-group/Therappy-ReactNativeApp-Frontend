@@ -1,9 +1,13 @@
 import ALERT_TYPES from './AlertTypes';
-import { ConfirmDialogConfig, CustomDialogConfig, InfoDialogConfig } from './DialogConfig';
+import {
+  ConfirmDialogConfig,
+  CustomDialogConfig,
+  InfoDialogConfig,
+} from './DialogConfig';
 
 interface BaseOptions {
   type: ALERT_TYPES;
-  config: { [key: string]: any };
+  config: {[key: string]: any};
 }
 
 interface InfoAlertOptions extends BaseOptions {
@@ -21,6 +25,9 @@ interface CustomAlertOptions<P = any> extends BaseOptions {
   config: CustomDialogConfig<P>;
 }
 
-type AlertOptions<P = any> = InfoAlertOptions | ConfirmAlertOptions | CustomAlertOptions<P>;
+type AlertOptions<P = any> =
+  | InfoAlertOptions
+  | ConfirmAlertOptions
+  | CustomAlertOptions<P>;
 
 export default AlertOptions;

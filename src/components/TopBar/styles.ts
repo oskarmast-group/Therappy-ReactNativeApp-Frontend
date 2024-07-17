@@ -1,20 +1,20 @@
-import { StyleSheet } from "react-native";
+import StyleSheet from 'react-native-media-query';
 
-const styles = StyleSheet.create({
+const {styles} = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '100%',
     minHeight: 56,
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     flexBasis: 0,
     flexShrink: 0,
     flexGrow: 0,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
     gap: 20,
-    alignItems: "center",
-    // '@media (max-height: 670px)': {
-    //   minHeight: 36,
-    // },
+    alignItems: 'center',
+    '@media (max-height: 670px)': {
+      minHeight: 36,
+    },
   },
   menuButton: {
     width: 25,

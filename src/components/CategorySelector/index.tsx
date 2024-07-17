@@ -1,34 +1,31 @@
-import React, { useEffect } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import styles from "./styles";
-import { BaseText } from "../Text";
-import Category from "../../types/Category";
-import { DARKER_TEXT } from "../../constant/colors";
-import { useCategory } from "../../context/Category";
+import React, {useEffect} from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import styles from './styles';
+import {BaseText} from '../Text';
+import {DARKER_TEXT} from '../../resources/constants/colors';
+import useCategories from '../../state/categories';
+import Category from '../../interfaces/Category';
 
 const CategorySelector: React.FC<{
   selectedCategory: Category | null;
   setSelectedCategory: React.Dispatch<React.SetStateAction<Category | null>>;
-}> = ({ selectedCategory, setSelectedCategory }) => {
-  const { categories, getAllCategories } = useCategory();
+}> = ({selectedCategory, setSelectedCategory}) => {
+  const {data: categories, dispatcher: categoriesDispatcher} = useCategories();
 
   useEffect(() => {
-    const fetchCategory = async () => {
-      await getAllCategories();
-    };
-    fetchCategory();
-  }, []);
+    categoriesDispatcher.fetchStart();
+  }, [categoriesDispatcher]);
 
   useEffect(() => {
-    if (categories.length === 0) {
+    if (categories.list.length === 0) {
       return;
     }
-    setSelectedCategory(categories[0]);
-  }, [categories, setSelectedCategory]);
+    setSelectedCategory(categories.list[0]);
+  }, [categories.list, setSelectedCategory]);
 
   return (
     <View style={styles.container}>
-      {categories?.map((cat) => (
+      {categories?.list.map(cat => (
         <TouchableOpacity
           key={cat.id}
           style={
@@ -36,12 +33,10 @@ const CategorySelector: React.FC<{
               ? StyleSheet.compose(styles.tab, styles.tabActive)
               : styles.tab
           }
-          onPress={() => setSelectedCategory(cat)}
-        >
+          onPress={() => setSelectedCategory(cat)}>
           <BaseText
             textAlign="center"
-            color={cat.id === selectedCategory?.id ? "white" : DARKER_TEXT}
-          >
+            color={cat.id === selectedCategory?.id ? 'white' : DARKER_TEXT}>
             {cat.title}
           </BaseText>
         </TouchableOpacity>
