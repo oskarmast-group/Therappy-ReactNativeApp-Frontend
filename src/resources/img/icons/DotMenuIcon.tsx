@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, {G, Circle, Path} from 'react-native-svg';
 const DotMenuIcon = () => (
-  <Svg preserveAspectRatio="xMidYMid slice">
+  <Svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 11 11">
     <Path fill="#fff" d="M0 0h11v11H0z" data-name="Rectangle 67" />
     <G fill="#484848" data-name="Group 137" transform="translate(4.03)">
       <Circle

@@ -36,9 +36,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flexGrow: 1,
     padding: 0,
-    marginTop: 10,
     fontSize: 16,
     fontFamily: 'Open Sans',
+  },
+  inputWithLabel: {
+    marginTop: 10,
   },
   imageContainer: {
     width: 25,

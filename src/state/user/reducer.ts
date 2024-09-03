@@ -17,6 +17,7 @@ const INITIAL_STATE: UserState = {
     paymentMethods: {...DEFAULT_FETCHING_STATE},
     acceptInvitation: {...DEFAULT_FETCHING_STATE},
     accountInformation: {...DEFAULT_FETCHING_STATE},
+    removeAssignment: {...DEFAULT_FETCHING_STATE},
   },
   error: {...DEFAULT_NO_ERROR},
 };
@@ -65,14 +66,14 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
           },
         },
       };
-    // case ACTION_STRINGS.UPDATE_IMAGE_START:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       update: {config: {key: 'image'}, state: true},
-    //     },
-    //   };
+    case ACTION_STRINGS.UPDATE_IMAGE_START:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          update: {config: {key: 'image'}, isFetching: true},
+        },
+      };
     case ACTION_STRINGS.UPDATE_SUCCESS:
       return {
         ...state,
@@ -91,35 +92,6 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         },
         error: {timestamp: Date.now(), message: action.payload},
       };
-
-    // // SETUP INTENT
-    // case Types.SETUP_INTENT_START:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       setup: {...DEFAULT_FETCHING_STATE, state: true},
-    //     },
-    //   };
-    // case Types.SETUP_INTENT_SUCCESS:
-    //   return {
-    //     ...state,
-    //     setupIntentToken: action.payload,
-    //     fetching: {
-    //       ...state.fetching,
-    //       setup: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {...DEFAULT_NO_ERROR},
-    //   };
-    // case Types.SETUP_INTENT_ERROR:
-    //   return {
-    //     ...state,
-    //     fetching: {
-    //       ...state.fetching,
-    //       setup: {...DEFAULT_FETCHING_STATE},
-    //     },
-    //     error: {timestamp: Date.now(), message: action.payload},
-    //   };
 
     // DELETE PAYMENT METHOD
     case ACTION_STRINGS.DELETE_PAYMENT_METHOD_START:
@@ -330,6 +302,38 @@ const reducer = (state = INITIAL_STATE, action: UserActions): UserState => {
         },
       };
     }
+
+    // REMOVE ASSIGNMENT
+    case ACTION_STRINGS.REMOVE_ASSIGNMENT_START:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          removeAssignment: {
+            ...DEFAULT_FETCHING_STATE,
+            isFetching: true,
+            config: {id: action.payload.clientId || action.payload.therapistId},
+          },
+        },
+      };
+    case ACTION_STRINGS.REMOVE_ASSIGNMENT_SUCCESS:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          removeAssignment: {...DEFAULT_FETCHING_STATE},
+        },
+        error: {...DEFAULT_NO_ERROR},
+      };
+    case ACTION_STRINGS.REMOVE_ASSIGNMENT_ERROR:
+      return {
+        ...state,
+        fetching: {
+          ...state.fetching,
+          removeAssignment: {...DEFAULT_FETCHING_STATE},
+        },
+        error: {timestamp: Date.now(), message: action.payload},
+      };
 
     case ACTION_STRINGS.RESET_ERROR:
       return {...state, error: {...DEFAULT_NO_ERROR}};

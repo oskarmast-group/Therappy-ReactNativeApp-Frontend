@@ -17,7 +17,10 @@ const Menu: React.FC<{toggleMenu: () => void}> = ({toggleMenu}) => {
       <Link to={'/perfil'} underlayColor={'tranparent'}>
         <View style={styles.profileContainer}>
           {data?.current?.profileImg ? (
-            <Image source={{uri: `${IMAGES_URL}${data.current.profileImg}`}} />
+            <Image
+              style={styles.image}
+              source={{uri: `${IMAGES_URL}${data.current.profileImg}`}}
+            />
           ) : (
             <ProfileIcon />
           )}

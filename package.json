@@ -1,6 +1,6 @@
 {
   "name": "terappy_native_app",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -14,6 +14,7 @@
     "@daily-co/react-native-webrtc": "111.0.0-daily.2",
     "@notifee/react-native": "^7.8.2",
     "@react-native-async-storage/async-storage": "^1.23.1",
+    "@react-native-community/checkbox": "^0.5.17",
     "@react-native-firebase/app": "^20.1.0",
     "@react-native-firebase/messaging": "^20.1.0",
     "@stripe/stripe-react-native": "^0.19.0",
@@ -29,7 +30,7 @@
     "react-native-document-picker": "^9.1.0",
     "react-native-dotenv": "^3.4.9",
     "react-native-get-random-values": "^1.11.0",
-    "react-native-image-picker": "^7.1.0",
+    "react-native-image-picker": "^7.1.2",
     "react-native-intersection-observer": "^0.2.0",
     "react-native-media-query": "^2.0.1",
     "react-native-mmkv": "^2.12.2",

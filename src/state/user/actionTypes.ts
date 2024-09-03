@@ -8,6 +8,7 @@ import UpdateTherapistFields from '../../interfaces/User/UpdateTherapistFields';
 import UpdateUserFields from '../../interfaces/User/UpdateUserFields';
 import ResetError from '../interfaces/ResetError';
 import ACTION_STRINGS from './actionStrings';
+import File from '../../interfaces/File';
 
 export type FetchStart = {
   type: ACTION_STRINGS.FETCH_START;
@@ -77,6 +78,7 @@ export type UpdateTherapistStart = {
 export type AcceptInvitationStartPayload = {
   accept: boolean;
   invitationUUID: string;
+  conversationId: string;
 };
 
 export type AcceptInvitationStart = {
@@ -147,6 +149,36 @@ export type FetchAccountInformationError = {
   payload: any;
 };
 
+export type RemoveAssignmentStartPayload = {
+  therapistId?: number;
+  clientId?: number;
+  reason: string;
+};
+
+export type RemoveAssignmentStart = {
+  type: ACTION_STRINGS.REMOVE_ASSIGNMENT_START;
+  payload: RemoveAssignmentStartPayload;
+};
+
+export type RemoveAssignmentSuccess = {
+  type: ACTION_STRINGS.REMOVE_ASSIGNMENT_SUCCESS;
+  payload: null;
+};
+
+export type RemoveAssignmentError = {
+  type: ACTION_STRINGS.REMOVE_ASSIGNMENT_ERROR;
+  payload: any;
+};
+
+export type UpdateImageStartPayload = {
+  profile: File;
+};
+
+export type UpdateImageStart = {
+  type: ACTION_STRINGS.UPDATE_IMAGE_START;
+  payload: UpdateImageStartPayload;
+};
+
 export type UserActions =
   | FetchError
   | FetchStart
@@ -170,4 +202,8 @@ export type UserActions =
   | FetchAccountInformationStart
   | FetchAccountInformationSuccess
   | FetchAccountInformationError
+  | RemoveAssignmentStart
+  | RemoveAssignmentSuccess
+  | RemoveAssignmentError
+  | UpdateImageStart
   | ResetError<ACTION_STRINGS.RESET_ERROR>;

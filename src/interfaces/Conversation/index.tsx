@@ -3,6 +3,7 @@ import MessageUser from './MessageUser';
 
 export interface BaseConversation {
   uuid: string;
+  active: 1 | 0;
   users: MessageUser[];
 }
 

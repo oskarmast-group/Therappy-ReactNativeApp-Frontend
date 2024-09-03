@@ -21,7 +21,11 @@ import {
   fetchPaymentMethodsSuccessAction,
   fetchStartAction,
   fetchSuccessAction,
+  removeAssignmentErrorAction,
+  removeAssignmentSuccessAction,
   updateErrorAction,
+  updateImageErrorAction,
+  updateImageSuccessAction,
   updateSuccessAction,
 } from './actions';
 import {processError} from '../utils';
@@ -30,10 +34,14 @@ import {
   AcceptInvitationStart,
   DeletePaymentMethodStart,
   FetchPaymentMethodsSuccessPayload,
+  RemoveAssignmentStart,
+  UpdateImageStart,
   UpdateStart,
   UpdateTherapistStart,
 } from './actionTypes';
 import {AccountInformation} from '../../interfaces/User/Payments';
+import {fetchOneStartAction as fetchConversationStartAction} from '../conversations/actions';
+import {toFormData} from '../../utils';
 
 function* fetchStartAsync(): Generator<unknown, void, User> {
   try {
@@ -50,22 +58,25 @@ function* fetchStart() {
   yield takeLatest(Types.FETCH_START, fetchStartAsync);
 }
 
-// function* updateImageStartAsync({payload}) {
-//   try {
-//     const form = toFormData({profile: payload});
-//     yield profileAPI.updateImage(form);
-//     const newProfile = yield profileAPI.profile();
-//     yield put({type: Types.UPDATE_SUCCESS, payload: newProfile});
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.UPDATE_ERROR, payload: message});
-//   }
-// }
+function* updateImageStartAsync({
+  payload,
+}: UpdateImageStart): Generator<unknown, void, User> {
+  try {
+    const form = toFormData(payload);
+    yield profileAPI.updateImage(form);
+    const newProfile = yield profileAPI.profile();
+    yield put(updateImageSuccessAction());
+    yield put(fetchSuccessAction(newProfile));
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(updateImageErrorAction(message));
+  }
+}
 
-// function* updateImageStart() {
-//   yield takeLatest(Types.UPDATE_IMAGE_START, updateImageStartAsync);
-// }
+function* updateImageStart() {
+  yield takeLatest(ACTION_STRINGS.UPDATE_IMAGE_START, updateImageStartAsync);
+}
 
 function* updateStartAsync({
   payload,
@@ -109,21 +120,6 @@ function* updateTherapistStart() {
 
 // function* updateSuccess() {
 //   yield takeLatest(Types.UPDATE_SUCCESS, fetchStartAsync);
-// }
-
-// function* setupIntentStartAsync() {
-//   try {
-//     const res = yield stripeClientsAPI.setupIntent();
-//     yield put({type: Types.SETUP_INTENT_SUCCESS, payload: res});
-//   } catch (error) {
-//     const message = processError(error);
-//     console.error(message);
-//     yield put({type: Types.SETUP_INTENT_ERROR, payload: message});
-//   }
-// }
-
-// function* setupIntentStart() {
-//   yield takeLatest(Types.SETUP_INTENT_START, setupIntentStartAsync);
 // }
 
 function* fetchPaymentMethodsStartAsync(): Generator<
@@ -180,6 +176,7 @@ function* acceptInvitationStartAsync({
     yield profileAPI.assignmentResponse(payload);
     yield put(acceptInvitationSuccessAction());
     yield put(fetchStartAction());
+    yield put(fetchConversationStartAction(payload.conversationId));
   } catch (error) {
     const message = processError(error);
     console.error(message);
@@ -216,17 +213,37 @@ function* fetchAccountInformationStart() {
   );
 }
 
+function* removeAssignmentStartAsync({
+  payload,
+}: RemoveAssignmentStart): Generator<unknown, void, null> {
+  try {
+    yield profileAPI.removeAssignment(payload);
+    yield put(removeAssignmentSuccessAction());
+    yield put(fetchStartAction());
+  } catch (error) {
+    const message = processError(error);
+    console.error(message);
+    yield put(removeAssignmentErrorAction(message));
+  }
+}
+
+function* removeAssignmentStart() {
+  yield takeLatest(
+    ACTION_STRINGS.REMOVE_ASSIGNMENT_START,
+    removeAssignmentStartAsync,
+  );
+}
+
 export default function* sagas() {
   yield all([
     call(fetchStart),
-    // call(updateImageStart),
+    call(updateImageStart),
     call(updateStart),
     call(updateTherapistStart),
-    // call(updateSuccess),
-    // call(setupIntentStart),
     call(fetchPaymentMethodsStart),
     call(deletePaymentMethodStart),
     call(acceptInvitationStart),
     call(fetchAccountInformationStart),
+    call(removeAssignmentStart),
   ]);
 }

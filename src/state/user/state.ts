@@ -18,6 +18,7 @@ interface UserState {
     paymentMethods: FetchingState<null>;
     acceptInvitation: FetchingState<null>;
     accountInformation: FetchingState<null>;
+    removeAssignment: FetchingState<null | {id?: number}>;
   };
   error: ErrorState;
 }

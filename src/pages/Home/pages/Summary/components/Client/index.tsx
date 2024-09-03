@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import Container from '../Container';
 import useAppointments from '../../../../../../state/appointments';
 import {BaseText} from '../../../../../../components/Text';
@@ -12,11 +12,21 @@ import ALERT_TYPES from '../../../../../../alert/interfaces/AlertTypes';
 import {View} from 'react-native';
 import ClientTherapistStatus from '../../../../../../interfaces/User/ClientTherapistStatus';
 import TherapistSelectionSection from './TherapistSelectionSection';
+import RemoveAssignmentDialog from '../../../../components/RemoveAssignmentDialog';
+import ReportUserDialog from '../../../../components/ReportUserDialog';
+import {userAPI} from '../../../../../../resources/api';
+import {isAxiosError} from 'axios';
+import {RED} from '../../../../../../resources/constants/colors';
+import useUser from '../../../../../../state/user';
 
 const Client: React.FC<{user: ClientInterface}> = ({user}) => {
   const {data: appointments, dispatcher: appointmentsDispatcher} =
     useAppointments();
-  const alert = useAlert();
+  const alertPendingAssignment = useAlert();
+  const {data: userData, dispatcher: userDispatcher} = useUser();
+  const alert = useAlert<{reason: string}, {name: string}>();
+  const alertReport = useAlert<{reason: string; alsoBlock: boolean}>();
+  const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
     appointmentsDispatcher.fetchUpcomingStart();
@@ -33,7 +43,7 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
   );
 
   const onClick = () => {
-    alert({
+    alertPendingAssignment({
       type: ALERT_TYPES.INFO,
       config: {
         title: 'Asignación pendiente',
@@ -56,6 +66,73 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
       .catch(() => {});
   };
 
+  const onRemoveAssignment = useCallback(() => {
+    alert({
+      type: ALERT_TYPES.CUSTOM,
+      config: {
+        body: RemoveAssignmentDialog,
+        props: {
+          name: `${user.extraData.therapist?.name} ${user.extraData.therapist?.lastName}`,
+        },
+      },
+    })
+      .then(({reason}) => {
+        userDispatcher.removeAssignmentStart({
+          therapistId: user.extraData.therapist?.id,
+          reason: reason.trim(),
+        });
+      })
+      .catch(() => {});
+  }, [alert, user.extraData.therapist, userDispatcher]);
+
+  const onReport = useCallback(() => {
+    alertReport({
+      type: ALERT_TYPES.CUSTOM,
+      config: {
+        body: ReportUserDialog,
+        props: {},
+      },
+    })
+      .then(async ({reason, alsoBlock}) => {
+        setLoading(true);
+        try {
+          await userAPI.reportUser({
+            targetUserId: user.extraData.therapist?.id,
+            report: reason.trim(),
+            alsoBlock,
+            type: 'simple',
+          });
+        } catch (e) {
+          console.log(e);
+          if (isAxiosError(e)) {
+            console.error(e.message);
+          }
+        } finally {
+          userDispatcher.fetchStart();
+          setLoading(false);
+        }
+      })
+      .catch(() => {});
+  }, [alertReport, userDispatcher, setLoading, user.extraData.therapist]);
+
+  const options = useMemo(() => {
+    const opts: {title: string; color?: string; callback: () => void}[] = [];
+    if (user.extraData.therapist?.status === ClientTherapistStatus.ACTIVE) {
+      opts.push({
+        title: 'Quitar asignación',
+        callback: onRemoveAssignment,
+      });
+    }
+
+    opts.push({
+      title: 'Reportar / Bloquear',
+      color: RED,
+      callback: onReport,
+    });
+
+    return opts;
+  }, [user.extraData.therapist, onRemoveAssignment, onReport]);
+
   return user.extraData?.therapist ? (
     <Container>
       <NextAppointmentSection />
@@ -65,6 +142,13 @@ const Client: React.FC<{user: ClientInterface}> = ({user}) => {
       <TherapistCard
         therapist={user.extraData.therapist}
         clickable={shouldBeClickable}
+        loading={
+          (userData.fetching.removeAssignment.isFetching &&
+            userData.fetching.removeAssignment.config?.id ===
+              user.extraData.therapist.id) ||
+          loading
+        }
+        options={options}
       />
       {user.extraData.therapist.status === ClientTherapistStatus.PENDING && (
         <InfoButton

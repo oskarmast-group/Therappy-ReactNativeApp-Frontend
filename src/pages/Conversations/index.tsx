@@ -45,6 +45,10 @@ const Conversation: React.FC = () => {
     navigate(-1);
   }
 
+  if (conversations.conversation?.active === 0) {
+    navigate(-1);
+  }
+
   const user = useMemo(
     () =>
       conversations.conversation?.users
@@ -52,6 +56,8 @@ const Conversation: React.FC = () => {
         : null,
     [conversations.conversation],
   );
+
+  console.log('conversation', conversations.conversation);
 
   return (
     <MainContainer withSideMenu={false} withBottomNavigation={false}>

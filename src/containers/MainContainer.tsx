@@ -1,7 +1,12 @@
 import React, {PropsWithChildren} from 'react';
 import styled from 'styled-components/native';
 // import SideMenu from 'components/SideMenu';
-import {Platform, StatusBar} from 'react-native';
+import {
+  Keyboard,
+  Platform,
+  StatusBar,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import TopWave from '../resources/img/shapes/TopWave';
 import {GREEN} from '../resources/constants/colors';
 import BottomWave from '../resources/img/shapes/BottomWave';
@@ -9,6 +14,10 @@ import SideMenu from '../components/SideMenu';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const Container = styled.View`
+  flex: 1;
+`;
+
+const KeyboardAvoidingViewContainer = styled.KeyboardAvoidingView`
   flex: 1;
 `;
 
@@ -76,24 +85,29 @@ const MainContainer: React.FC<
     <Container>
       <StatusBar barStyle={'light-content'} backgroundColor={GREEN} />
       {Platform.OS === 'ios' && <IOSStatus height={insets.top} />}
-      <AppContainer>
-        <Content pointerEvents="box-none">
-          {withTopDecoration && (
-            <TopDecoration>
-              <TopWave />
-            </TopDecoration>
-          )}
-          <Main fullscreen={!withBottomNavigation}>{children}</Main>
-          {withBottomDecoration && (
-            <BottomDecoration>
-              <BottomWave />
-            </BottomDecoration>
-          )}
-          {withSideMenu && (
-            <SideMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
-          )}
-        </Content>
-      </AppContainer>
+      <KeyboardAvoidingViewContainer
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <AppContainer>
+            <Content pointerEvents="box-none">
+              {withTopDecoration && (
+                <TopDecoration>
+                  <TopWave />
+                </TopDecoration>
+              )}
+              <Main fullscreen={!withBottomNavigation}>{children}</Main>
+              {withBottomDecoration && (
+                <BottomDecoration>
+                  <BottomWave />
+                </BottomDecoration>
+              )}
+              {withSideMenu && (
+                <SideMenu menuOpen={menuOpen} toggleMenu={toggleMenu} />
+              )}
+            </Content>
+          </AppContainer>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingViewContainer>
     </Container>
   );
 };

@@ -23,9 +23,15 @@ import {
   FetchPaymentMethodsSuccessPayload,
   FetchStart,
   FetchSuccess,
+  RemoveAssignmentError,
+  RemoveAssignmentStart,
+  RemoveAssignmentStartPayload,
+  RemoveAssignmentSuccess,
   UpdateDocumentation,
   UpdateDocumentationPayload,
   UpdateError,
+  UpdateImageStart,
+  UpdateImageStartPayload,
   UpdateStart,
   UpdateStartPayload,
   UpdateSuccess,
@@ -170,6 +176,42 @@ export const fetchAccountInformationErrorAction = (
   payload: any,
 ): FetchAccountInformationError => ({
   type: ACTION_STRINGS.FETCH_ACCOUNT_INFORMATION_ERROR,
+  payload,
+});
+
+export const removeAssignmentStartAction = (
+  payload: RemoveAssignmentStartPayload,
+): RemoveAssignmentStart => ({
+  type: ACTION_STRINGS.REMOVE_ASSIGNMENT_START,
+  payload,
+});
+
+export const removeAssignmentSuccessAction = (): RemoveAssignmentSuccess => ({
+  type: ACTION_STRINGS.REMOVE_ASSIGNMENT_SUCCESS,
+  payload: null,
+});
+
+export const removeAssignmentErrorAction = (
+  payload: any,
+): RemoveAssignmentError => ({
+  type: ACTION_STRINGS.REMOVE_ASSIGNMENT_ERROR,
+  payload,
+});
+
+export const updateImageStartAction = (
+  payload: UpdateImageStartPayload,
+): UpdateImageStart => ({
+  type: ACTION_STRINGS.UPDATE_IMAGE_START,
+  payload,
+});
+
+export const updateImageSuccessAction = (): UpdateSuccess => ({
+  type: ACTION_STRINGS.UPDATE_SUCCESS,
+  payload: null,
+});
+
+export const updateImageErrorAction = (payload: any): UpdateError => ({
+  type: ACTION_STRINGS.UPDATE_ERROR,
   payload,
 });
 

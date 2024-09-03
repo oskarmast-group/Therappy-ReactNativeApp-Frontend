@@ -1,64 +1,86 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
-  // ActivityIndicator,
-  // StyleSheet,
-  // TouchableOpacity,
+  ActivityIndicator,
+  PermissionsAndroid,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import styles from './styles';
 import ProfileIcon from '../../../../resources/img/icons/ProfileIcon';
 import {Image} from 'react-native';
 import {IMAGES_URL} from '../../../../resources/constants/urls';
-// import CameraIcon from '../../../../resources/img/icons/CameraIcon';
 import useUser from '../../../../state/user';
+import CameraIcon from '../../../../resources/img/icons/CameraIcon';
+import {BaseText} from '../../../../components/Text';
+import {
+  ImagePickerResponse,
+  launchCamera,
+  launchImageLibrary,
+} from 'react-native-image-picker';
+import File from '../../../../interfaces/File';
 
 const ProfileUpload: React.FC = () => {
-  const {data: user /*, dispatcher: userDispatcher*/} = useUser();
+  const {data: user, dispatcher: userDispatcher} = useUser();
+  const [showOptions, setShowOptions] = useState(false);
 
-  // const onUpload = useCallback(() => {
-  // DocumentPicker.pickSingle({
-  //   type: [types.doc, types.docx, types.pdf],
-  // })
-  //   .then(response => {
-  //     if (response.type === null || response.name === null) {
-  //       throw new Error('Formato invalido');
-  //     }
-  //     const file = new File(response.uri, response.type, response.name);
-  //     if (type === 'new') {
-  //       const data = {
-  //         doc: file,
-  //         documentType: props.documentType,
-  //         uuid: 'newdoc',
-  //       };
-  //       dispatcher.newDocStart(data);
-  //       return;
-  //     }
-  //   })
-  //   .catch(e => {
-  //     console.error(e);
-  //     if (!DocumentPicker.isCancel(e)) {
-  //       alert({
-  //         type: ALERT_TYPES.INFO,
-  //         config: {
-  //           title: 'Formato incorrecto',
-  //           body: (
-  //             <BaseText>
-  //               Verifica que el documento que intentas subir sea válido, menor
-  //               a 200kB y de tipo doc, docx o pdf.
-  //             </BaseText>
-  //           ),
-  //           buttonText: 'OK',
-  //         },
-  //       })
-  //         .then(() => {})
-  //         .catch(() => {});
-  //     }
-  //   });
-  // }, []);
+  const onUpload = useCallback(
+    (response: ImagePickerResponse) => {
+      if (response.assets && response.assets[0]) {
+        const asset = response.assets[0];
+        if (!asset.uri || !asset.type || !asset.fileName) {
+          return;
+        }
+        const file = new File(asset.uri, asset.type, asset.fileName);
+        const data = {
+          profile: file,
+        };
+        userDispatcher.updateImageStart(data);
+        return;
+      }
+    },
+    [userDispatcher],
+  );
 
-  // const loadingPicture =
-  //   user.fetching.update.isFetching &&
-  //   user.fetching.update.config?.key === 'image';
+  const openCamera = async () => {
+    const result = await launchCamera({
+      mediaType: 'photo',
+      quality: 0.5,
+      maxHeight: 700,
+      maxWidth: 700,
+    });
+    onUpload(result);
+  };
+
+  const onOpenCamera = async () => {
+    if (Platform.OS === 'ios') {
+      openCamera();
+      return;
+    }
+
+    const granted = await PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    ]);
+    console.log(granted);
+    if (granted['android.permission.CAMERA'] === 'granted') {
+      openCamera();
+    }
+  };
+  const onOpenGallery = async () => {
+    const result = await launchImageLibrary({
+      mediaType: 'photo',
+      quality: 0.5,
+      maxHeight: 700,
+      maxWidth: 700,
+      selectionLimit: 1,
+    });
+    onUpload(result);
+  };
+
+  const loadingPicture =
+    user.fetching.update.isFetching &&
+    user.fetching.update.config?.key === 'image';
 
   return (
     <View style={styles.container}>
@@ -72,8 +94,8 @@ const ProfileUpload: React.FC = () => {
           <ProfileIcon />
         )}
       </View>
-      {/* <TouchableOpacity
-        onPress={onUpload}
+      <TouchableOpacity
+        onPress={() => setShowOptions(!showOptions)}
         disabled={loadingPicture}
         style={
           loadingPicture
@@ -87,7 +109,25 @@ const ProfileUpload: React.FC = () => {
             <CameraIcon />
           </View>
         )}
-      </TouchableOpacity> */}
+      </TouchableOpacity>
+      {showOptions && (
+        <View style={styles.optionsContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setShowOptions(false);
+              onOpenCamera();
+            }}>
+            <BaseText>Cámara</BaseText>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setShowOptions(false);
+              onOpenGallery();
+            }}>
+            <BaseText>Galería</BaseText>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };

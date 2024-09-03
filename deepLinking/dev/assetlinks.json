@@ -5,7 +5,9 @@
       "namespace": "android_app",
       "package_name": "mx.terappy.app",
       "sha256_cert_fingerprints": [
-        "BE:EF:5E:7D:4C:AA:45:96:92:76:78:ED:48:9C:A6:90:8C:8A:1E:16:A8:E0:6B:B1:79:DF:7F:6C:19:F4:B3:27"
+        "BE:EF:5E:7D:4C:AA:45:96:92:76:78:ED:48:9C:A6:90:8C:8A:1E:16:A8:E0:6B:B1:79:DF:7F:6C:19:F4:B3:27",
+        "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C",
+        "3D:52:A4:BA:12:D0:41:69:8C:30:68:57:AF:77:F6:46:08:7F:DF:AF:2D:69:11:1C:58:54:BD:69:48:78:16:C0"
       ]
     }
   }

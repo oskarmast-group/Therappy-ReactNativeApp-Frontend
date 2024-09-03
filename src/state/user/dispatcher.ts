@@ -2,6 +2,8 @@ import {Dispatch} from 'react';
 import {
   AcceptInvitationStartPayload,
   DeletePaymentMethodStartPayload,
+  RemoveAssignmentStartPayload,
+  UpdateImageStartPayload,
   // DeletePaymentMethodStartPayload,
   UpdateStartPayload,
   UpdateTherapistStartPayload,
@@ -14,7 +16,9 @@ import {
   // deletePaymentMethodStartAction,
   fetchPaymentMethodsStartAction,
   fetchStartAction,
+  removeAssignmentStartAction,
   resetError,
+  updateImageStartAction,
   updateStartAction,
   updateTherapistStartAction,
 } from './actions';
@@ -27,8 +31,8 @@ export default class Dispatcher {
 
   fetchStart = () => this._dispatch(fetchStartAction());
 
-  //   updateImageStart = image =>
-  //     this.dispatch({type: Types.UPDATE_IMAGE_START, payload: image});
+  updateImageStart = (payload: UpdateImageStartPayload) =>
+    this._dispatch(updateImageStartAction(payload));
 
   updateStart = (payload: UpdateStartPayload) =>
     this._dispatch(updateStartAction(payload));
@@ -50,6 +54,9 @@ export default class Dispatcher {
 
   acceptInvitationStart = (payload: AcceptInvitationStartPayload) =>
     this._dispatch(acceptInvitationStartAction(payload));
+
+  removeAssignmentStart = (payload: RemoveAssignmentStartPayload) =>
+    this._dispatch(removeAssignmentStartAction(payload));
 
   resetError = () => this._dispatch(resetError());
 }

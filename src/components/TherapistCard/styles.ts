@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
   container: {
     margin: 0,
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: 'row',
     gap: 10,
   },
   containerBorder: {
@@ -40,19 +39,55 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
   },
+  link: {
+    flexGrow: 1,
+  },
   linkChildrenContainer: {
     display: 'flex',
     flexDirection: 'row',
     gap: 10,
     color: DARKER_TEXT,
-    width: '100%',
+    flexGrow: 1,
   },
   informationContainer: {
-    flex: 1,
+    flexGrow: 1,
     minHeight: 50,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  dotMenuContainer: {
+    width: 28,
+    height: 28,
+    padding: 2,
+    display: 'flex',
+    justifyContent: 'center',
+    flexBasis: 28,
+    alignSelf: 'center',
+  },
+  optionsContainer: {
+    position: 'absolute',
+    top: -10,
+    right: 30,
+    zIndex: 5,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  option: {
+    padding: 5,
   },
 });
 

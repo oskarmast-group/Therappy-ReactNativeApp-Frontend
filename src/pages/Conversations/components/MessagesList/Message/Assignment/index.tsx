@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useEffect} from 'react';
-import {View} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import styles from './styles';
 import {AssignmentMessage} from '../../../../../../interfaces/Conversation/Message';
 import Button, {ButtonText} from '../../../../../../components/Button';
@@ -9,6 +9,8 @@ import useConversations from '../../../../../../state/conversations';
 import ClientTherapistStatus from '../../../../../../interfaces/User/ClientTherapistStatus';
 import UserType from '../../../../../../interfaces/User/UserType';
 import {BaseText} from '../../../../../../components/Text';
+import {useParams} from 'react-router-native';
+import {PRIMARY_GREEN} from '../../../../../../resources/constants/colors';
 
 const bannerText = (
   relationshipStatus: ClientTherapistStatus,
@@ -60,6 +62,7 @@ const AssignmentMessageComponent: React.FC<{
   const {data: conversationState} = useConversations();
   const [relationshipStatus, setRelationshipStatus] =
     useState<ClientTherapistStatus | null>(null);
+  const {conversationId} = useParams();
 
   useEffect(() => {
     const invitation = userState.current?.extraData.invitations.find(
@@ -72,27 +75,39 @@ const AssignmentMessageComponent: React.FC<{
   }, [userState, conversationState, message]);
 
   const onAccept = (accept: boolean) => {
+    if (!conversationId) {
+      return;
+    }
     userDispatcher.acceptInvitationStart({
       accept,
       invitationUUID: message.uuid,
+      conversationId,
     });
   };
 
   return relationshipStatus === null ? null : (
     <View style={styles.container}>
-      <BaseText textAlign={'center'}>
-        {bannerText(
-          relationshipStatus,
-          invitationState,
-          userState.current?.userType,
-        )}
-      </BaseText>
+      {userState.fetching.acceptInvitation.isFetching ? (
+        <ActivityIndicator color={PRIMARY_GREEN} size={22} />
+      ) : (
+        <BaseText textAlign={'center'}>
+          {bannerText(
+            relationshipStatus,
+            invitationState,
+            userState.current?.userType,
+          )}
+        </BaseText>
+      )}
       {buttonsVisible(relationshipStatus, invitationState) ? (
         <View style={styles.options}>
-          <Button onPress={() => onAccept(false)}>
+          <Button
+            disabled={userState.fetching.acceptInvitation.isFetching}
+            onPress={() => onAccept(false)}>
             <ButtonText>Rechazar</ButtonText>
           </Button>
-          <Button onPress={() => onAccept(true)}>
+          <Button
+            disabled={userState.fetching.acceptInvitation.isFetching}
+            onPress={() => onAccept(true)}>
             <ButtonText>Aceptar</ButtonText>
           </Button>
         </View>

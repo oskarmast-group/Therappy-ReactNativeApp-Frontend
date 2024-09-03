@@ -13,6 +13,7 @@ import authCrudder from './auth-crud';
 import stripeTherapist from './stripeTherapist';
 import requiredDocumentation from './requiredDocumentation';
 import documentation from './documentation';
+import user from './user';
 
 // export async function registerPush(data) {
 //   try {
@@ -42,3 +43,4 @@ export const requiredDocumentationAPI = requiredDocumentation(
   'required-documentation',
 );
 export const documentationAPI = documentation(API, 'documentation');
+export const userAPI = user(API, 'user');

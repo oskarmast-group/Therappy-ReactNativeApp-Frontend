@@ -64,6 +64,16 @@
                 <data android:host="test.terappy.mx" />
                 <data android:pathPrefix="/" />
             </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:host="app.terappy.mx" />
+                <data android:pathPrefix="/" />
+            </intent-filter>
         </activity>
         <service android:name="com.daily.reactlibrary.DailyOngoingMeetingForegroundService" android:foregroundServiceType="camera|microphone"/>
     </application>

@@ -1,5 +1,10 @@
-import React, {PropsWithChildren} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {PropsWithChildren, useState} from 'react';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import styles, {ImageComponent, ImageContainer} from './styles';
 import {Link} from 'react-router-native';
 import {IMAGES_URL} from '../../resources/constants/urls';
@@ -8,12 +13,14 @@ import {BaseText} from '../Text';
 import {NestedTherapist} from '../../interfaces/User';
 import RatingStars from '../RatingStars';
 import {BaseTherapist} from '../../interfaces/Therapist';
+import {PRIMARY_GREEN} from '../../resources/constants/colors';
+import DotMenuIcon from '../../resources/img/icons/DotMenuIcon';
 
 const LinkContainer: React.FC<
   PropsWithChildren<{id: number; shouldRender: boolean}>
 > = ({shouldRender = false, id, children}) => {
   return shouldRender ? (
-    <Link to={`/terapeutas/${id}`}>
+    <Link to={`/terapeutas/${id}`} style={styles.link}>
       <View style={styles.linkChildrenContainer}>{children}</View>
     </Link>
   ) : (
@@ -30,7 +37,18 @@ const TherapistCard: React.FC<{
     height?: number;
     borderRadius?: number;
   };
-}> = ({therapist, clickable = true, withBorder = true, imageProps}) => {
+  loading?: boolean;
+  first?: boolean;
+  options?: {title: string; color?: string; callback: () => void}[];
+}> = ({
+  therapist,
+  clickable = true,
+  withBorder = true,
+  imageProps,
+  loading = false,
+  options = [],
+}) => {
+  const [showOptions, setShowOptions] = useState(false);
   const {id, title, name, lastName, profileImg, reviewAvg, reviewsCount} =
     therapist;
   return (
@@ -62,6 +80,29 @@ const TherapistCard: React.FC<{
           <RatingStars reviewsCount={reviewsCount} reviewAvg={reviewAvg} />
         </View>
       </LinkContainer>
+      {loading && <ActivityIndicator color={PRIMARY_GREEN} size={22} />}
+      {!loading && options.length > 0 && (
+        <TouchableHighlight
+          style={styles.dotMenuContainer}
+          onPress={() => setShowOptions(!showOptions)}>
+          <DotMenuIcon />
+        </TouchableHighlight>
+      )}
+      {showOptions && (
+        <View style={styles.optionsContainer}>
+          {options.map(option => (
+            <TouchableHighlight
+              key={option.title}
+              style={styles.option}
+              onPress={() => {
+                setShowOptions(false);
+                option.callback();
+              }}>
+              <BaseText color={option.color}>{option.title}</BaseText>
+            </TouchableHighlight>
+          ))}
+        </View>
+      )}
     </View>
   );
 };

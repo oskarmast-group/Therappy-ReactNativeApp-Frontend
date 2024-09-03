@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 0,
+    flexGrow: 1,
     flexShrink: 1,
     display: 'flex',
     justifyContent: 'space-between',

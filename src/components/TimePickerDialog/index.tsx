@@ -5,6 +5,7 @@ import Button, {ButtonText} from '../Button';
 import Base from '../../alert/dialog/common/Base';
 import {CustomDialogProps} from '../../alert/interfaces/CustomDialogProps';
 import DatePicker from 'react-native-date-picker';
+import {DARK_TEXT} from '../../resources/constants/colors';
 
 interface TimePickerDialogProps {
   initialTime: number;
@@ -25,7 +26,12 @@ const TimePickerDialog: React.FC<CustomDialogProps<TimePickerDialogProps>> = ({
   return (
     <Base open={open} onClose={onClose}>
       <View style={styles.container}>
-        <DatePicker date={time} onDateChange={onChangeTime} mode={'time'} />
+        <DatePicker
+          textColor={DARK_TEXT}
+          date={time}
+          onDateChange={onChangeTime}
+          mode={'time'}
+        />
         <Button onPress={() => onSubmit(time)}>
           <ButtonText>Confirmar</ButtonText>
         </Button>

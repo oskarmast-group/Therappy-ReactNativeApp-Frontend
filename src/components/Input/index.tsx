@@ -114,6 +114,7 @@ const Input: React.FC<{
           }}
           onSubmitEditing={handleSubmit}
           ref={inputRef}
+          withLabel={!!label}
           {...restInputProps}
         />
       </TouchableOpacity>

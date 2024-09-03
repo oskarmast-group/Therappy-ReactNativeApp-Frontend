@@ -43,8 +43,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#cccccc',
   },
   uploadImage: {
-    width: 22,
+    width: 26,
     height: 22,
+  },
+  optionsContainer: {
+    position: 'absolute',
+    bottom: 10,
+    right: 30,
+    zIndex: 5,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  option: {
+    padding: 5,
   },
 });
 

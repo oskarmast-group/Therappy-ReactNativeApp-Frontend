@@ -14,6 +14,11 @@ const Therapist: React.FC<{user: TherapistInterface}> = ({user}) => {
   const socket = useSocket();
 
   useEffect(() => {
+    appointmentsDispatcher.fetchPendingStart();
+    appointmentsDispatcher.fetchUpcomingStart();
+  }, [appointmentsDispatcher]);
+
+  useEffect(() => {
     if (!socket) {
       return;
     }

@@ -36,7 +36,9 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>We need camera access for video calls</string>
+	<string>We need camera access for video calls and take pictures</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need library access to get pictures</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>

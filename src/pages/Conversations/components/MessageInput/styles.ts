@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {GREEN} from '../../../../resources/constants/colors';
+import {DARKER_TEXT, GREEN} from '../../../../resources/constants/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     padding: 10,
     maxHeight: 130,
     fontFamily: 'Open Sans',
+    color: DARKER_TEXT,
   },
   button: {
     width: 40,

@@ -27,6 +27,16 @@ const {styles} = StyleSheet.create({
       borderRadius: 18,
     },
   },
+  image: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    '@media (max-height: 670px)': {
+      height: 36,
+      width: 36,
+      borderRadius: 18,
+    },
+  },
   menuButton: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
